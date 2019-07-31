@@ -15,8 +15,8 @@
 
 @interface DetailTaskViewController ()<UITableViewDelegate,UITableViewDataSource,UIAlertViewDelegate>
 
-@property (nonatomic, strong) UITableView *detailTaskTableView;
-@property (nonatomic, strong) DetailTaskHeaderView *headerView;
+@property (nonatomic, strong) UITableView* detailTaskTableView;
+@property (nonatomic, strong) DetailTaskHeaderView* headerView;
 
 @end
 
@@ -43,7 +43,7 @@
     _detailTaskTableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     _detailTaskTableView.tableFooterView = [[UIView alloc] initWithFrame:CGRectZero];
     
-    //`tableView的头部
+    // stableView的头部
     self.headerView = [[DetailTaskHeaderView alloc] initWithFrame:CGRectMake(0, 0, ScreenWidth, 267)];
     self.headerView.model = _model;
     self.detailTaskTableView.tableHeaderView = self.headerView;
@@ -59,11 +59,11 @@
     [self.navigationController popViewControllerAnimated:YES];
 }
 #pragma mark - detailTaskTableView的delegate {
-- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
+- (NSInteger)tableView:(UITableView* )tableView numberOfRowsInSection:(NSInteger)section {
     return 3;
 }
-- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    DetailTaskTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:[DetailTaskTableViewCell reuseIdentifier]];
+- (UITableViewCell* )tableView:(UITableView* )tableView cellForRowAtIndexPath:(NSIndexPath* )indexPath {
+    DetailTaskTableViewCell* cell = [tableView dequeueReusableCellWithIdentifier:[DetailTaskTableViewCell reuseIdentifier]];
     if (!cell) {
         cell = [[DetailTaskTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:[DetailTaskTableViewCell reuseIdentifier]];
     }
@@ -79,18 +79,18 @@
     
     return cell;
 }
-- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
+- (CGFloat)tableView:(UITableView* )tableView heightForRowAtIndexPath:(NSIndexPath* )indexPath {
     return 72;
 }
-- (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
-    UIView *view = [[UIView alloc] init];
+- (UIView* )tableView:(UITableView* )tableView viewForHeaderInSection:(NSInteger)section {
+    UIView* view = [[UIView alloc] init];
     view.backgroundColor = [UIColor whiteColor];
     return view;
 }
-- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+- (void)tableView:(UITableView* )tableView didSelectRowAtIndexPath:(NSIndexPath* )indexPath {
     if (indexPath.row == 0) {
         // 联系雇主
-        SessionChatViewController_Rong *sessionChatVC = [[SessionChatViewController_Rong alloc] init];
+        SessionChatViewController_Rong* sessionChatVC = [[SessionChatViewController_Rong alloc] init];
         sessionChatVC.conversationType = ConversationType_PRIVATE;
         sessionChatVC.targetId = _model.seller_id;
         sessionChatVC.title = _model.seller_room_card_name;
@@ -100,13 +100,13 @@
         
     } else if (indexPath.row == 1) {
         // 申请仲裁
-        ArbitrationViewController *arbitrationVC = [[ArbitrationViewController alloc] init];
+        ArbitrationViewController* arbitrationVC = [[ArbitrationViewController alloc] init];
         arbitrationVC.model = _model;
         arbitrationVC.hidesBottomBarWhenPushed = YES;
         [self.navigationController pushViewController:arbitrationVC animated:YES];
 
     } else if (indexPath.row == 2) {
-        UIAlertView *deleteHistoryAlet = [[UIAlertView alloc] initWithTitle:@"是否确认取消?" message:nil delegate:self cancelButtonTitle:@"取消" otherButtonTitles:@"确定", nil];
+        UIAlertView* deleteHistoryAlet = [[UIAlertView alloc] initWithTitle:@"是否确认取消?" message:nil delegate:self cancelButtonTitle:@"取消" otherButtonTitles:@"确定", nil];
         [deleteHistoryAlet setTag:20000];
         [deleteHistoryAlet show];
     }
@@ -114,11 +114,11 @@
 
 #pragma mark --------------------------    }
 #pragma mark -- UIAlertViewDelegate {
-- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex {
+- (void)alertView:(UIAlertView* )alertView clickedButtonAtIndex:(NSInteger)buttonIndex {
     if (alertView.tag == 20000) {
         if (buttonIndex == 1) {
             
-            [TaskViewModel CancelTheOrderViewWithUserId:[AppDelegate appDelegate].userInfostruct.UserID orderId:_model.order_id sucessful:^(NSString *msg, int code) {
+            [TaskViewModel CancelTheOrderViewWithUserId:[AppDelegate appDelegate].userInfostruct.UserID orderId:_model.order_id sucessful:^(NSString* msg, int code) {
                 
                 if (code == 0) {
                     if ([msg isEqualToString:@"ok"]) {
@@ -147,15 +147,5 @@
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
-
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
 
 @end

@@ -16,17 +16,17 @@ typedef NS_ENUM(NSInteger, CellType) {
     
 };
 
-typedef void(^ExitBlock)(UIButton *sender);   // block
+typedef void(^ExitBlock)(UIButton* sender);   // block
 
 @interface MySetViewControllerCell : UITableViewCell
 
-@property (nonatomic, strong) UIImageView *imgView;
-@property (nonatomic, strong) UIImageView *dotImageView;
-@property (nonatomic, strong) UILabel     *titleLabel;
-@property (nonatomic, assign) CellType    cellType;
-@property (nonatomic, copy)   ExitBlock   exitBlock;
+@property (nonatomic, strong) UIImageView* imgView;
+@property (nonatomic, strong) UIImageView* dotImageView;
+@property (nonatomic, strong) UILabel* titleLabel;
+@property (nonatomic, assign) CellType cellType;
+@property (nonatomic, copy)   ExitBlock exitBlock;
 
-+ (MySetViewControllerCell *)cellForTableView:(UITableView *)tableView;
++ (MySetViewControllerCell* )cellForTableView:(UITableView* )tableView;
 + (CGFloat)getCellHeight;
 
 @end

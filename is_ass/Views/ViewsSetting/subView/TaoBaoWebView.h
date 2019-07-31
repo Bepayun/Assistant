@@ -10,9 +10,6 @@
 
 @interface TaoBaoWebView : RootViewController
 
-//@property (nonatomic, assign) int orderType;
-
-
 - (void)validationCookiesWithArray:(NSArray *)array;
 
 

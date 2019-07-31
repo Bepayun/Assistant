@@ -19,7 +19,7 @@
     return self;
 }
 - (void)createViews {
-    //日期create_time
+    // s日期create_time
     self.create_timeLabel = [[UILabel alloc] init];
     self.create_timeLabel.backgroundColor = [UIColor clearColor];
     [self.contentView addSubview:self.create_timeLabel];
@@ -42,7 +42,7 @@
     [self.change_imageView.layer setMasksToBounds:YES ];
     self.change_imageView.layer.cornerRadius = imgViewH/2;
     
-    //记录数量
+    // 记录数量
     self.changeLabel = [[UILabel alloc] init];
     [self.contentView addSubview:self.changeLabel];
     self.changeLabel.backgroundColor = [UIColor clearColor];

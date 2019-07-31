@@ -24,10 +24,10 @@
 	| 已是好友       | 20   | 30  | 删除了好友关系
 	| 删除了好友关系  | 30   | 30  | 删除了好友关系
  */
-@property(nonatomic, strong) NSString *status;
+@property(nonatomic, strong) NSString* status;
 
-@property(nonatomic, strong) NSString *updatedAt;
+@property(nonatomic, strong) NSString* updatedAt;
 
-@property(nonatomic, strong) NSString *displayName;
+@property(nonatomic, strong) NSString* displayName;
 
 @end

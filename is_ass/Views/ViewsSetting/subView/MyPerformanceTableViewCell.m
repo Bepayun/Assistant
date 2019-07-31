@@ -19,7 +19,7 @@
     return self;
 }
 - (void)createViews {
-    //昵称
+    // 昵称
     self.nickNameLabel = [[UILabel alloc] init];
     self.nickNameLabel.backgroundColor = [UIColor clearColor];
     [self.contentView addSubview:self.nickNameLabel];
@@ -28,7 +28,7 @@
     self.nickNameLabel.textAlignment = NSTextAlignmentCenter;
     self.nickNameLabel.font = [UIFont systemFontOfSize:14.0f];
     
-    //账号
+    // 账号
     self.accountLabel = [[UILabel alloc] init];
     self.accountLabel.backgroundColor = [UIColor clearColor];
     [self.contentView addSubview:self.accountLabel];
@@ -36,7 +36,7 @@
     self.accountLabel.textColor = [UIColor blackColor];
     self.accountLabel.textAlignment = NSTextAlignmentCenter;
     self.accountLabel.font = [UIFont systemFontOfSize:14.0f];
-    //时间
+    // 时间
     self.create_timeLabel = [[UILabel alloc] init];
     self.create_timeLabel.backgroundColor = [UIColor clearColor];
     [self.contentView addSubview:self.create_timeLabel];

@@ -11,8 +11,6 @@
 
 @interface DetailTaskViewController : RootViewController
 
-
-@property (nonatomic, strong) TaskViewModel *model;
-
+@property (nonatomic, strong) TaskViewModel* model;
 
 @end

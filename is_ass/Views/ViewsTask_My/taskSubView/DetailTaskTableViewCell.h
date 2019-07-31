@@ -10,8 +10,8 @@
 
 @interface DetailTaskTableViewCell : UITableViewCell
 
-@property (nonatomic, strong) UILabel *titleLabel;
-@property (nonatomic, strong) UIImageView *arrowImgView;
+@property (nonatomic, strong) UILabel* titleLabel;
+@property (nonatomic, strong) UIImageView* arrowImgView;
 
 + (NSString *)reuseIdentifier;
 

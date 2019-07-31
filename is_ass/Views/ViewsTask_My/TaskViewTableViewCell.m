@@ -13,7 +13,6 @@
 - (instancetype)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier {
     self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
     if (self) {
-        
         self.backgroundColor = [UIColor whiteColor];
         [self createViews];
     }
@@ -29,7 +28,6 @@
     _create_timeLabel.textAlignment = NSTextAlignmentLeft;
     // 接任务类型
     _platformLabel = [[UILabel alloc] init];
-//    _platformLabel.backgroundColor = [UIColor redColor];
     [self.contentView addSubview:_platformLabel];
     _platformLabel.text = @"";
     _platformLabel.textColor = [UIColor blackColor];
@@ -37,7 +35,6 @@
     _platformLabel.textAlignment = NSTextAlignmentLeft;
     // 描述
     _remarkLabel = [[UILabel alloc] init];
-//    _remarkLabel.backgroundColor = [UIColor purpleColor];
     [self.contentView addSubview:_remarkLabel];
     _remarkLabel.text = @"";
     _remarkLabel.textColor = [UIColor lightGrayColor];
@@ -45,7 +42,6 @@
     _remarkLabel.textAlignment = NSTextAlignmentLeft;
     // 总结
     _summaryLabel = [[UILabel alloc] init];
-//    _summaryLabel.backgroundColor = [UIColor yellowColor];
     [self.contentView addSubview:_summaryLabel];
     _summaryLabel.text = @"";
     _summaryLabel.textColor = [UIColor lightGrayColor];
@@ -57,7 +53,6 @@
         fontSize = 14.0f;
     }
     _stateLabel = [[UILabel alloc] init];
-//    _stateLabel.backgroundColor = [UIColor magentaColor];
     [self.contentView addSubview:_stateLabel];
     _stateLabel.text = @"";
     _stateLabel.textColor = [UIColor blackColor];

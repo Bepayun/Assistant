@@ -20,4 +20,5 @@
 @property(nonatomic, weak) id<RealTimeLocationStatusViewDelegate> delegate;
 - (void)updateText:(NSString *)statusText;
 - (void)updateRealTimeLocationStatus;
+
 @end

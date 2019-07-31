@@ -14,8 +14,8 @@
 
 @interface ManagementViewController ()<UITableViewDelegate,UITableViewDataSource,ManagementTableViewCellDelegate>
 
-@property (nonatomic, strong) UITableView *managementTableView;
-@property (nonatomic, strong) NSMutableArray *managementDataArray;
+@property (nonatomic, strong) UITableView* managementTableView;
+@property (nonatomic, strong) NSMutableArray* managementDataArray;
 
 @end
 
@@ -51,7 +51,7 @@
 - (void)getManagementDatas {
     [self.managementTableView.mj_footer endRefreshing];
 
-    [ManagementModel GetTaoBaoWithUserId:[AppDelegate appDelegate].userInfostruct.UserID sucessful:^(NSMutableArray *array, NSString *msg, int code) {
+    [ManagementModel GetTaoBaoWithUserId:[AppDelegate appDelegate].userInfostruct.UserID sucessful:^(NSMutableArray* array, NSString* msg, int code) {
         
         if (_managementDataArray.count > 0) {
             [self.managementDataArray removeAllObjects ];
@@ -66,11 +66,11 @@
     
 }
 #pragma mark - tableViewDelegate {
-- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
+- (NSInteger)tableView:(UITableView* )tableView numberOfRowsInSection:(NSInteger)section {
     return _managementDataArray.count;
 }
-- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    ManagementTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:[ManagementTableViewCell reuseIdentifier]];
+- (UITableViewCell* )tableView:(UITableView* )tableView cellForRowAtIndexPath:(NSIndexPath* )indexPath {
+    ManagementTableViewCell* cell = [tableView dequeueReusableCellWithIdentifier:[ManagementTableViewCell reuseIdentifier]];
     if (!cell) {
         cell = [[ManagementTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:[ManagementTableViewCell reuseIdentifier]];
     }
@@ -78,10 +78,10 @@
         return cell;
     }
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
-    ManagementModel *model = _managementDataArray[indexPath.row];
+    ManagementModel* model = _managementDataArray[indexPath.row];
     cell.delegate = self;
     
-    //删除
+    // 删除
     cell.model = model;
     cell.indexPath = indexPath;
     
@@ -99,9 +99,9 @@
     [cell.deleteBtn setTitle:@"删除" forState:UIControlStateNormal];
     return cell;
 }
-- (void)deleteAccountDatas:(ManagementModel *)model indexPath:(NSIndexPath *)indexPath {
+- (void)deleteAccountDatas:(ManagementModel* )model indexPath:(NSIndexPath* )indexPath {
     
-    [ManagementModel DeleteTaoBaoWithAccountId:model.userID userId:[AppDelegate appDelegate].userInfostruct.UserID sucessful:^(NSString *msg, int codife) {
+    [ManagementModel DeleteTaoBaoWithAccountId:model.userID userId:[AppDelegate appDelegate].userInfostruct.UserID sucessful:^(NSString* msg, int codife) {
         
         if (codife == 0) {
            // [_managementTableView deleteRowsAtIndexPaths:[NSArray arrayWithObjects:indexPath, nil] withRowAnimation:UITableViewRowAnimationFade];
@@ -117,20 +117,20 @@
         
     }];
 }
-- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
+- (CGFloat)tableView:(UITableView* )tableView heightForRowAtIndexPath:(NSIndexPath* )indexPath {
     return 55;
 }
 #pragma mark --------------- }
 #pragma mark - 添加淘宝或京东账号Button {
 - (void)addManagementAccountBtn {
-    UIButton *taobaoBtn = [[UIButton alloc] init];
+    UIButton* taobaoBtn = [[UIButton alloc] init];
     taobaoBtn.backgroundColor = RGB(16, 114, 200);
     [self.view addSubview:taobaoBtn];
     [taobaoBtn setTitle:@"+添加热门游戏账号" forState:UIControlStateNormal];
     taobaoBtn.titleLabel.font = [UIFont boldSystemFontOfSize:14.0f];
     [taobaoBtn addTarget:self action:@selector(pushTaoBaoViewPressed) forControlEvents:UIControlEventTouchUpInside];
     //
-    UIButton *JDBtn = [[UIButton alloc] init];
+    UIButton* JDBtn = [[UIButton alloc] init];
     JDBtn.backgroundColor = RGB(16, 114, 200);
     [self.view addSubview:JDBtn];
     [JDBtn setTitle:@"+添加网络游戏账号" forState:UIControlStateNormal];
@@ -140,14 +140,14 @@
     CGFloat width = ScreenWidth/2-13;
     CGFloat height = 40;
     CGFloat spacing = 10;
-    __weak ManagementViewController *weakself = self;
-    [taobaoBtn mas_makeConstraints:^(MASConstraintMaker *make) {
+    __weak ManagementViewController* weakself = self;
+    [taobaoBtn mas_makeConstraints:^(MASConstraintMaker* make) {
         make.left.equalTo(weakself.view.mas_left).offset(spacing);
         make.bottom.equalTo(weakself.view.mas_bottom).offset(-spacing);
         make.width.mas_equalTo(width);
         make.height.mas_equalTo(height);
     }];
-    [JDBtn mas_makeConstraints:^(MASConstraintMaker *make) {
+    [JDBtn mas_makeConstraints:^(MASConstraintMaker* make) {
         make.right.equalTo(weakself.view.mas_right).offset(-spacing);
         make.bottom.equalTo(weakself.view.mas_bottom).offset(-spacing);
         make.width.mas_equalTo(width);
@@ -156,13 +156,13 @@
 }
 - (void)pushTaoBaoViewPressed {
     [AppDelegate appDelegate].userInfostruct.orderType = 0;
-    TaoBaoWebView *taobaoWebView = [[TaoBaoWebView alloc] init];
+    TaoBaoWebView* taobaoWebView = [[TaoBaoWebView alloc] init];
     taobaoWebView.hidesBottomBarWhenPushed = YES;
     [self.navigationController pushViewController:taobaoWebView animated:YES];
 }
 - (void)pushJDViewPressed {
     [AppDelegate appDelegate].userInfostruct.orderType = 0;
-    JDWebView *JDwebView = [[JDWebView alloc] init];
+    JDWebView* JDwebView = [[JDWebView alloc] init];
     JDwebView.hidesBottomBarWhenPushed = YES;
     [self.navigationController pushViewController:JDwebView animated:YES];
 }

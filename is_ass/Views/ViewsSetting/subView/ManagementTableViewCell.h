@@ -12,7 +12,7 @@
 
 @protocol ManagementTableViewCellDelegate <NSObject>
 
-- (void)deleteAccountDatas:(ManagementModel *)model indexPath:(NSIndexPath *)indexPath;
+- (void)deleteAccountDatas:(ManagementModel* )model indexPath:(NSIndexPath* )indexPath;
 
 @end
 
@@ -20,23 +20,17 @@
 
 @property (nonatomic, weak) id<ManagementTableViewCellDelegate>delegate;
 
-@property (nonatomic, strong) ManagementModel *model;
-@property (nonatomic, strong) NSIndexPath *indexPath;
-/**
- * 账号（淘宝/京东）
- */
-@property (nonatomic, strong) UILabel *accountNamelabel;
+@property (nonatomic, strong) ManagementModel* model;
+@property (nonatomic, strong) NSIndexPath* indexPath;
+// 账号（淘宝/京东）
+@property (nonatomic, strong) UILabel* accountNamelabel;
 
-/**
- * 昵称
- */
-@property (nonatomic, strong) UILabel *nicknameLabel;
+// 昵称
+@property (nonatomic, strong) UILabel* nicknameLabel;
 
-/**
- * 删除按钮
- */
-@property (nonatomic, strong) UIButton *deleteBtn;
+// 删除按钮
+@property (nonatomic, strong) UIButton* deleteBtn;
 
-+ (NSString *)reuseIdentifier;
++ (NSString* )reuseIdentifier;
 
 @end

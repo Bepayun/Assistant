@@ -11,6 +11,6 @@
 
 @interface PerformanceHeaderView : UIView
 
-@property (nonatomic, strong) RecordModel *model;
+@property (nonatomic, strong) RecordModel* model;
 
 @end

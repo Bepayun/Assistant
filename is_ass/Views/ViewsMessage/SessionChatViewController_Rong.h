@@ -13,7 +13,7 @@
 /**
  * 会话数据模型
  */
-@property (nonatomic, strong) RCConversationModel *conversation;
-@property (nonatomic, strong) NSString  *cookiersString;
+@property (nonatomic, strong) RCConversationModel* conversation;
+@property (nonatomic, strong) NSString * cookiersString;
 
 @end

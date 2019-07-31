@@ -14,10 +14,10 @@
 @property(nonatomic) CGRect headViewRect;
 @property(nonatomic) CGFloat headViewSize;
 @property(nonatomic) CGFloat headViewSpace;
-@property(nonatomic, strong) UILabel *tipLabel;
-@property(nonatomic, strong) UIScrollView *scrollView;
-@property(nonatomic, strong) NSMutableArray *headsView;
-@property(nonatomic, strong) NSMutableArray *rcUserInfos;
+@property(nonatomic, strong) UILabel* tipLabel;
+@property(nonatomic, strong) UIScrollView* scrollView;
+@property(nonatomic, strong) NSMutableArray* headsView;
+@property(nonatomic, strong) NSMutableArray* rcUserInfos;
 
 @end
 
@@ -25,7 +25,7 @@
 
 #pragma mark init
 - (instancetype)initWithFrame:(CGRect)frame
-                 participants:(NSArray *)userIds
+                 participants:(NSArray* )userIds
                 touchDelegate:touchDelegate {
   self = [[HeadCollectionView alloc] initWithFrame:frame
                                       participants:userIds
@@ -35,7 +35,7 @@
 }
 
 - (instancetype)initWithFrame:(CGRect)frame
-                 participants:(NSArray *)userIds
+                 participants:(NSArray* )userIds
                 touchDelegate:touchDelegate
               userAvatarStyle:(RCUserAvatarStyle)avatarStyle {
   self = [super initWithFrame:frame];
@@ -53,10 +53,10 @@
     self.headViewSize = 42;
     self.headViewSpace = 8;
     self.headViewRect =
-        CGRectMake(8 + 26 + 8, 20 + 8, frame.size.width - (8 + 26 + 8) * 2,
+        CGRectMake(8 + 26 + 8, 20 + 8, frame.size.width - (8 + 26 + 8)*  2,
                    self.headViewSize);
 
-    UIButton *quitButton =
+    UIButton* quitButton =
         [[UIButton alloc] initWithFrame:CGRectMake(8, 41.5, 26, 26)];
     [quitButton setImage:[UIImage imageNamed:@"quit_location_share"]
                 forState:UIControlStateNormal];
@@ -69,7 +69,7 @@
     self.scrollView.showsHorizontalScrollIndicator = NO;
     [self addSubview:self.scrollView];
 
-    UIButton *backButton = [[UIButton alloc]
+    UIButton* backButton = [[UIButton alloc]
         initWithFrame:CGRectMake(self.bounds.size.width - 8 - 26, 41.5, 26,
                                  26)];
     [backButton setImage:[UIImage imageNamed:@"back_to_conversation"]
@@ -88,7 +88,7 @@
     [self showUserShareInfo];
     [self addSubview:self.tipLabel];
 
-    for (NSString *userId in userIds) {
+    for (NSString* userId in userIds) {
       [self addUser:userId showChange:NO];
     }
   }
@@ -97,15 +97,15 @@
 }
 
 #pragma mark user source processing
-- (BOOL)participantJoin:(NSString *)userId {
+- (BOOL)participantJoin:(NSString* )userId {
   return [self addUser:userId showChange:YES];
 }
 
-- (BOOL)participantQuit:(NSString *)userId {
+- (BOOL)participantQuit:(NSString* )userId {
   return [self removeUser:userId showChange:YES];
 }
 
-- (BOOL)addUser:(NSString *)userId showChange:(BOOL)show {
+- (BOOL)addUser:(NSString* )userId showChange:(BOOL)show {
   if (userId && [self getUserIndex:userId] < 0) {
     if ([RCIM sharedRCIM].userInfoDataSource &&
         [[RCIM sharedRCIM]
@@ -114,7 +114,7 @@
       [[RCIM sharedRCIM]
               .userInfoDataSource
           getUserInfoWithUserId:userId
-                     completion:^(RCUserInfo *userInfo) {
+                     completion:^(RCUserInfo* userInfo) {
                        if (!userInfo) {
                          userInfo = [[RCUserInfo alloc]
                              initWithUserId:userId
@@ -137,7 +137,7 @@
                        }
                      }];
     } else {
-      RCUserInfo *userInfo =
+      RCUserInfo* userInfo =
           [[RCUserInfo alloc] initWithUserId:userId name:userId portrait:nil];
       [self.rcUserInfos addObject:userInfo];
       [self addHeadViewUser:userInfo];
@@ -156,11 +156,11 @@
   }
 }
 
-- (BOOL)removeUser:(NSString *)userId showChange:(BOOL)show {
+- (BOOL)removeUser:(NSString* )userId showChange:(BOOL)show {
   if (userId) {
     NSInteger index = [self getUserIndex:userId];
     if (index >= 0) {
-      RCUserInfo *userInfo = self.rcUserInfos[index];
+      RCUserInfo* userInfo = self.rcUserInfos[index];
       [self.rcUserInfos removeObjectAtIndex:index];
       [self removeHeadViewUser:index];
       if (show) {
@@ -180,7 +180,7 @@
   }
 }
 
-- (void)showUserChangeInfo:(NSString *)changInfo {
+- (void)showUserChangeInfo:(NSString* )changInfo {
   self.tipLabel.text = changInfo;
   self.tipLabel.textColor = [UIColor greenColor];
   [NSTimer scheduledTimerWithTimeInterval:3.0f
@@ -197,14 +197,14 @@
                                  (unsigned long)self.rcUserInfos.count];
 }
 
-- (NSArray *)getParticipantsUserInfo {
+- (NSArray* )getParticipantsUserInfo {
   return [self.rcUserInfos copy];
 }
 
-- (void)addHeadViewUser:(RCUserInfo *)user {
+- (void)addHeadViewUser:(RCUserInfo* )user {
   {
     CGFloat scrollViewWidth = [self getScrollViewWidth];
-    UIImageView *userHead = [[UIImageView alloc] init];
+    UIImageView* userHead = [[UIImageView alloc] init];
     [userHead
         sd_setImageWithURL:[NSURL URLWithString:user.portraitUri]
           placeholderImage:[RCDUtilities imageNamed:@"default_portrait_msg"
@@ -219,7 +219,7 @@
     userHead.layer.borderWidth = 1.0f;
     userHead.layer.borderColor = [UIColor whiteColor].CGColor;
 
-    UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc]
+    UITapGestureRecognizer* tap = [[UITapGestureRecognizer alloc]
         initWithTarget:self
                 action:@selector(onUserSelected:)];
     [userHead addGestureRecognizer:tap];
@@ -243,10 +243,10 @@
 
 - (void)removeHeadViewUser:(NSUInteger)index {
   CGFloat scrollViewWidth = [self getScrollViewWidth];
-  UIImageView *removeUserHead = [self.headsView objectAtIndex:index];
+  UIImageView* removeUserHead = [self.headsView objectAtIndex:index];
 
   for (NSUInteger i = index + 1; i < [self.headsView count]; i++) {
-    UIImageView *userHead = self.headsView[i];
+    UIImageView* userHead = self.headsView[i];
     [userHead setFrame:CGRectMake(userHead.frame.origin.x - self.headViewSize -
                                       self.headViewSpace,
                                   0, self.headViewSize, self.headViewSize)];
@@ -267,19 +267,19 @@
                                 self.scrollView.frame.size.height)];
 }
 
-- (void)onUserSelected:(UITapGestureRecognizer *)tap {
-  UIImageView *selectUserHead = (UIImageView *)tap.view;
+- (void)onUserSelected:(UITapGestureRecognizer* )tap {
+  UIImageView* selectUserHead = (UIImageView* )tap.view;
   NSUInteger index = [self.headsView indexOfObject:selectUserHead];
-  RCUserInfo *user = self.rcUserInfos[index];
+  RCUserInfo* user = self.rcUserInfos[index];
 
   if (self.touchDelegate) {
     [self.touchDelegate onUserSelected:user atIndex:index];
   }
 }
 
-- (NSInteger)getUserIndex:(NSString *)userId {
+- (NSInteger)getUserIndex:(NSString* )userId {
   for (NSUInteger index = 0; index < self.rcUserInfos.count; index++) {
-    RCUserInfo *user = self.rcUserInfos[index];
+    RCUserInfo* user = self.rcUserInfos[index];
     if ([userId isEqualToString:user.userId]) {
       return index;
     }
@@ -290,8 +290,8 @@
 
 - (CGFloat)getScrollViewWidth {
   if (self.rcUserInfos && self.rcUserInfos.count > 0) {
-    return self.rcUserInfos.count * self.headViewSize +
-           (self.rcUserInfos.count - 1) * self.headViewSpace;
+    return self.rcUserInfos.count*  self.headViewSize +
+           (self.rcUserInfos.count - 1)*  self.headViewSpace;
   } else {
     return 0.0f;
   }
@@ -308,9 +308,9 @@
   }
 }
 
-//- (UIImage *)getHeadImage:(RCUserInfo *)user {
+//- (UIImage* )getHeadImage:(RCUserInfo* )user {
 //    if (user.portraitUri) {
-//        NSData *data = [NSData dataWithContentsOfURL:[NSURL
+//        NSData* data = [NSData dataWithContentsOfURL:[NSURL
 //URLWithString:user.portraitUri]];
 //        if (data) {
 //            return [UIImage imageWithData:data];
@@ -325,13 +325,13 @@
 //}
 
 // copy from IMKit because of none head view interface
-- (UIImage *)imageNamed:(NSString *)name ofBundle:(NSString *)bundleName {
-  UIImage *image = nil;
-  NSString *image_name = [NSString stringWithFormat:@"%@.png", name];
-  NSString *resourcePath = [[NSBundle mainBundle] resourcePath];
-  NSString *bundlePath =
+- (UIImage* )imageNamed:(NSString* )name ofBundle:(NSString* )bundleName {
+  UIImage* image = nil;
+  NSString* image_name = [NSString stringWithFormat:@"%@.png", name];
+  NSString* resourcePath = [[NSBundle mainBundle] resourcePath];
+  NSString* bundlePath =
       [resourcePath stringByAppendingPathComponent:bundleName];
-  NSString *image_path = [bundlePath stringByAppendingPathComponent:image_name];
+  NSString* image_path = [bundlePath stringByAppendingPathComponent:image_name];
 
   image = [[UIImage alloc] initWithContentsOfFile:image_path];
 

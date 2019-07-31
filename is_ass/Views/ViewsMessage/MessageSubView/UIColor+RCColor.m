@@ -11,7 +11,7 @@
 @implementation UIColor (RCColor)
 
 + (UIColor *)colorWithHexString:(NSString *)color alpha:(CGFloat)alpha {
-  //删除字符串中的空格
+  // 删除字符串中的空格
   NSString *cString = [[color
       stringByTrimmingCharactersInSet:[NSCharacterSet
                                           whitespaceAndNewlineCharacterSet]]
@@ -21,11 +21,11 @@
     return [UIColor clearColor];
   }
   // strip 0X if it appears
-  //如果是0x开头的，那么截取字符串，字符串从索引为2的位置开始，一直到末尾
+  // 如果是0x开头的，那么截取字符串，字符串从索引为2的位置开始，一直到末尾
   if ([cString hasPrefix:@"0X"]) {
     cString = [cString substringFromIndex:2];
   }
-  //如果是#开头的，那么截取字符串，字符串从索引为1的位置开始，一直到末尾
+  // 如果是#开头的，那么截取字符串，字符串从索引为1的位置开始，一直到末尾
   if ([cString hasPrefix:@"#"]) {
     cString = [cString substringFromIndex:1];
   }

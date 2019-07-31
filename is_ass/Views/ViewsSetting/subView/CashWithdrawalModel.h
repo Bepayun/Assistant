@@ -18,42 +18,42 @@ typedef void (^GetDataFailureBlock)(NSError *error);
 /**
  * 提现余额、金币
  */
-@property (nonatomic, strong) NSString *balance;
+@property (nonatomic, strong) NSString* balance;
 
 /**
  * id
  */
-@property (nonatomic, strong) NSString *ID;
+@property (nonatomic, strong) NSString* ID;
 
 /**
  * 用户ID
  */
-@property (nonatomic, strong) NSString *user_id;
+@property (nonatomic, strong) NSString* user_id;
 
 /**
  * 姓名
  */
-@property (nonatomic, strong) NSString *account_name;
+@property (nonatomic, strong) NSString* account_name;
 
 /**
  * 申请时间
  */
-@property (nonatomic, strong) NSString *created_time;
+@property (nonatomic, strong) NSString* created_time;
 
 /**
  * 提现数量
  */
-@property (nonatomic, strong) NSString *amount;
+@property (nonatomic, strong) NSString* amount;
 
 /**
  * 状态
  */
-@property (nonatomic, strong) NSString *status;
+@property (nonatomic, strong) NSString* status;
 
 /**
  * 支付宝
  */
-@property (nonatomic, strong) NSString *account;
+@property (nonatomic, strong) NSString* account;
 
 /**
  金币余额 POST

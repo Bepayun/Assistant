@@ -10,7 +10,7 @@
 
 @implementation ManagementTableViewCell
 
-- (instancetype)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier {
+- (instancetype)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString* )reuseIdentifier {
     self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
     if (self) {
         self.backgroundColor = [UIColor whiteColor];
@@ -34,7 +34,7 @@
     _nicknameLabel.font = [UIFont systemFontOfSize:16.0f];
     //
     _deleteBtn = [[UIButton alloc] init];
-    //_deleteBtn.backgroundColor = [UIColor redColor];
+    // _deleteBtn.backgroundColor = [UIColor redColor];
     [self.contentView addSubview:_deleteBtn];
     [_deleteBtn setTitle:@"删除" forState:UIControlStateNormal];
     [_deleteBtn setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
@@ -43,20 +43,20 @@
     
     CGFloat height = 25;
     CGFloat spaciing = 15;
-    __weak ManagementTableViewCell *weakself = self;
-    [_accountNamelabel mas_makeConstraints:^(MASConstraintMaker *make) {
+    __weak ManagementTableViewCell* weakself = self;
+    [_accountNamelabel mas_makeConstraints:^(MASConstraintMaker* make) {
         make.top.equalTo(weakself.contentView.mas_top).offset(spaciing);
         make.left.equalTo(weakself.contentView.mas_left).offset(spaciing);
         make.width.mas_equalTo(45);
         make.height.mas_equalTo(height);
     }];
-    [_nicknameLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+    [_nicknameLabel mas_makeConstraints:^(MASConstraintMaker* make) {
         make.top.equalTo(weakself.contentView.mas_top).offset(spaciing);
         make.left.equalTo(self.accountNamelabel.mas_right);
         make.right.equalTo(self.deleteBtn.mas_left).offset(-spaciing);
         make.height.mas_equalTo(height);
     }];
-    [_deleteBtn mas_makeConstraints:^(MASConstraintMaker *make) {
+    [_deleteBtn mas_makeConstraints:^(MASConstraintMaker* make) {
         make.top.equalTo(weakself.contentView.mas_top).offset(spaciing);
         make.right.equalTo(weakself.contentView.mas_right).offset(-10);
         make.width.mas_equalTo(50);
@@ -70,24 +70,24 @@
     _deleteBtn.layer.cornerRadius = 5;
     
     //
-    UILabel *line = [[UILabel alloc] init];
+    UILabel* line = [[UILabel alloc] init];
     [self.contentView addSubview:line];
     line.backgroundColor = RGB(234, 238, 241);
-    [line mas_makeConstraints:^(MASConstraintMaker *make) {
+    [line mas_makeConstraints:^(MASConstraintMaker* make) {
         make.left.bottom.right.equalTo(weakself.contentView);
         make.height.mas_equalTo(1);
     }];
 }
-- (void)deleteAccountDatas:(UIButton *)sender {
+- (void)deleteAccountDatas:(UIButton* )sender {
     
     if (self.delegate) {
         [self.delegate deleteAccountDatas:_model indexPath:_indexPath];
     }
 }
-- (void)setModel:(ManagementModel *)model {
+- (void)setModel:(ManagementModel* )model {
     _model = model;
 }
-+ (NSString *)reuseIdentifier {
++ (NSString* )reuseIdentifier {
     return NSStringFromClass([self class]);
 }
 - (void)awakeFromNib {

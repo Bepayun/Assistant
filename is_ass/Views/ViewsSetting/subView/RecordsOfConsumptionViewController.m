@@ -95,10 +95,10 @@
 
     for (UIButton *btn in self.titleBtnAry) {
         if (btn.selected == YES) {
-            btn.backgroundColor = RGB(18, 150, 219);// 选中颜色
+            btn.backgroundColor = RGB(18, 150, 219); // 选中颜色
             btn.selected = NO;
         }
-        btn.backgroundColor = RGB(229, 233, 235);// 默认颜色
+        btn.backgroundColor = RGB(229, 233, 235); // 默认颜色
     }
     UIButton *button = self.titleBtnAry[tag];
     button.selected = YES;
@@ -122,15 +122,5 @@
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
-
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
 
 @end

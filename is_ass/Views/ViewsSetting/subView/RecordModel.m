@@ -10,7 +10,6 @@
 
 @implementation RecordModel
 
-
 /**
  豆豆记录 GET
  
@@ -19,7 +18,7 @@
  @param success    返回值
  */
 + (void)BeansRecordWithUserRoomId:(NSString *)userRoomId userId:(NSString *)userId sucessful:(BeansRecordDataBlock)success {
-    NSString *URLString = [NSString stringWithFormat:@"%@",KASSURL];//KASSURL
+    NSString *URLString = [NSString stringWithFormat:@"%@",KASSURL];
     AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
     [manager.securityPolicy setAllowInvalidCertificates:YES];
     NSDictionary *dic = @{
@@ -83,7 +82,7 @@
  @param success 返回值
  */
 + (void)MyPerformanceWithUserId:(NSString *)userId sucessful:(MyPerformanceDataBlock)success {
-    NSString *URLString = [NSString stringWithFormat:@"%@",KASSURL];//KASSURL
+    NSString *URLString = [NSString stringWithFormat:@"%@",KASSURL];
     AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
     [manager.securityPolicy setAllowInvalidCertificates:YES];
     NSDictionary *dic = @{

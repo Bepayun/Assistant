@@ -13,39 +13,39 @@
 /**
  * 买的任务的类型 (精品)
  */
-@property (nonatomic, strong) UILabel *buy_type;
+@property (nonatomic, strong) UILabel* buy_type;
 
 /**
  * 条件评论
  */
-@property (nonatomic, strong) UILabel *condition_summary;
+@property (nonatomic, strong) UILabel* condition_summary;
 
 /**
  * 总结 (白号3元)
  */
-@property (nonatomic, strong) UILabel *commission_summary;
+@property (nonatomic, strong) UILabel* commission_summary;
 
 /**
  * 评论
  */
-@property (nonatomic, strong) UILabel *remark;
+@property (nonatomic, strong) UILabel* remark;
 
 /**
  * 创建时间
  */
-@property (nonatomic, strong) UILabel *create_time;
-@property (nonatomic, strong) UILabel *timeStr;
+@property (nonatomic, strong) UILabel* create_time;
+@property (nonatomic, strong) UILabel* timeStr;
 
 /**
  * 更新时间
  */
-@property (nonatomic, strong) UILabel *update_time;
-@property (nonatomic, strong) UILabel *timeStrb;
+@property (nonatomic, strong) UILabel* update_time;
+@property (nonatomic, strong) UILabel* timeStrb;
 
 /**
  * 账号
  */
-@property (nonatomic, strong) UILabel *tbaccount_name;
+@property (nonatomic, strong) UILabel* tbaccount_name;
 
 @end
 
@@ -61,21 +61,21 @@
 - (void)createViews {
     _buy_type = [[UILabel alloc] init];
     [self addSubview:_buy_type];
-    _buy_type.text = @"";//@"精品";
+    _buy_type.text = @"";
     _buy_type.textColor = [UIColor blackColor];
     _buy_type.font = [UIFont systemFontOfSize:18.0f];
     _buy_type.textAlignment = NSTextAlignmentLeft;
     
     _condition_summary = [[UILabel alloc] init];
     [self addSubview:_condition_summary];
-    _condition_summary.text = @"";//@"天不过2，周不过4，月不过15";
+    _condition_summary.text = @"";
     _condition_summary.textColor = RGB(18, 18, 18);
     _condition_summary.font = [UIFont systemFontOfSize:15.0f];
     _condition_summary.textAlignment = NSTextAlignmentLeft;
     
     _commission_summary = [[UILabel alloc] init];
     [self addSubview:_commission_summary];
-    _commission_summary.text = @"";//@"白号3元";
+    _commission_summary.text = @"";
     _commission_summary.textColor = [UIColor lightGrayColor];
     _commission_summary.font = [UIFont systemFontOfSize:15.0f];
     _commission_summary.textAlignment = NSTextAlignmentLeft;
@@ -86,13 +86,12 @@
     
     _remark = [[UILabel alloc] init];
     [self addSubview:_remark];
-    _remark.text = @"";//@"手机京东测试单2，大家不要接";
+    _remark.text = @"";
     _remark.textColor = RGB(18, 18, 18);
     _remark.font = [UIFont systemFontOfSize:15.0f];
     _remark.textAlignment = NSTextAlignmentLeft;
     
     UILabel *create_timeLabel = [[UILabel alloc] init];
-//    create_timeLabel.backgroundColor = [UIColor magentaColor];
     [self addSubview:create_timeLabel];
     create_timeLabel.text = @"创建日期:";
     create_timeLabel.textColor = [UIColor lightGrayColor];
@@ -100,17 +99,15 @@
     create_timeLabel.textAlignment = NSTextAlignmentLeft;
     
     _create_time = [[UILabel alloc] init];
-//    _create_time.backgroundColor = [UIColor yellowColor];
     [self addSubview:_create_time];
-    _create_time.text = @"";//@"2017-09-04";
+    _create_time.text = @"";
     _create_time.textColor = [UIColor lightGrayColor];
     _create_time.font = [UIFont systemFontOfSize:15.0f];
     _create_time.textAlignment = NSTextAlignmentLeft;
     
     _timeStr = [[UILabel alloc] init];
-//    _timeStr.backgroundColor = [UIColor blueColor];
     [self addSubview:_timeStr];
-    _timeStr.text = @"";//@"15:30:44";
+    _timeStr.text = @"";
     _timeStr.textColor = [UIColor lightGrayColor];
     _timeStr.font = [UIFont systemFontOfSize:15.0f];
     _timeStr.textAlignment = NSTextAlignmentCenter;
@@ -124,22 +121,21 @@
     
     _update_time = [[UILabel alloc] init];
     [self addSubview:_update_time];
-    _update_time.text = @"";//@"2017-09-06";
+    _update_time.text = @"";
     _update_time.textColor = [UIColor lightGrayColor];
     _update_time.font = [UIFont systemFontOfSize:15.0f];
     _update_time.textAlignment = NSTextAlignmentLeft;
     
     _timeStrb = [[UILabel alloc] init];
-//    _timeStrb.backgroundColor = [UIColor redColor];
     [self addSubview:_timeStrb];
-    _timeStrb.text = @"";//@"18:30:03";
+    _timeStrb.text = @"";
     _timeStrb.textColor = [UIColor lightGrayColor];
     _timeStrb.font = [UIFont systemFontOfSize:15.0f];
     _timeStrb.textAlignment = NSTextAlignmentCenter;
     
     _tbaccount_name = [[UILabel alloc] init];
     [self addSubview:_tbaccount_name];
-    _tbaccount_name.text = @"";//@"账号：13795229851_p";
+    _tbaccount_name.text = @"";
     _tbaccount_name.textColor = [UIColor lightGrayColor];
     _tbaccount_name.font = [UIFont systemFontOfSize:15.0f];
     _tbaccount_name.textAlignment = NSTextAlignmentLeft;
@@ -351,12 +347,5 @@
 - (void)awakeWithContext:(id)context {
     [self awakeWithContext:context];
 }
-/*
-// Only override drawRect: if you perform custom drawing.
-// An empty implementation adversely affects performance during animation.
-- (void)drawRect:(CGRect)rect {
-    // Drawing code
-}
-*/
 
 @end

@@ -11,6 +11,5 @@
 @interface AppUpdateContentView : UIView
 
 - (id)initWithFrame:(CGRect)frame;
-//- (void)upgradeImmediatelyPressed;
 
 @end

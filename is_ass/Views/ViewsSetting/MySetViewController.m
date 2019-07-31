@@ -193,7 +193,6 @@
         } else if (indexPath.row == 4) {
             //`提现
             [[NSNotificationCenter defaultCenter] postNotificationName:@"CashWithdrawalBalanceData" object:nil];
-//            [[NSNotificationCenter defaultCenter] postNotificationName:@"GETCashWithdrawalDates" object:nil];
             CashWithdrawalViewController *cashWithdrawalVC = [[CashWithdrawalViewController alloc] init];
             cashWithdrawalVC.hidesBottomBarWhenPushed = YES;
             [self.navigationController pushViewController:cashWithdrawalVC animated:YES];

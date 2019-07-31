@@ -19,7 +19,7 @@
     return self;
 }
 - (void)createViews {
-    //·申请时间
+    // 申请时间
     self.timeLabel = [[UILabel alloc] init];
     self.timeLabel.backgroundColor = [UIColor clearColor];
     [self.contentView addSubview:self.timeLabel];
@@ -28,7 +28,7 @@
     self.timeLabel.textAlignment = NSTextAlignmentCenter;
     self.timeLabel.font = [UIFont systemFontOfSize:14.0f];
     
-    //·提现数量
+    // 提现数量
     self.numLabel = [[UILabel alloc] init];
     self.numLabel.backgroundColor = [UIColor clearColor];
     [self.contentView addSubview:self.numLabel];
@@ -37,7 +37,7 @@
     self.numLabel.textAlignment = NSTextAlignmentCenter;
     self.numLabel.font = [UIFont systemFontOfSize:14.0f];
     
-    //·状态
+    // 状态
     self.stateLabel = [[UILabel alloc] init];
     self.stateLabel.backgroundColor = [UIColor clearColor];
     [self.contentView addSubview:self.stateLabel];
@@ -48,7 +48,6 @@
     
     CGFloat height = 20;
     CGFloat width = 95;
-    CGFloat spacing = 10;
      __weak CashWithdrawalTableViewCell *weakself = self;
     [self.timeLabel mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(weakself.mas_top).offset(15);

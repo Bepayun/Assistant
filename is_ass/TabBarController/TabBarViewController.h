@@ -12,7 +12,7 @@
 
 @property (nonatomic, assign) NSUInteger selectedTabBarIndex;
 
-+ (TabBarViewController *)shareInstance;
++ (TabBarViewController* )shareInstance;
 
 - (void)anUpdatedVersion;
 

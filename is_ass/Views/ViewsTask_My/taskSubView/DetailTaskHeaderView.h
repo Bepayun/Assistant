@@ -11,7 +11,7 @@
 
 @interface DetailTaskHeaderView : UIView
 
-@property (nonatomic, strong) TaskViewModel *model;
+@property (nonatomic, strong) TaskViewModel* model;
 
 - (void)getHeaderDatas;
 

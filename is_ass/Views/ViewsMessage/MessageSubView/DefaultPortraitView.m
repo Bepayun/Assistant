@@ -11,14 +11,6 @@
 
 @implementation DefaultPortraitView
 
-/*
-// Only override drawRect: if you perform custom drawing.
-// An empty implementation adversely affects performance during animation.
-- (void)drawRect:(CGRect)rect {
-    // Drawing code
-}
-*/
-
 - (id)initWithFrame:(CGRect)frame {
   self = [super initWithFrame:frame];
   if (self) {
@@ -27,9 +19,8 @@
 }
 
 - (void)setColorAndLabel:(NSString *)userId Nickname:(NSString *)nickname {
-  //设置背景色
-
-  userId = [userId uppercaseString]; //设置为大写
+  // 设置背景色
+  userId = [userId uppercaseString]; // 设置为大写
   int asciiCode = [userId characterAtIndex:0];
   int colorIndex = asciiCode % 5;
   NSArray *colorList =
@@ -38,7 +29,7 @@
   NSString *backgroundColorStr = colorList[colorIndex];
   self.backgroundColor = [self hexStringToColor:backgroundColorStr];
 
-  //设置字母Label
+  // 设置字母Label
   UILabel *firstCharacterLabel = [[UILabel alloc] init];
 
   NSString *firstLetter = nil;
@@ -140,13 +131,10 @@
 - (UIImage *)captureWithView {
   // 1.开启上下文
   UIGraphicsBeginImageContextWithOptions(self.frame.size, NO, 0.0);
-
   // 2.将控制器view的layer渲染到上下文
   [self.layer renderInContext:UIGraphicsGetCurrentContext()];
-
   // 3.取出图片
   UIImage *newImage = UIGraphicsGetImageFromCurrentImageContext();
-
   // 4.结束上下文
   UIGraphicsEndImageContext();
 

@@ -10,14 +10,14 @@
 
 @interface PersonalHeaderView ()
 
-@property (nonatomic, strong) UIImageView *iconImageView;
-@property (nonatomic, strong) UILabel *idLabel;
-@property (nonatomic, strong) UILabel *roomNumLabel;
-@property (nonatomic, strong) UILabel *addessLabel;
-@property (nonatomic, strong) UILabel *points;// 助手豆
-@property (nonatomic, strong) UILabel *marginLabel; // 保证金
-@property (nonatomic, strong) UILabel *lineOne;
-@property (nonatomic, strong) UILabel *lineTwo;
+@property (nonatomic, strong) UIImageView* iconImageView;
+@property (nonatomic, strong) UILabel* idLabel;
+@property (nonatomic, strong) UILabel* roomNumLabel;
+@property (nonatomic, strong) UILabel* addessLabel;
+@property (nonatomic, strong) UILabel* points;// 助手豆
+@property (nonatomic, strong) UILabel* marginLabel; // 保证金
+@property (nonatomic, strong) UILabel* lineOne;
+@property (nonatomic, strong) UILabel* lineTwo;
 
 @end
 
@@ -34,7 +34,7 @@
 }
 - (void)createViews {
     //`头像
-    UIImage *icoverImage = [[UIImage alloc] initWithContentsOfFile:[[NSBundle mainBundle] pathForResource:kDefaultAvatarIcon ofType:kPngName]];
+    UIImage* icoverImage = [[UIImage alloc] initWithContentsOfFile:[[NSBundle mainBundle] pathForResource:kDefaultAvatarIcon ofType:kPngName]];
     self.iconImageView = [[UIImageView alloc] init];
     [self.iconImageView setImage:icoverImage];
     [self addSubview:self.iconImageView];
@@ -84,58 +84,58 @@
     _lineTwo.backgroundColor = RGB(234, 238, 241);
     [self addSubview:self.lineTwo];
     
-    __weak PersonalHeaderView *weakself = self;
-    [self.iconImageView mas_makeConstraints:^(MASConstraintMaker *make) {
+    __weak PersonalHeaderView* weakself = self;
+    [self.iconImageView mas_makeConstraints:^(MASConstraintMaker* make) {
         make.top.equalTo(weakself).offset(20);
         make.left.equalTo(weakself).offset(20);
         make.width.height.equalTo(@(70));
     }];
     //`
-    [self.idLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+    [self.idLabel mas_makeConstraints:^(MASConstraintMaker* make) {
         make.top.equalTo(self.iconImageView);
         make.left.equalTo(self.iconImageView.mas_right).offset(15);
         make.height.equalTo(@(25));
         make.width.equalTo(@(200));
     }];
     //
-    [self.roomNumLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+    [self.roomNumLabel mas_makeConstraints:^(MASConstraintMaker* make) {
 //        make.bottom.equalTo(self.iconImageView);
         make.left.width.height.equalTo(self.idLabel);
         make.top.equalTo(self.idLabel.mas_bottom);
     }];
     //
-    [self.marginLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+    [self.marginLabel mas_makeConstraints:^(MASConstraintMaker* make) {
         make.top.equalTo(self.roomNumLabel.mas_bottom);
         make.left.with.height.equalTo(self.idLabel);
     }];
     //
-    [self.lineOne mas_makeConstraints:^(MASConstraintMaker *make) {
+    [self.lineOne mas_makeConstraints:^(MASConstraintMaker* make) {
         make.top.equalTo(self.iconImageView.mas_bottom).offset(1.3*20);
         make.left.right.mas_equalTo(0);
         make.height.mas_equalTo(1);
     }];
-    [self.lineTwo mas_makeConstraints:^(MASConstraintMaker *make) {
+    [self.lineTwo mas_makeConstraints:^(MASConstraintMaker* make) {
         make.right.equalTo(self.mas_left).offset(ScreenWidth/3+30);
         make.top.equalTo(_lineOne.mas_bottom);
         make.bottom.mas_equalTo(0);
         make.width.mas_equalTo(1);
     }];
     //
-    [self.addessLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+    [self.addessLabel mas_makeConstraints:^(MASConstraintMaker* make) {
         make.left.bottom.mas_equalTo(0);
         make.top.equalTo(self.lineOne.mas_bottom);
         make.right.equalTo(self.lineTwo.mas_left);
     }];
     //
-    [self.points mas_makeConstraints:^(MASConstraintMaker *make) {
+    [self.points mas_makeConstraints:^(MASConstraintMaker* make) {
         make.right.bottom.mas_equalTo(0);
         make.left.equalTo(self.lineTwo.mas_left);
         make.top.equalTo(self.addessLabel);
     }];
 }
 - (void)PersonalHeaderViewData {
-    NSUserDefaults *userDefault = [NSUserDefaults standardUserDefaults];
-    NSString *roomidStr = [userDefault objectForKey:kUserDefaultKeyRoomID];
+    NSUserDefaults* userDefault = [NSUserDefaults standardUserDefaults];
+    NSString* roomidStr = [userDefault objectForKey:kUserDefaultKeyRoomID];
     
     if ([AppDelegate appDelegate].userInfostruct.UserID != nil && [AppDelegate appDelegate].userInfostruct.UserID.length > 0) {
         self.idLabel.text = [NSString stringWithFormat:@"ID：%@",[AppDelegate appDelegate].userInfostruct.UserID];

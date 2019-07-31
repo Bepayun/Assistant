@@ -13,9 +13,9 @@
 
 @interface MyPerformanceViewController ()<UITableViewDelegate,UITableViewDataSource>
 
-@property (nonatomic, strong) PerformanceHeaderView *headerView;
-@property (nonatomic, strong) UITableView *myPerformanceTableView;
-@property (nonatomic, strong) NSMutableArray *myPerformanceDateArray;
+@property (nonatomic, strong) PerformanceHeaderView* headerView;
+@property (nonatomic, strong) UITableView* myPerformanceTableView;
+@property (nonatomic, strong) NSMutableArray* myPerformanceDateArray;
 
 @end
 
@@ -35,11 +35,11 @@
     [self createNav];
 }
 - (void)createControllerView {
-    //tableview的头部
+    // tableview的头部
     _headerView = [[PerformanceHeaderView alloc] initWithFrame:CGRectMake(0, 0, ScreenWidth, 110)];
     [self.view addSubview:_headerView];
     
-    //tableview
+    // tableview
     _myPerformanceTableView = [[UITableView alloc] initWithFrame:CGRectMake(0, _headerView.frame.size.height+_headerView.frame.origin.y, ScreenWidth, ScreenHeight)];
     [self.view addSubview:_myPerformanceTableView];
     _myPerformanceTableView.delegate = self;
@@ -85,7 +85,7 @@
             
             [self.myPerformanceDateArray addObjectsFromArray:array];
              RecordModel *model = self.myPerformanceDateArray[0];
-            //tableView头部取数据
+            // tableView头部取数据
             [self.headerView setModel:model];
         }
         [self.myPerformanceTableView reloadData];
@@ -107,15 +107,5 @@
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
-
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
 
 @end

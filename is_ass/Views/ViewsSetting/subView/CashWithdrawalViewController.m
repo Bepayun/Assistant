@@ -14,15 +14,15 @@
 
 @interface CashWithdrawalViewController ()<UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate>
 
-@property (nonatomic, strong) UILabel     *contentLabel;
-@property (nonatomic, strong) UIView      *cashWithdrawalView;
-@property (nonatomic, strong) UITextField *alipayField;
-@property (nonatomic, strong) UITextField *userNameField;
-@property (nonatomic, strong) UITextField *cashCoinField;
+@property (nonatomic, strong) UILabel* contentLabel;
+@property (nonatomic, strong) UIView* cashWithdrawalView;
+@property (nonatomic, strong) UITextField* alipayField;
+@property (nonatomic, strong) UITextField* userNameField;
+@property (nonatomic, strong) UITextField* cashCoinField;
 
-@property (nonatomic, strong) UIView      *headerView;
-@property (nonatomic, strong) UITableView *cashWithdrawalTableView;
-@property (nonatomic, strong) NSMutableArray *cashWithdrawalArray;
+@property (nonatomic, strong) UIView* headerView;
+@property (nonatomic, strong) UITableView* cashWithdrawalTableView;
+@property (nonatomic, strong) NSMutableArray* cashWithdrawalArray;
 @property (nonatomic, assign) int goldCoinNum;
 @property (nonatomic, assign) int listpage;
 @property (nonatomic, assign) BOOL bol;
@@ -47,18 +47,17 @@
     [self createControllerView];
     [self createCashWithdrawalView];
     [self createNav];
-//    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(getCashWithdrawalDates) name:@"GETCashWithdrawalDates" object:nil];
 }
 #pragma mark - createCashWithdrawalView {
 - (void)createCashWithdrawalView {
-    UIView *cashWithdrawalView = [[UIView alloc] initWithFrame:CGRectMake(0, self.headerView.frame.size.height - 40, ScreenWidth, ScreenHeight - self.headerView.frame.size.height-20)];
+    UIView* cashWithdrawalView = [[UIView alloc] initWithFrame:CGRectMake(0, self.headerView.frame.size.height - 40, ScreenWidth, ScreenHeight - self.headerView.frame.size.height-20)];
     cashWithdrawalView.backgroundColor = [UIColor whiteColor];
     self.cashWithdrawalView = cashWithdrawalView;
     cashWithdrawalView.hidden = YES;
     [self.view addSubview:cashWithdrawalView];
     
     // 支付宝
-    UILabel *alipayLabel = [[UILabel alloc] init];
+    UILabel* alipayLabel = [[UILabel alloc] init];
     alipayLabel.backgroundColor = [UIColor clearColor];
     [cashWithdrawalView addSubview:alipayLabel];
     alipayLabel.text = @"支付宝：";
@@ -66,7 +65,7 @@
     alipayLabel.font = [UIFont systemFontOfSize:17.0f];
     alipayLabel.textAlignment = NSTextAlignmentRight;
     
-    UITextField *alipayfield = [[UITextField alloc] init];
+    UITextField* alipayfield = [[UITextField alloc] init];
     alipayfield.backgroundColor = [UIColor lightGrayColor];
     alipayfield.backgroundColor = [UIColor whiteColor];
     alipayfield.borderStyle = UITextBorderStyleRoundedRect;
@@ -87,7 +86,7 @@
     [cashWithdrawalView addSubview:alipayfield];
     
     // 姓名
-    UILabel *nameLabel = [[UILabel alloc] init];
+    UILabel* nameLabel = [[UILabel alloc] init];
     nameLabel.backgroundColor = [UIColor clearColor];
     [cashWithdrawalView addSubview:nameLabel];
     nameLabel.text = @"姓名：";
@@ -95,7 +94,7 @@
     nameLabel.font = [UIFont systemFontOfSize:17.0f];
     nameLabel.textAlignment = NSTextAlignmentRight;
     
-    UITextField *userNamefield = [[UITextField alloc] init];
+    UITextField* userNamefield = [[UITextField alloc] init];
     userNamefield.backgroundColor = [UIColor lightGrayColor];
     userNamefield.backgroundColor = [UIColor whiteColor];
     userNamefield.borderStyle = UITextBorderStyleRoundedRect;
@@ -115,7 +114,7 @@
     self.userNameField.delegate = self;
     [cashWithdrawalView addSubview:userNamefield];
     // 提现金额
-    UILabel *cashCoinLabel = [[UILabel alloc] init];
+    UILabel* cashCoinLabel = [[UILabel alloc] init];
     cashCoinLabel.backgroundColor = [UIColor clearColor];
     [cashWithdrawalView addSubview:cashCoinLabel];
     cashCoinLabel.text = @"提现金额：";
@@ -123,7 +122,7 @@
     cashCoinLabel.font = [UIFont systemFontOfSize:17.0f];
     cashCoinLabel.textAlignment = NSTextAlignmentRight;
     
-    UITextField *cashCoinfield = [[UITextField alloc] init];
+    UITextField* cashCoinfield = [[UITextField alloc] init];
     cashCoinfield.backgroundColor = [UIColor lightGrayColor];
     cashCoinfield.backgroundColor = [UIColor whiteColor];
     cashCoinfield.borderStyle = UITextBorderStyleNone;
@@ -147,43 +146,43 @@
     [self.userNameField addTarget:self action:@selector(tapAction) forControlEvents:UIControlEventTouchDown];
     [self.cashCoinField addTarget:self action:@selector(tapAction) forControlEvents:UIControlEventTouchDown];
     
-    //支付宝
-    [alipayLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+    // 支付宝
+    [alipayLabel mas_makeConstraints:^(MASConstraintMaker* make) {
         make.top.equalTo(cashWithdrawalView.mas_top).offset(60);
         make.left.equalTo(cashWithdrawalView.mas_left).offset(22);
         make.width.mas_equalTo(80);
         make.height.mas_equalTo(40);
     }];
     
-    [alipayfield mas_makeConstraints:^(MASConstraintMaker *make) {
+    [alipayfield mas_makeConstraints:^(MASConstraintMaker* make) {
         make.top.equalTo(cashWithdrawalView.mas_top).offset(60);
         make.left.equalTo(alipayLabel.mas_right).offset(6);
         make.right.equalTo(cashWithdrawalView.mas_right).offset(-20);
         make.height.mas_equalTo(40);
     }];
-    //姓名
-    [nameLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+    // 姓名
+    [nameLabel mas_makeConstraints:^(MASConstraintMaker* make) {
         make.top.equalTo(alipayLabel.mas_bottom).offset(10);
         make.left.equalTo(cashWithdrawalView.mas_left).offset(22);
         make.width.mas_equalTo(80);
         make.height.mas_equalTo(40);
     }];
     
-    [userNamefield mas_makeConstraints:^(MASConstraintMaker *make) {
+    [userNamefield mas_makeConstraints:^(MASConstraintMaker* make) {
         make.top.equalTo(alipayfield.mas_bottom).offset(10);
         make.left.equalTo(nameLabel.mas_right).offset(6);
         make.right.equalTo(cashWithdrawalView.mas_right).offset(-20);
         make.height.mas_equalTo(40);
     }];
     // 提现金额
-    [cashCoinLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+    [cashCoinLabel mas_makeConstraints:^(MASConstraintMaker* make) {
         make.top.equalTo(nameLabel.mas_bottom).offset(10);
         make.left.equalTo(cashWithdrawalView.mas_left).offset(12);
         make.width.mas_equalTo(90);
         make.height.mas_equalTo(40);
     }];
     
-    [cashCoinfield mas_makeConstraints:^(MASConstraintMaker *make) {
+    [cashCoinfield mas_makeConstraints:^(MASConstraintMaker* make) {
         make.top.equalTo(userNamefield.mas_bottom).offset(10);
         make.left.equalTo(cashCoinLabel.mas_right).offset(6);
         make.right.equalTo(cashWithdrawalView.mas_right).offset(-20);
@@ -191,7 +190,7 @@
     }];
     
     // Create cancel button
-    UIButton *cancelBtn = [[UIButton alloc] init];
+    UIButton* cancelBtn = [[UIButton alloc] init];
     cancelBtn.backgroundColor = [UIColor clearColor];
     [cashWithdrawalView addSubview:cancelBtn];
     [cancelBtn setTitle:@"取消" forState:UIControlStateNormal];
@@ -204,7 +203,7 @@
     [cancelBtn addTarget:self action:@selector(cancelBtnPressed) forControlEvents:UIControlEventTouchUpInside];
     
     // Create submit button
-    UIButton *submitBtn = [[UIButton alloc] init];
+    UIButton* submitBtn = [[UIButton alloc] init];
     submitBtn.backgroundColor = [UIColor clearColor];
     [cashWithdrawalView addSubview:submitBtn];
     [submitBtn setTitle:@"提交" forState:UIControlStateNormal];
@@ -216,14 +215,14 @@
     submitBtn.layer.borderColor = ([UIColor blackColor]).CGColor;
     [submitBtn addTarget:self action:@selector(submitBtnPressed:) forControlEvents:UIControlEventTouchUpInside];
     
-    [cancelBtn mas_makeConstraints:^(MASConstraintMaker *make) {
+    [cancelBtn mas_makeConstraints:^(MASConstraintMaker* make) {
         make.top.equalTo(cashCoinLabel.mas_bottom).offset(18);
         make.left.equalTo(cashCoinfield.mas_left).offset(0);
         make.height.mas_equalTo(40);
         make.width.mas_equalTo(65);
     }];
     
-    [submitBtn mas_makeConstraints:^(MASConstraintMaker *make) {
+    [submitBtn mas_makeConstraints:^(MASConstraintMaker* make) {
         make.top.equalTo(cashCoinfield.mas_bottom).offset(18);
         make.right.equalTo(cashWithdrawalView.mas_right).offset(-20);
         make.height.mas_equalTo(40);
@@ -242,7 +241,7 @@
     [self emptyingTextField];
 }
 #pragma mark - 提交按钮响应の事件
-- (void)submitBtnPressed:(UIButton *)sender {
+- (void)submitBtnPressed:(UIButton* )sender {
     [self tapAction];
     if (self.alipayField.text != nil && self.alipayField.text.length > 0 && self.userNameField.text != nil && self.userNameField.text.length > 0 && self.cashCoinField.text != nil && self.cashCoinField.text > 0) {
         [self submitBtnPressedOperation:sender];
@@ -255,7 +254,7 @@
     
     
 //    else if (self.alipayField.text == nil) {
-//        MBProgressHUD *progressHUD = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+//        MBProgressHUD* progressHUD = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
 //        [progressHUD hideAnimated:YES afterDelay:0.3];
 //        progressHUD.label.text = @"您不满足申请提现的条件";
 //        [[AppDelegate appDelegate].commonmthod showAlert:@"支付宝不能为空"];
@@ -267,17 +266,17 @@
 //        [[AppDelegate appDelegate].commonmthod showAlert:@"提现金额不能为空"];
 //    }
 }
-- (void)submitBtnPressedOperation:(UIButton *)sender {
+- (void)submitBtnPressedOperation:(UIButton* )sender {
    
-    NSString *titleStr = [sender titleForState:UIControlStateNormal];
+    NSString* titleStr = [sender titleForState:UIControlStateNormal];
     if ([titleStr isEqualToString:@"提交"]) {
         [self tapAction];
-        UIAlertView *applyForStr = [[UIAlertView alloc] initWithTitle:@"您是否确认提交" message:nil delegate:self cancelButtonTitle:@"取消" otherButtonTitles:@"确定", nil];
+        UIAlertView* applyForStr = [[UIAlertView alloc] initWithTitle:@"您是否确认提交" message:nil delegate:self cancelButtonTitle:@"取消" otherButtonTitles:@"确定", nil];
         [applyForStr setTag:10222];
         [applyForStr show];
     }
 }
-- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex {
+- (void)alertView:(UIAlertView* )alertView clickedButtonAtIndex:(NSInteger)buttonIndex {
     if (alertView.tag == 10222) {
         if (buttonIndex == 0) {
             return;
@@ -289,17 +288,17 @@
 #pragma mark - 提交申请提现信息
 - (void)applyForManagerInformation {
     if (self.alipayField.text.length > 0 && self.userNameField.text.length > 0 && self.cashCoinField.text.length > 0) {
-        NSString *cashcoin = self.cashCoinField.text;
+        NSString* cashcoin = self.cashCoinField.text;
         if (self.goldCoinNum >= [cashcoin intValue]) {
             NSLog(@"%d",[cashcoin intValue]);
         
-            [CashWithdrawalModel CashWithdrawalBtnWithAlipayAccount:self.alipayField.text userName:self.userNameField.text GoldCoinNum:self.cashCoinField.text success:^(id responseObject, NSString *msg, int code) {
+            [CashWithdrawalModel CashWithdrawalBtnWithAlipayAccount:self.alipayField.text userName:self.userNameField.text GoldCoinNum:self.cashCoinField.text success:^(id responseObject, NSString* msg, int code) {
                 if (code == 0) {
                     NSLog(@"提交申请提现成功");
                     [self tapAction];
 //                    [[AppDelegate appDelegate].commonmthod showAlert:@"发送成功"];
                     dispatch_async(dispatch_get_main_queue(), ^{
-                        MBProgressHUD *progressHUD = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+                        MBProgressHUD* progressHUD = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
                         [progressHUD hideAnimated:YES afterDelay:0.3];
                         progressHUD.label.text = @"申请提现成功";
                     });
@@ -313,7 +312,7 @@
                     [[AppDelegate appDelegate].commonmthod showAlert:@"提交申请提现失败,请重新申请"];
                 }
                 
-            } getDataFailure:^(NSError *error) {
+            } getDataFailure:^(NSError* error) {
                 
             }];
             
@@ -323,11 +322,11 @@
     }
     
 }
-- (BOOL)textFieldShouldReturn:(UITextField *)textField {
+- (BOOL)textFieldShouldReturn:(UITextField* )textField {
     [textField resignFirstResponder];
     return YES;
 }
-- (void)touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event {
+- (void)touchesEnded:(NSSet* )touches withEvent:(UIEvent* )event {
     if (![self.alipayField isExclusiveTouch] && ![self.userNameField isExclusiveTouch] && ![self.cashCoinField isExclusiveTouch]) {
         [self.alipayField resignFirstResponder];
         [self.userNameField resignFirstResponder];
@@ -341,42 +340,42 @@
 }
 #pragma mark ---- }
 - (void)createControllerView {
-    UIView *headerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, ScreenWidth, 115)];
+    UIView* headerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, ScreenWidth, 115)];
     headerView.backgroundColor = [UIColor whiteColor];
     self.headerView = headerView;
     [self.view addSubview:headerView];
     //
-    UILabel *line = [[UILabel alloc] init];
+    UILabel* line = [[UILabel alloc] init];
     line.backgroundColor = RGB(234, 238, 241);
     [headerView addSubview:line];
-    [line mas_makeConstraints:^(MASConstraintMaker *make) {
+    [line mas_makeConstraints:^(MASConstraintMaker* make) {
         make.top.equalTo(headerView.mas_top).offset(3);
         make.centerX.equalTo(headerView.mas_centerX).offset(15);
         make.height.mas_equalTo(60);
         make.width.mas_equalTo(1);
     }];
     //
-    UILabel *contentLabel = [[UILabel alloc] init];
+    UILabel* contentLabel = [[UILabel alloc] init];
     contentLabel.backgroundColor = [UIColor clearColor];
     [headerView addSubview:contentLabel];
     self.contentLabel = contentLabel;
-    NSString *str = @"0";
-    NSString *contentStr = [NSString stringWithFormat:@"可提现余额：%@个金币",str];
-    NSMutableAttributedString *attributeString = [[NSMutableAttributedString alloc] initWithString:contentStr];
+    NSString* str = @"0";
+    NSString* contentStr = [NSString stringWithFormat:@"可提现余额：%@个金币",str];
+    NSMutableAttributedString* attributeString = [[NSMutableAttributedString alloc] initWithString:contentStr];
     if (str.length == 1) {
         [attributeString addAttribute:NSForegroundColorAttributeName value:[UIColor redColor] range:NSMakeRange(6, 1)];
     }
     contentLabel.attributedText = attributeString;
     contentLabel.font = [UIFont systemFontOfSize:15.0f];
     contentLabel.textAlignment = NSTextAlignmentCenter;
-    [contentLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+    [contentLabel mas_makeConstraints:^(MASConstraintMaker* make) {
         make.top.equalTo(headerView.mas_top).offset(18);
         make.left.equalTo(headerView.mas_left).offset(5);
         make.right.equalTo(line.mas_left).offset(-1);
         make.height.mas_equalTo(32);
     }];
-    //`提现按钮
-    UIButton *cashWithdrawalBtn = [[UIButton alloc] init];
+    // 提现按钮
+    UIButton* cashWithdrawalBtn = [[UIButton alloc] init];
     cashWithdrawalBtn.backgroundColor = [UIColor whiteColor];
     [headerView addSubview:cashWithdrawalBtn];
     [cashWithdrawalBtn setTitle:@"申请提现" forState:UIControlStateNormal];
@@ -385,7 +384,7 @@
     cashWithdrawalBtn.layer.shadowOffset =  CGSizeMake(1, 1);
     cashWithdrawalBtn.layer.shadowOpacity = 0.8;
     cashWithdrawalBtn.layer.shadowColor =  [UIColor lightGrayColor].CGColor;
-    [cashWithdrawalBtn mas_makeConstraints:^(MASConstraintMaker *make) {
+    [cashWithdrawalBtn mas_makeConstraints:^(MASConstraintMaker* make) {
         make.top.equalTo(headerView.mas_top).offset(20);
         make.right.equalTo(headerView.mas_right).offset(-20*2-15);
         make.height.mas_equalTo(25);
@@ -394,32 +393,32 @@
     self.bol = NO;
     [cashWithdrawalBtn addTarget:self action:@selector(cashWithdrawalPressed) forControlEvents:UIControlEventTouchUpInside];
     //
-    UILabel *label = [[UILabel alloc] init];
+    UILabel* label = [[UILabel alloc] init];
     label.backgroundColor = RGB(229, 233, 237);
     [headerView addSubview:label];
-    [label mas_makeConstraints:^(MASConstraintMaker *make) {
+    [label mas_makeConstraints:^(MASConstraintMaker* make) {
         make.top.equalTo(contentLabel.mas_bottom).offset(15);
         make.left.right.equalTo(headerView);
         make.height.mas_equalTo(10);
     }];
-    //`申请时间
-    UILabel *timeLabel = [[UILabel alloc] init];
+    // 申请时间
+    UILabel* timeLabel = [[UILabel alloc] init];
     timeLabel.backgroundColor = [UIColor clearColor];
     [headerView addSubview:timeLabel];
     timeLabel.text = @"申请时间";
     timeLabel.textColor = [UIColor blackColor];
     timeLabel.font = [UIFont systemFontOfSize:14.0f];
     timeLabel.textAlignment = NSTextAlignmentLeft;
-    //`提现数量
-    UILabel *numLabel = [[UILabel alloc] init];
+    // 提现数量
+    UILabel* numLabel = [[UILabel alloc] init];
     numLabel.backgroundColor = [UIColor clearColor];
     [headerView addSubview:numLabel];
     numLabel.text = @"提现数量";
     numLabel.textColor = [UIColor blackColor];
     numLabel.font = [UIFont systemFontOfSize:14.0f];
     numLabel.textAlignment = NSTextAlignmentCenter;
-    //`状态
-    UILabel *stateLabel = [[UILabel alloc] init];
+    // 状态
+    UILabel* stateLabel = [[UILabel alloc] init];
     stateLabel.backgroundColor = [UIColor clearColor];
     [headerView addSubview:stateLabel];
     stateLabel.text = @"状态";
@@ -427,36 +426,36 @@
     stateLabel.font = [UIFont systemFontOfSize:14.0f];
     stateLabel.textAlignment = NSTextAlignmentCenter;
     
-    [timeLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+    [timeLabel mas_makeConstraints:^(MASConstraintMaker* make) {
         make.top.equalTo(label.mas_bottom).offset(10);
         make.left.equalTo(headerView.mas_left).offset(8);
         make.height.mas_equalTo(20);
         make.width.mas_equalTo(100);
     }];
     
-    [numLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+    [numLabel mas_makeConstraints:^(MASConstraintMaker* make) {
         make.top.equalTo(label.mas_bottom).offset(10);
         make.centerX.equalTo(headerView.mas_centerX).offset(13);
         make.height.mas_equalTo(20);
         make.width.mas_equalTo(100);
     }];
     
-    [stateLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+    [stateLabel mas_makeConstraints:^(MASConstraintMaker* make) {
         make.top.equalTo(label.mas_bottom).offset(10);
         make.left.equalTo(numLabel.mas_right).offset(20);
         make.height.mas_equalTo(20);
         make.width.mas_equalTo(100);
     }];
     
-    UILabel *lineOne = [[UILabel alloc] init];
+    UILabel* lineOne = [[UILabel alloc] init];
     lineOne.backgroundColor = RGB(234, 238, 241);
     [headerView addSubview:lineOne];
-    [lineOne mas_makeConstraints:^(MASConstraintMaker *make) {
+    [lineOne mas_makeConstraints:^(MASConstraintMaker* make) {
         make.left.right.bottom.equalTo(headerView);
         make.height.mas_equalTo(1);
     }];
     
-    //` create cashWithdrawalTableView
+    // create cashWithdrawalTableView
     self.cashWithdrawalTableView = [[UITableView alloc] initWithFrame:CGRectMake(0, headerView.frame.size.height, ScreenWidth, ScreenHeight - headerView.frame.size.height-60)];
     [self.view addSubview:self.cashWithdrawalTableView];
     self.cashWithdrawalTableView.delegate = self;
@@ -470,19 +469,19 @@
 }
 #pragma mark - CashWithdrawalBalanceSuccess
 - (void)getCashWithdrawalBalanceData {
-    [CashWithdrawalModel CashWithdrawalBalanceSuccess:^(id responseObject, NSString *msg, int code) {
+    [CashWithdrawalModel CashWithdrawalBalanceSuccess:^(id responseObject, NSString* msg, int code) {
         if (code == 0) {
             NSLog(@"获取余额成功");
-            NSDictionary *dic = (NSDictionary *)responseObject;
-            NSString *str = @"";
+            NSDictionary* dic = (NSDictionary* )responseObject;
+            NSString* str = @"";
             if ([dic objectForKey:@"balance"] && ![[dic objectForKey:@"balance"] isKindOfClass:[NSNull class]]) {
                 str = [dic objectForKey:@"balance"];
                 self.goldCoinNum = [str intValue];
                 NSLog(@"self.goldCoinNumself.goldCoinNum----%d",self.goldCoinNum);
             }
             NSLog(@"str.length##%ld",(unsigned long)str.length);
-            NSString *contentStr = [NSString stringWithFormat:@"可提现余额：%@个金币",str];
-            NSMutableAttributedString *attributeString = [[NSMutableAttributedString alloc] initWithString:contentStr];
+            NSString* contentStr = [NSString stringWithFormat:@"可提现余额：%@个金币",str];
+            NSMutableAttributedString* attributeString = [[NSMutableAttributedString alloc] initWithString:contentStr];
             if (str.length == 1) {
                 [attributeString addAttribute:NSForegroundColorAttributeName value:[UIColor redColor] range:NSMakeRange(6, 1)];
                 
@@ -503,7 +502,7 @@
         } else {
             NSLog(@"获取余额失败");
         }
-    } getDataFailure:^(NSError *error) {
+    } getDataFailure:^(NSError* error) {
         
     }];
 }
@@ -515,7 +514,7 @@
             self.cashWithdrawalView.hidden = NO;
             
         } else {
-            MBProgressHUD *progressHUD = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+            MBProgressHUD* progressHUD = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
             [progressHUD hideAnimated:YES afterDelay:0.3];
             progressHUD.label.text = @"对不起您的金币为0,不能申请提现!";
         }
@@ -528,11 +527,11 @@
     
 }
 #pragma mark - cashWithdrawalTableView delegate {
-- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
+- (NSInteger)tableView:(UITableView* )tableView numberOfRowsInSection:(NSInteger)section {
     return _cashWithdrawalArray.count;
 }
-- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    CashWithdrawalTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:[CashWithdrawalTableViewCell reuseIdentifier]];
+- (UITableViewCell* )tableView:(UITableView* )tableView cellForRowAtIndexPath:(NSIndexPath* )indexPath {
+    CashWithdrawalTableViewCell* cell = [tableView dequeueReusableCellWithIdentifier:[CashWithdrawalTableViewCell reuseIdentifier]];
     if (!cell) {
         cell = [[CashWithdrawalTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:[CashWithdrawalTableViewCell reuseIdentifier]];
     }
@@ -540,13 +539,13 @@
     if (self.cashWithdrawalArray.count <= 0) {
         return cell;
     }
-    CashWithdrawalModel *model = self.cashWithdrawalArray[indexPath.row];
+    CashWithdrawalModel* model = self.cashWithdrawalArray[indexPath.row];
     cell.timeLabel.text = model.created_time;
     cell.numLabel.text = model.amount;
     cell.stateLabel.text = model.status;
     return cell;
 }
-- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
+- (CGFloat)tableView:(UITableView* )tableView heightForRowAtIndexPath:(NSIndexPath* )indexPath {
     return 45;
 }
 #pragma mark --------  }
@@ -555,7 +554,7 @@
     _listpage = 1;
     [self.cashWithdrawalTableView.mj_footer endRefreshing];
     
-    [CashWithdrawalModel CashWithdrawalListWithPage:self.listpage pageCount:kDataCount all:@"0" status:@"" success:^(NSMutableArray *array, NSString *msg, int code) {
+    [CashWithdrawalModel CashWithdrawalListWithPage:self.listpage pageCount:kDataCount all:@"0" status:@"" success:^(NSMutableArray* array, NSString* msg, int code) {
         
         if (array.count > 0) {
             if (self.cashWithdrawalArray.count > 0) {
@@ -576,14 +575,14 @@
         }];
         
         NSLog(@"金币提取列表数据请求成功");
-    } getDataFailure:^(NSError *error) {
+    } getDataFailure:^(NSError* error) {
         
         NSLog(@"金币提取列表数据请求失败");
     }];
 }
 - (void)getMoreCashWithdrawalDates {
     
-    [CashWithdrawalModel CashWithdrawalListWithPage:self.listpage pageCount:kDataCount all:@"0" status:@"" success:^(NSMutableArray *array, NSString *msg, int code) {
+    [CashWithdrawalModel CashWithdrawalListWithPage:self.listpage pageCount:kDataCount all:@"0" status:@"" success:^(NSMutableArray* array, NSString* msg, int code) {
         
         if (array.count > 0) {
             [self.cashWithdrawalArray addObjectsFromArray:array];
@@ -598,7 +597,7 @@
         }];
         
         NSLog(@"金币提取列表数据请求成功");
-    } getDataFailure:^(NSError *error) {
+    } getDataFailure:^(NSError* error) {
         
         NSLog(@"金币提取列表数据请求失败");
     }];
@@ -619,15 +618,5 @@
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
-
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
 
 @end

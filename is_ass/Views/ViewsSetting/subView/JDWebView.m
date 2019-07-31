@@ -10,27 +10,27 @@
 
 @interface JDWebView ()<UIWebViewDelegate>
 
-@property (nonatomic, strong) JSContext *jsContext;
-@property (nonatomic, strong) UIWebView *JDWebView;
-@property (nonatomic, strong) UIActivityIndicatorView *activityIndicator;
-@property (nonatomic, strong) NSString *buyerTradesJSStr;
-@property (nonatomic, strong) NSString *cookieJSONString;
-@property (nonatomic, strong) NSString *dataJSONString;
-@property (nonatomic, strong) NSString *jsOrderString;
-@property (nonatomic, strong) NSString *jsUserInfoStr;
-@property (nonatomic, strong) NSString *homeString;
-@property (nonatomic, strong) NSMutableArray *validationAry;//验证数组
+@property (nonatomic, strong) JSContext* jsContext;
+@property (nonatomic, strong) UIWebView* JDWebView;
+@property (nonatomic, strong) UIActivityIndicatorView* activityIndicator;
+@property (nonatomic, strong) NSString* buyerTradesJSStr;
+@property (nonatomic, strong) NSString* cookieJSONString;
+@property (nonatomic, strong) NSString* dataJSONString;
+@property (nonatomic, strong) NSString* jsOrderString;
+@property (nonatomic, strong) NSString* jsUserInfoStr;
+@property (nonatomic, strong) NSString* homeString;
+@property (nonatomic, strong) NSMutableArray* validationAry; // 验证数组
 @property (nonatomic, assign) int index;
 
-@property (nonatomic, strong) NSString *nameStr;
-@property (nonatomic, strong) NSString *valueStr;
-@property (nonatomic, strong) NSString *nameStr2;
-@property (nonatomic, strong) NSString *valueStr2;
-@property (nonatomic, strong) NSString *expiresDate;
-@property (nonatomic, strong) NSString *expiresDate2;
-@property (nonatomic, strong) NSString *domainStr;
-@property (nonatomic, strong) NSString *domainStr2;
-@property (nonatomic, strong) NSString *pathStr;
+@property (nonatomic, strong) NSString* nameStr;
+@property (nonatomic, strong) NSString* valueStr;
+@property (nonatomic, strong) NSString* nameStr2;
+@property (nonatomic, strong) NSString* valueStr2;
+@property (nonatomic, strong) NSString* expiresDate;
+@property (nonatomic, strong) NSString* expiresDate2;
+@property (nonatomic, strong) NSString* domainStr;
+@property (nonatomic, strong) NSString* domainStr2;
+@property (nonatomic, strong) NSString* pathStr;
 
 @property (nonatomic, assign) int flag;
 @property (nonatomic, assign) int Verifyflag;
@@ -39,7 +39,7 @@
 @property (nonatomic, assign) BOOL bol;
 @property (nonatomic, assign) BOOL Verify;
 
-@property (nonatomic, strong) MBProgressHUD *HuD;
+@property (nonatomic, strong) MBProgressHUD* HuD;
 
 @end
 
@@ -60,15 +60,15 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
 
-    //清除cookies
-    NSHTTPCookie *cookie;
-    NSHTTPCookieStorage *storage = [NSHTTPCookieStorage sharedHTTPCookieStorage];
+    // 清除cookies
+    NSHTTPCookie* cookie;
+    NSHTTPCookieStorage* storage = [NSHTTPCookieStorage sharedHTTPCookieStorage];
     for (cookie in [storage cookies]) {
         [storage deleteCookie:cookie];
     }
-    //清除UIWebView的缓存
+    // 清除UIWebView的缓存
     [[NSURLCache sharedURLCache] removeAllCachedResponses];
-    NSURLCache *cache = [NSURLCache sharedURLCache];
+    NSURLCache* cache = [NSURLCache sharedURLCache];
     [cache removeAllCachedResponses];
     [cache setDiskCapacity:0];
     [cache setMemoryCapacity:0];
@@ -97,7 +97,7 @@
         
     } else {
         _JDWebView.hidden = NO;
-        NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL URLWithString:kLoginJDURL]];
+        NSURLRequest* request = [NSURLRequest requestWithURL:[NSURL URLWithString:kLoginJDURL]];
         [_JDWebView loadRequest:request];
     }
    
@@ -108,24 +108,24 @@
 #pragma mark - 获取京东的cookies
 - (void)getJDCookies {
     
-    NSURL *urlString = [NSURL URLWithString:kJoinJDURL];
-    NSURLRequest *request = [[NSURLRequest alloc] initWithURL:urlString cachePolicy:NSURLRequestReloadIgnoringLocalAndRemoteCacheData timeoutInterval:20];
-    NSOperationQueue *queue = [[NSOperationQueue alloc]init];
-    NSMutableArray *cookiesAry = [[NSMutableArray alloc] initWithCapacity:0];
-    [NSURLConnection sendAsynchronousRequest:request queue:queue completionHandler:^(NSURLResponse *response, NSData *data, NSError *error) {
+    NSURL* urlString = [NSURL URLWithString:kJoinJDURL];
+    NSURLRequest* request = [[NSURLRequest alloc] initWithURL:urlString cachePolicy:NSURLRequestReloadIgnoringLocalAndRemoteCacheData timeoutInterval:20];
+    NSOperationQueue* queue = [[NSOperationQueue alloc]init];
+    NSMutableArray* cookiesAry = [[NSMutableArray alloc] initWithCapacity:0];
+    [NSURLConnection sendAsynchronousRequest:request queue:queue completionHandler:^(NSURLResponse* response, NSData* data, NSError* error) {
         //转换NSURLResponse成为HTTPResponse
-        NSHTTPURLResponse *HTTPResponse = (NSHTTPURLResponse *)response;
+        NSHTTPURLResponse* HTTPResponse = (NSHTTPURLResponse* )response;
         //获取headerfields
-        NSDictionary *fields = [HTTPResponse allHeaderFields];//原生NSURLConnection写法
+        NSDictionary* fields = [HTTPResponse allHeaderFields];//原生NSURLConnection写法
         if (fields != nil && ![fields isKindOfClass:[NSNull class]]) {
             NSLog(@"fields = %@",[fields description]);
             
             if ([fields objectForKey:@"Set-Cookie"] && ![[fields objectForKey:@"Set-Cookie"] isKindOfClass:[NSNull class]]) {
-                NSString *set_cookies = [fields objectForKey:@"Set-Cookie"];
-                NSArray *ary = [set_cookies componentsSeparatedByString:@";"];
+                NSString* set_cookies = [fields objectForKey:@"Set-Cookie"];
+                NSArray* ary = [set_cookies componentsSeparatedByString:@";"];
                 NSRange pathRange = [set_cookies rangeOfString:@"Path="];
                 if (pathRange.location != NSNotFound) {
-                    NSString *pathStr = [set_cookies substringFromIndex:pathRange.location + pathRange.length];
+                    NSString* pathStr = [set_cookies substringFromIndex:pathRange.location + pathRange.length];
                     NSRange pathRangeb = [pathStr rangeOfString:@","];
                     if (pathRangeb.location != NSNotFound) {
                         pathStr = [pathStr substringToIndex:pathRangeb.location];
@@ -134,12 +134,12 @@
                 }
 
                 for (int i = 0; i < ary.count; i ++) {
-                    NSString *expstr = [ary objectAtIndex:i];
+                    NSString* expstr = [ary objectAtIndex:i];
                     NSRange expRange = [expstr rangeOfString:@"Expires="];
 
                     if ([expstr rangeOfString:@"2017"].location != NSNotFound) {
                         if (expRange.location != NSNotFound) {
-                            NSString *expStr = [expstr substringFromIndex:expRange.location + expRange.length];
+                            NSString* expStr = [expstr substringFromIndex:expRange.location + expRange.length];
                             if (expStr != nil && expStr.length > 0) {
                                 _expiresDate = [[AppDelegate appDelegate].commonmthod formattingTimeString:expStr];
                             }
@@ -148,7 +148,7 @@
                     
 //                    if ([expstr rangeOfString:@"2019"].location != NSNotFound) {
 //                        if (expRange.location != NSNotFound) {
-//                            NSString *expStr = [expstr substringFromIndex:expRange.location + expRange.length];
+//                            NSString* expStr = [expstr substringFromIndex:expRange.location + expRange.length];
 //                            if (expStr != nil && expStr.length > 0) {
 //                                _expiresDate2 = [[AppDelegate appDelegate].commonmthod formattingTimeString:expStr];
 //                            }
@@ -172,11 +172,11 @@
                     NSRange range1 = [expstr rangeOfString:@"sid="];
                     NSRange range2 = [expstr rangeOfString:@"USER_FLAG_CHECK="];
                     if (range1.location != NSNotFound) {
-                        NSString *namestr = [expstr substringFromIndex:pathR.location + pathR.length];
-                        NSArray *array = [namestr componentsSeparatedByString:@"="];
+                        NSString* namestr = [expstr substringFromIndex:pathR.location + pathR.length];
+                        NSArray* array = [namestr componentsSeparatedByString:@"="];
                         if (array.count > 0) {
-                            NSString *nameStr = [array objectAtIndex:0];
-                            NSString *valueStr = [array objectAtIndex:1];
+                            NSString* nameStr = [array objectAtIndex:0];
+                            NSString* valueStr = [array objectAtIndex:1];
                             if ([nameStr hasSuffix:@"sid"]) {
                                 _nameStr = nameStr;
                                 _valueStr = valueStr;
@@ -185,11 +185,11 @@
                     }
 //                    if (pathR.location != NSNotFound) {
 //                        if (range2.location != NSNotFound) {
-//                            NSString *namestr = [expstr substringFromIndex:pathR.location + pathR.length];
-//                            NSArray *array = [namestr componentsSeparatedByString:@"="];
+//                            NSString* namestr = [expstr substringFromIndex:pathR.location + pathR.length];
+//                            NSArray* array = [namestr componentsSeparatedByString:@"="];
 //                            if (array.count > 0) {
-//                                NSString *nameStr = [array objectAtIndex:0];
-//                                NSString *valueStr = [array objectAtIndex:1];
+//                                NSString* nameStr = [array objectAtIndex:0];
+//                                NSString* valueStr = [array objectAtIndex:1];
 //                                if ([nameStr hasSuffix:@"USER_FLAG_CHECK"]) {
 //                                    _nameStr2 = nameStr;
 //                                    _valueStr2 = valueStr;
@@ -202,35 +202,35 @@
             }
         }
         
-        NSHTTPCookieStorage *cookieJar = [NSHTTPCookieStorage sharedHTTPCookieStorage];
-        NSDictionary *jsonCookieDic = [[NSDictionary alloc] init];
-        NSDictionary *Dic = [[NSDictionary alloc] init];
-//        NSDictionary *Dic2 = [[NSDictionary alloc] init];
-        for (NSHTTPCookie *cookie in [cookieJar cookies]) {
-            //            NSLog(@"cookie%@", cookie);
+        NSHTTPCookieStorage* cookieJar = [NSHTTPCookieStorage sharedHTTPCookieStorage];
+        NSDictionary* jsonCookieDic = [[NSDictionary alloc] init];
+        NSDictionary* Dic = [[NSDictionary alloc] init];
+//        NSDictionary* Dic2 = [[NSDictionary alloc] init];
+        for (NSHTTPCookie* cookie in [cookieJar cookies]) {
+            // NSLog(@"cookie%@", cookie);
             if ([cookie isKindOfClass:[NSHTTPCookie class]]) {
-                NSString *string = [NSString stringWithFormat:@"%@",cookie];
+                NSString* string = [NSString stringWithFormat:@"%@",cookie];
                 //
                 NSRange  createRange = [string rangeOfString:@"created:"];
-                NSString *createdDate = [[NSString alloc] init];
+                NSString* createdDate = [[NSString alloc] init];
                 if (createRange.location != NSNotFound) {
-                    NSString *createString = [string substringFromIndex:createRange.location+createRange.length];
+                    NSString* createString = [string substringFromIndex:createRange.location+createRange.length];
                     NSRange  sftRange = [createString rangeOfString:@" +0000"];
                     if (sftRange.location != NSNotFound) {
                         createString = [createString substringToIndex:sftRange.location];
                         
                         //
-//                NSString *expiresDate = [NSString stringWithFormat:@"%ld", (long)[cookie.expiresDate timeIntervalSince1970]];
-                        NSDateFormatter *dateF = [[NSDateFormatter alloc] init];
+//                NSString* expiresDate = [NSString stringWithFormat:@"%ld", (long)[cookie.expiresDate timeIntervalSince1970]];
+                        NSDateFormatter* dateF = [[NSDateFormatter alloc] init];
                         dateF.dateFormat = @"yyyy-MM-dd HH:mm:ss";
-                        NSDate *creatDate = [dateF dateFromString:createString];
+                        NSDate* creatDate = [dateF dateFromString:createString];
                         createdDate = [NSString stringWithFormat:@"%.f", [creatDate timeIntervalSince1970]];
                     }
                 }
                 
                 //
                 NSRange  partitionRange = [string rangeOfString:@"partition:\""];
-                NSString *partitionString = [[NSString alloc] init];
+                NSString* partitionString = [[NSString alloc] init];
                 if (partitionRange.location != NSNotFound) {
                     partitionString = [string substringFromIndex:partitionRange.location+partitionRange.length];
                     NSRange  partitionsftRange = [partitionString rangeOfString:@"\" path:"];
@@ -244,12 +244,12 @@
                     
                     jsonCookieDic = @{
                                        @"CreationTime": createdDate,
-                                       @"Host": _domainStr,//[NSString stringWithFormat:@"%@",cookie.domain],
+                                       @"Host": _domainStr,
                                        @"Expiry": _expiresDate,
                                        @"IsDomain": @"true",
                                        @"IsHttpOnly": @"false",
                                        @"isSecure": @"false",
-                                       @"IsSession": @"false",//android is true
+                                       @"IsSession": @"false", // android is true
                                        @"LastAccessed": createdDate,
                                        @"Name": [NSString stringWithFormat:@"%@",cookie.name],
                                        @"Path": _pathStr,
@@ -262,7 +262,7 @@
                     // Set-Cookie里面的name与value
                     Dic = @{
                              @"CreationTime": createdDate,
-                             @"Host": _domainStr,//[NSString stringWithFormat:@"%@",cookie.domain],
+                             @"Host": _domainStr, // [NSString stringWithFormat:@"%@",cookie.domain],
                              @"Expiry": _expiresDate,
                              @"IsDomain": @"true",
                              @"IsHttpOnly": @"false",
@@ -271,7 +271,7 @@
                              @"LastAccessed": createdDate,
                              @"Name": _nameStr,
                              @"Path": _pathStr,
-                             @"RawHost": [NSString stringWithFormat:@"%@",cookie.domain],//_domainStr,
+                             @"RawHost": [NSString stringWithFormat:@"%@",cookie.domain],
                              @"Value": _valueStr,
                              @"Partition": partitionString,
                              @"version": [NSString stringWithFormat:@"%lu",(unsigned long)cookie.version]
@@ -302,7 +302,7 @@
         [cookiesAry addObject:Dic];
 //        [cookiesAry addObject:Dic2];
         
-        NSString *jsonStr = [[NSString alloc] init];
+        NSString* jsonStr = [[NSString alloc] init];
         jsonStr = [cookiesAry JSONString];
         _cookieJSONString = jsonStr;
         NSLog(@"jsonStr----------------- %@",jsonStr);
@@ -319,16 +319,16 @@
 
 #pragma mark - 验证京东号 {
 - (void)validationCookies:(NSArray*)array {
-    //清除cookies
-    NSHTTPCookie *cookie;
-    NSHTTPCookieStorage *storage = [NSHTTPCookieStorage sharedHTTPCookieStorage];
+    // 清除cookies
+    NSHTTPCookie* cookie;
+    NSHTTPCookieStorage* storage = [NSHTTPCookieStorage sharedHTTPCookieStorage];
     for (cookie in [storage cookies]){
         [storage deleteCookie:cookie];
     }
 
     if (array != nil && array.count > 0) {
-        for (NSDictionary *cookie in array) {
-            NSMutableDictionary *cookieProperties = [NSMutableDictionary dictionary];
+        for (NSDictionary* cookie in array) {
+            NSMutableDictionary* cookieProperties = [NSMutableDictionary dictionary];
             
             if ([cookie objectForKey:@"Name"] != nil && ![[cookie objectForKey:@"Name"] isKindOfClass:[NSNull class]]){
                 [cookieProperties setObject:[cookie objectForKey:@"Name"] forKey:NSHTTPCookieName];
@@ -347,13 +347,13 @@
                 [cookieProperties setObject:[cookie objectForKey:@"RawHost"] forKey:NSHTTPCookieDomain];
             }
             
-            NSHTTPCookie *cookieuser = [NSHTTPCookie cookieWithProperties:[NSDictionary dictionaryWithDictionary:cookieProperties]];
+            NSHTTPCookie* cookieuser = [NSHTTPCookie cookieWithProperties:[NSDictionary dictionaryWithDictionary:cookieProperties]];
             [[NSHTTPCookieStorage sharedHTTPCookieStorage] setCookie:cookieuser];
             
         }
     }
      _hidWeb = NO;
-    NSURLRequest *request;
+    NSURLRequest* request;
     if (_Verifyflag == 1) {
         request = [NSURLRequest requestWithURL:[NSURL URLWithString:kJoinJDURL]];
         _Verifyflag = 2;
@@ -363,7 +363,7 @@
 
 }
 #pragma mark - 做隐藏处理
-- (BOOL)webView:(UIWebView *)webView shouldStartLoadWithRequest:(NSURLRequest *)request navigationType:(UIWebViewNavigationType)navigationType {
+- (BOOL)webView:(UIWebView* )webView shouldStartLoadWithRequest:(NSURLRequest* )request navigationType:(UIWebViewNavigationType)navigationType {
 
     NSRange range = [request.URL.absoluteString rangeOfString:@"//www.jd.com"];
 
@@ -377,7 +377,7 @@
             self.activityIndicator.activityIndicatorViewStyle = UIActivityIndicatorViewStyleGray;
             [self.activityIndicator startAnimating];
             [NSTimer scheduledTimerWithTimeInterval:15.0f target:self selector:@selector(timerStop) userInfo:nil repeats:YES];
-            [self.activityIndicator mas_makeConstraints:^(MASConstraintMaker *make) {
+            [self.activityIndicator mas_makeConstraints:^(MASConstraintMaker* make) {
                 make.centerX.equalTo(self.view.mas_centerX);
                 make.centerY.equalTo(self.view.mas_centerY);
             }];
@@ -404,7 +404,7 @@
             self.activityIndicator.activityIndicatorViewStyle = UIActivityIndicatorViewStyleGray;
             [self.activityIndicator startAnimating];
             [NSTimer scheduledTimerWithTimeInterval:15.0f target:self selector:@selector(timerStop) userInfo:nil repeats:YES];
-            [self.activityIndicator mas_makeConstraints:^(MASConstraintMaker *make) {
+            [self.activityIndicator mas_makeConstraints:^(MASConstraintMaker* make) {
                 make.centerX.equalTo(self.view.mas_centerX);
                 make.centerY.equalTo(self.view.mas_centerY);
             }];
@@ -426,7 +426,7 @@
     [self.activityIndicator stopAnimating];
 }
 #pragma mark - webView 完成加载的方法
-- (void)webViewDidFinishLoad:(UIWebView *)webView {
+- (void)webViewDidFinishLoad:(UIWebView* )webView {
     NSRange rangeb = [webView.request.URL.absoluteString rangeOfString:@"//passport.jd.com"];
     if (rangeb.location != NSNotFound) {
         if (_Verify && _Verifyflag == 3) {
@@ -444,7 +444,7 @@
                 });
             }else{
                 [self.activityIndicator stopAnimating];
-                NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL URLWithString:kJoinJDURL]];
+                NSURLRequest* request = [NSURLRequest requestWithURL:[NSURL URLWithString:kJoinJDURL]];
                 [_JDWebView loadRequest:request];
             }
             return;
@@ -477,7 +477,7 @@
     NSRange range = [webView.request.URL.absoluteString rangeOfString:@"//m.jd.com"];
     if (range.location != NSNotFound) {
         if (_Verify && _Verifyflag == 2){
-            NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL URLWithString:kOrderJDURL]];
+            NSURLRequest* request = [NSURLRequest requestWithURL:[NSURL URLWithString:kOrderJDURL]];
             [_JDWebView loadRequest:request];
             _Verifyflag = 3;
             return;
@@ -487,47 +487,47 @@
     if (_flag == 2) {
 
         _flag = 3;
-        NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL URLWithString:kOrderJDURL]];
+        NSURLRequest* request = [NSURLRequest requestWithURL:[NSURL URLWithString:kOrderJDURL]];
         [_JDWebView loadRequest:request];
     }
     else if (_flag == 3) {
         _flag = 4;
         
-        NSString *jsOrderStr = [webView stringByEvaluatingJavaScriptFromString:@"var dups=[]; var tmp={OrdersDay:0, OrdersWeek:0, OrdersMonth:0}; var d=document.getElementsByClassName('dealtime'); for(var i in d){if(!d[i].textContent) continue; if(dups.indexOf(d[i].textContent)!=-1)continue; dups.push(d[i].textContent); var t=new Date(d[i].textContent.replace(/-/g,'/'));var dt=(new Date()-t)/1000/3600/24; if(dt<1.0) tmp.OrdersDay+=1; if(dt<7.0) tmp.OrdersWeek+=1; if(dt<30.0) tmp.OrdersMonth+=1;}JSON.stringify(tmp);JSON.stringify(tmp);"];
+        NSString* jsOrderStr = [webView stringByEvaluatingJavaScriptFromString:@"var dups=[]; var tmp={OrdersDay:0, OrdersWeek:0, OrdersMonth:0}; var d=document.getElementsByClassName('dealtime'); for(var i in d){if(!d[i].textContent) continue; if(dups.indexOf(d[i].textContent)!=-1)continue; dups.push(d[i].textContent); var t=new Date(d[i].textContent.replace(/-/g,'/'));var dt=(new Date()-t)/1000/3600/24; if(dt<1.0) tmp.OrdersDay+=1; if(dt<7.0) tmp.OrdersWeek+=1; if(dt<30.0) tmp.OrdersMonth+=1;}JSON.stringify(tmp);JSON.stringify(tmp);"];
         NSLog(@"jsOrderString --------------%@",jsOrderStr);
    
         _jsOrderString = jsOrderStr;
-        NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL URLWithString:kuserInfoJDURL]];
+        NSURLRequest* request = [NSURLRequest requestWithURL:[NSURL URLWithString:kuserInfoJDURL]];
         [_JDWebView loadRequest:request];
     }
     else if (_flag == 4) {
         _flag = 5;
         
-        NSString *csString = [webView stringByEvaluatingJavaScriptFromString:@"var tmp={Gender:0,AccountName:''};if(document.body.innerHTML.indexOf('if(0==0){')>0){tmp.Gender=1}if(document.body.innerHTML.indexOf('if(1==0){')>0){tmp.Gender=2}tmp.AccountName=document.getElementById('nickName').value;JSON.stringify(tmp);"];
+        NSString* csString = [webView stringByEvaluatingJavaScriptFromString:@"var tmp={Gender:0,AccountName:''};if(document.body.innerHTML.indexOf('if(0==0){')>0){tmp.Gender=1}if(document.body.innerHTML.indexOf('if(1==0){')>0){tmp.Gender=2}tmp.AccountName=document.getElementById('nickName').value;JSON.stringify(tmp);"];
         NSLog(@"jsString --------------%@",csString);
         _jsUserInfoStr = csString;
-        NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL URLWithString:khomeJDURL]];
+        NSURLRequest* request = [NSURLRequest requestWithURL:[NSURL URLWithString:khomeJDURL]];
         [_JDWebView loadRequest:request];
 
     } else if (_flag == 5) {
         _flag = 6;
-        NSString *homeString = [webView stringByEvaluatingJavaScriptFromString:@"var tmp={RateLevel:0};var current_level_name=document.getElementById('home-u-level').getAttribute('data-id-u-levelname');var levels=['注册会员','注册会员','铜牌会员','银牌会员','金牌会员','钻石会员'];var current_level=levels.indexOf(current_level_name);tmp.RateLevel=current_level>0?current_level:0;JSON.stringify(tmp);"];
+        NSString* homeString = [webView stringByEvaluatingJavaScriptFromString:@"var tmp={RateLevel:0};var current_level_name=document.getElementById('home-u-level').getAttribute('data-id-u-levelname');var levels=['注册会员','注册会员','铜牌会员','银牌会员','金牌会员','钻石会员'];var current_level=levels.indexOf(current_level_name);tmp.RateLevel=current_level>0?current_level:0;JSON.stringify(tmp);"];
         _homeString = homeString;
     }
     
-    NSDictionary *dictone;
-    NSString *dataJSONString = @"";
-    NSString *str = @"";
+    NSDictionary* dictone;
+    NSString* dataJSONString = @"";
+    NSString* str = @"";
     if (_homeString != nil && _homeString.length > 0) {
         str = [_jsOrderString stringByAppendingString:_jsUserInfoStr];
         str = [str stringByAppendingString:_homeString];
-        NSString *dataStr = [str stringByReplacingOccurrencesOfString:@"}{" withString:@","];
+        NSString* dataStr = [str stringByReplacingOccurrencesOfString:@"}{" withString:@","];
         dictone =  [self dictionaryWithJsonString:dataStr];
         [dictone setValue:@"" forKey:@"Verification"];
         dataJSONString = [dictone JSONString];
         _dataJSONString = dataJSONString;
         
-    } else { //JS无数据时 _jsOrderString = nil
+    } else { // JS无数据时 _jsOrderString = nil
    
        str =  _jsUserInfoStr;
        dictone =  [self dictionaryWithJsonString:str];
@@ -548,44 +548,44 @@
 }
 #pragma mark - 京东Data的获取
 - (void)getJDData {
-    NSString *URLString = [NSString stringWithFormat:@"%@",KASSURL];//KASSURL
-    AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
+    NSString* URLString = [NSString stringWithFormat:@"%@",KASSURL];
+    AFHTTPSessionManager* manager = [AFHTTPSessionManager manager];
     [manager.securityPolicy setAllowInvalidCertificates:YES];
-    NSDictionary *dic = @{
+    NSDictionary* dic = @{
                           @"task": @"get_scripts",
                           @"platform": @"jd",
                           @"device_type": @"ios",
                           @"HTTP_CLIENT_TOKEN": [AppDelegate appDelegate].userInfostruct.client_token
                           };
-    [manager GET:URLString parameters:dic progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
+    [manager GET:URLString parameters:dic progress:nil success:^(NSURLSessionDataTask*  _Nonnull task, id  _Nullable responseObject) {
         
         int code = -1;
         if (responseObject && ![responseObject isKindOfClass:[NSNull class]] && [responseObject isKindOfClass:[NSDictionary class]]) {
-            NSDictionary *dict = (NSDictionary *)responseObject;
+            NSDictionary* dict = (NSDictionary* )responseObject;
             
             if ([dict objectForKey:@"code"] && ![[dict objectForKey:@"code"] isKindOfClass:[NSNull class]]) {
                 code = [[dict objectForKey:@"code"] intValue];
             }
-            NSString *jsDataString = @"";
-            NSDictionary *dictone;
+            NSString* jsDataString = @"";
+            NSDictionary* dictone;
             if ([dict objectForKey:@"data"] && ![[dict objectForKey:@"data"] isKindOfClass:[NSNull class]] && [[dict objectForKey:@"data"] isKindOfClass:[NSArray class]]) {
-                NSMutableArray *array = [[NSMutableArray alloc] initWithArray:[dict objectForKey:@"data"]];
+                NSMutableArray* array = [[NSMutableArray alloc] initWithArray:[dict objectForKey:@"data"]];
 
                 for (int i = 0; i < array.count; i ++) {
-                    NSDictionary *tempDict = [array objectAtIndex:i];
+                    NSDictionary* tempDict = [array objectAtIndex:i];
                     
-                    NSString *pathstr = [tempDict objectForKey:@"path"];
+                    NSString* pathstr = [tempDict objectForKey:@"path"];
                     if (pathstr && ![pathstr isKindOfClass:[NSNull class]]) {
-                        NSString *path = [NSString stringWithFormat:@"%@",pathstr];
+                        NSString* path = [NSString stringWithFormat:@"%@",pathstr];
 
-                        NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL URLWithString:path]];
+                        NSURLRequest* request = [NSURLRequest requestWithURL:[NSURL URLWithString:path]];
                         [_JDWebView loadRequest:request];
                     }
                     
-                    NSString *scriptstr = [tempDict objectForKey:@"script"];
+                    NSString* scriptstr = [tempDict objectForKey:@"script"];
                     if (scriptstr && ![scriptstr isKindOfClass:[NSNull class]]) {
 //                        scriptstr = [scriptstr stringByAppendingString:@"JSON.stringify(tmp);"];
-                        NSString *tmpStr = [_JDWebView stringByEvaluatingJavaScriptFromString:scriptstr];
+                        NSString* tmpStr = [_JDWebView stringByEvaluatingJavaScriptFromString:scriptstr];
                         jsDataString =  [jsDataString stringByAppendingString:tmpStr];
                         jsDataString = [jsDataString stringByReplacingOccurrencesOfString:@"}{" withString:@","];
                         
@@ -600,19 +600,19 @@
 
         }
         
-    } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
+    } failure:^(NSURLSessionDataTask*  _Nullable task, NSError*  _Nonnull error) {
         
         
     }];
 }
 #pragma mark 字典转JSON字符串方法
-- (NSDictionary *)dictionaryWithJsonString:(NSString *)jsonString {
+- (NSDictionary* )dictionaryWithJsonString:(NSString* )jsonString {
     if (jsonString == nil) {
         return nil;
     }
-    NSData *jsonData = [jsonString dataUsingEncoding:NSUTF8StringEncoding];
-    NSError *err;
-    NSDictionary *dic = [NSJSONSerialization JSONObjectWithData:jsonData options:NSJSONReadingMutableContainers error:&err];
+    NSData* jsonData = [jsonString dataUsingEncoding:NSUTF8StringEncoding];
+    NSError* err;
+    NSDictionary* dic = [NSJSONSerialization JSONObjectWithData:jsonData options:NSJSONReadingMutableContainers error:&err];
     if (err) {
         NSLog(@"json解析失败：%@",err);
         return nil;
@@ -623,32 +623,32 @@
 #pragma mark - 提交管理小号
 - (void)submitManagementAccountDatas {
     _bol = YES;
-    NSString *URLString = [NSString stringWithFormat:@"%@",KASSURL];//KASSURL
-    NSDictionary *dic = @{
+    NSString* URLString = [NSString stringWithFormat:@"%@",KASSURL];
+    NSDictionary* dic = @{
                           @"Cookies": _cookieJSONString,
                           @"Data": _dataJSONString,
                           @"platform": @"jd",
                           };
-    NSString *postData = [dic JSONString];
-    NSDictionary *dict = @{
+    NSString* postData = [dic JSONString];
+    NSDictionary* dict = @{
                            @"task": @"login_tbaccount",
                            @"device_type": @"ios",
                            @"post_data": postData,
                            @"HTTP_CLIENT_TOKEN": [AppDelegate appDelegate].userInfostruct.client_token
                            };
     
-    AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
+    AFHTTPSessionManager* manager = [AFHTTPSessionManager manager];
     [manager.securityPolicy setAllowInvalidCertificates:YES];
-    [manager POST:URLString parameters:dict progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
+    [manager POST:URLString parameters:dict progress:nil success:^(NSURLSessionDataTask*  _Nonnull task, id  _Nullable responseObject) {
 
         int code = -1;
         if (responseObject && ![responseObject isKindOfClass:[NSNull class]] && [responseObject isKindOfClass:[NSDictionary class]]) {
-            NSDictionary *dict = (NSDictionary *)responseObject;
+            NSDictionary* dict = (NSDictionary* )responseObject;
             
             if ([dict objectForKey:@"code"] && ![[dict objectForKey:@"code"] isKindOfClass:[NSNull class]]) {
                 code = [[dict objectForKey:@"code"] intValue];
             }
-//            NSString *msg = [dict objectForKey:@"msg"];
+//            NSString* msg = [dict objectForKey:@"msg"];
             if (code == 0) {
                 if (  [AppDelegate appDelegate].userInfostruct.orderType == 6 && _Verify) {
                       [AppDelegate appDelegate].userInfostruct.orderType = 0;
@@ -667,7 +667,7 @@
            
         }
         
-    } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
+    } failure:^(NSURLSessionDataTask*  _Nullable task, NSError*  _Nonnull error) {
         _bol = NO;
         NSLog(@"error");
     }];

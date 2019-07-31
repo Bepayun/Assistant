@@ -25,12 +25,12 @@
 @property(nonatomic, strong) UIImageView *imageView;
 @property(nonatomic, copy) NSString *imageUrl;
 @property(nonatomic, strong) UIImageView *locationImageView;
-//@property (nonatomic, strong) UILabel *titleLabel;
+// @property (nonatomic, strong) UILabel *titleLabel;
 @property(nonatomic, strong) NSString *userId;
 @property(nonatomic, strong) UILabel *subtitleLabel;
 @property(nonatomic, copy) TapActionBlock tapBlock;
 
 - (id)initWithAnnotation:(id<MKAnnotation>)annotation;
-//- (void)refreshHead:(NSString *)imageUrl;
+// - (void)refreshHead:(NSString *)imageUrl;
 
 @end

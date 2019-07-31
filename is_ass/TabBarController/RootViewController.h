@@ -10,14 +10,14 @@
 
 @interface RootViewController : UIViewController
 
-@property (nonatomic, strong) UIButton *leftButton;
-@property (nonatomic, strong) UIButton *rightButton;
-@property (nonatomic, strong) UILabel  *titleLabel;
+@property (nonatomic, strong) UIButton* leftButton;
+@property (nonatomic, strong) UIButton* rightButton;
+@property (nonatomic, strong) UILabel * titleLabel;
 
-//`设置响应方法
+// 设置响应方法
 - (void)addLeftTarget:(SEL)selector;
 - (void)addRightTarget:(SEL)selector;
-//设置导航栏颜色 
--(void)setnavigationBarcolor:(UIColor *)color andalph:(BOOL)alph;
+// 设置导航栏颜色
+-(void)setnavigationBarcolor:(UIColor* )color andalph:(BOOL)alph;
 
 @end

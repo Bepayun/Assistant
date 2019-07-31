@@ -11,22 +11,16 @@
 
 @interface MyPerformanceTableViewCell : UITableViewCell
 
-@property (nonatomic, strong) RecordModel *model;
-/**
- * 昵称
- */
-@property (nonatomic, strong) UILabel *nickNameLabel;
+@property (nonatomic, strong) RecordModel* model;
+// 昵称
+@property (nonatomic, strong) UILabel* nickNameLabel;
 
-/**
- * 账号
- */
-@property (nonatomic, strong) UILabel *accountLabel;
+// 账号
+@property (nonatomic, strong) UILabel* accountLabel;
 
-/**
- * 时间
- */
-@property (nonatomic, strong) UILabel *create_timeLabel;
+// 时间
+@property (nonatomic, strong) UILabel* create_timeLabel;
 
-+ (NSString *)reuseIdentifier;
++ (NSString* )reuseIdentifier;
 
 @end

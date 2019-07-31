@@ -13,28 +13,28 @@
 /**
  * 接任务时间
  */
-@property (nonatomic, strong) UILabel *create_timeLabel;
+@property (nonatomic, strong) UILabel* create_timeLabel;
 
 /**
  * 接任务类型 （热门/网络）
  */
-@property (nonatomic, strong) UILabel *platformLabel;
+@property (nonatomic, strong) UILabel* platformLabel;
 
 /**
  * 总结
  */
-@property (nonatomic, strong) UILabel *summaryLabel;
+@property (nonatomic, strong) UILabel* summaryLabel;
 
 /**
  * 描述
  */
-@property (nonatomic, strong) UILabel *remarkLabel;
+@property (nonatomic, strong) UILabel* remarkLabel;
 
 /**
  * 接任务状态
  */
-@property (nonatomic, strong) UILabel *stateLabel;
+@property (nonatomic, strong) UILabel* stateLabel;
 
-+ (NSString *)reuseIdentifier;
++ (NSString* )reuseIdentifier;
 
 @end

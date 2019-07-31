@@ -16,7 +16,7 @@
 
 @interface RCDTabBarBtn()
 
-@property (nonatomic, strong)NSString *tabBarIndex;
+@property (nonatomic, strong)NSString* tabBarIndex;
 
 @end
 
@@ -44,11 +44,11 @@
 //}
 
 #pragma mark - 懒加载
-- (NSMutableArray *)images {
+- (NSMutableArray* )images {
   if (_images == nil) {
     _images = [NSMutableArray array];
     for (int i = 1; i < 9; i++) {
-      UIImage *image = [UIImage imageNamed:[NSString stringWithFormat:@"%d", i]];
+      UIImage* image = [UIImage imageNamed:[NSString stringWithFormat:@"%d", i]];
       [_images addObject:image];
     }
   }
@@ -56,7 +56,7 @@
   return _images;
 }
 
-- (CAShapeLayer *)shapeLayer {
+- (CAShapeLayer* )shapeLayer {
   if (!_shapeLayer) {
     _shapeLayer = [CAShapeLayer layer];
     _shapeLayer.fillColor = [self.backgroundColor CGColor];
@@ -66,7 +66,7 @@
   return _shapeLayer;
 }
 
-- (UIView *)samllCircleView {
+- (UIView* )samllCircleView {
   if (!_samllCircleView) {
     _samllCircleView = [[UIView alloc] init];
     _samllCircleView.backgroundColor = self.backgroundColor;
@@ -81,24 +81,24 @@
   self.backgroundColor = [UIColor colorWithHexString:@"f43530" alpha:1.0];
   [self setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
   self.titleLabel.font = [UIFont systemFontOfSize:12.f];
-  _maxDistance = cornerRadius * 5;
+  _maxDistance = cornerRadius*  5;
   
   self.layer.masksToBounds = YES;
   self.layer.cornerRadius = cornerRadius;
   
-  CGRect samllCireleRect = CGRectMake(0, 0, cornerRadius * (2 - 0.5) , cornerRadius * (2 - 0.5));
+  CGRect samllCireleRect = CGRectMake(0, 0, cornerRadius*  (2 - 0.5) , cornerRadius*  (2 - 0.5));
   self.samllCircleView.bounds = samllCireleRect;
   _samllCircleView.center = self.center;
   _samllCircleView.layer.cornerRadius = _samllCircleView.bounds.size.width / 2;
   
-  UIPanGestureRecognizer *pan = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(pan:)];
+  UIPanGestureRecognizer* pan = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(pan:)];
   [self addGestureRecognizer:pan];
   
   [self addTarget:self action:@selector(btnClick) forControlEvents:UIControlEventTouchUpInside];
 }
 
 #pragma mark - 手势
-- (void)pan:(UIPanGestureRecognizer *)pan {
+- (void)pan:(UIPanGestureRecognizer* )pan {
   [self.layer removeAnimationForKey:@"shake"];
   
   CGPoint panPoint = [pan translationInView:self];
@@ -117,7 +117,7 @@
     
     CGFloat cornerRadius = (kBtnHeight > kBtnWidth ? kBtnWidth / 2 : kBtnHeight / 2);
     CGFloat samllCrecleRadius = cornerRadius - dist / 10;
-    _samllCircleView.bounds = CGRectMake(0, 0, samllCrecleRadius * (2 - 0.5), samllCrecleRadius * (2 - 0.5));
+    _samllCircleView.bounds = CGRectMake(0, 0, samllCrecleRadius*  (2 - 0.5), samllCrecleRadius*  (2 - 0.5));
     _samllCircleView.layer.cornerRadius = _samllCircleView.bounds.size.width / 2;
     
     if (_samllCircleView.hidden == NO && dist > 0) {
@@ -160,7 +160,7 @@
 - (CGFloat)pointToPoitnDistanceWithPoint:(CGPoint)pointA potintB:(CGPoint)pointB {
   CGFloat offestX = pointA.x - pointB.x;
   CGFloat offestY = pointA.y - pointB.y;
-  CGFloat dist = sqrtf(offestX * offestX + offestY * offestY);
+  CGFloat dist = sqrtf(offestX*  offestX + offestY*  offestY);
   
   return dist;
 }
@@ -169,11 +169,11 @@
   [self.samllCircleView removeFromSuperview];
   [self.shapeLayer removeFromSuperlayer];
   [self removeFromSuperview];
-  NSArray *conversationList = [[RCIMClient sharedRCIMClient] getConversationList:@[@(ConversationType_PRIVATE),@(ConversationType_DISCUSSION),@(ConversationType_APPSERVICE),@(ConversationType_PUBLICSERVICE),@(ConversationType_GROUP),@(ConversationType_SYSTEM)]];
+  NSArray* conversationList = [[RCIMClient sharedRCIMClient] getConversationList:@[@(ConversationType_PRIVATE),@(ConversationType_DISCUSSION),@(ConversationType_APPSERVICE),@(ConversationType_PUBLICSERVICE),@(ConversationType_GROUP),@(ConversationType_SYSTEM)]];
   dispatch_async(dispatch_get_global_queue(0, 0), ^{
-    NSMutableArray *syncConversations = [[NSMutableArray alloc] init];
+    NSMutableArray* syncConversations = [[NSMutableArray alloc] init];
     for (int i = 0; i < conversationList.count; i++) {
-      RCConversation *conversation = conversationList[i];
+      RCConversation* conversation = conversationList[i];
       if (conversation.unreadMessageCount > 0) {
         [[RCIMClient sharedRCIMClient] clearMessagesUnreadStatus:conversation.conversationType targetId:conversation.targetId];
         [syncConversations addObject:conversation];
@@ -181,7 +181,7 @@
     }
      [[NSNotificationCenter defaultCenter] postNotificationName:@"RefreshConversationList" object:nil];
     
-    for (RCConversation *conversation in syncConversations) {
+    for (RCConversation* conversation in syncConversations) {
       [NSThread sleepForTimeInterval:0.2];
       [RCKitUtility syncConversationReadStatusIfEnabled:conversation];
     }
@@ -190,7 +190,7 @@
 }
 
 #pragma mark - 不规则路径
-- (UIBezierPath *)pathWithBigCirCleView:(UIView *)bigCirCleView  smallCirCleView:(UIView *)smallCirCleView {
+- (UIBezierPath* )pathWithBigCirCleView:(UIView* )bigCirCleView  smallCirCleView:(UIView* )smallCirCleView {
   CGPoint bigCenter = bigCirCleView.center;
   CGFloat x2 = bigCenter.x;
   CGFloat y2 = bigCenter.y;
@@ -207,14 +207,14 @@
   CGFloat cosθ = (y2 - y1) / d;
   
   // 坐标系基于父控件
-  CGPoint pointA = CGPointMake(x1 - r1 * cosθ , y1 + r1 * sinθ);
-  CGPoint pointB = CGPointMake(x1 + r1 * cosθ , y1 - r1 * sinθ);
-  CGPoint pointC = CGPointMake(x2 + r2 * cosθ , y2 - r2 * sinθ);
-  CGPoint pointD = CGPointMake(x2 - r2 * cosθ , y2 + r2 * sinθ);
-  CGPoint pointO = CGPointMake(pointA.x + d / 2 * sinθ , pointA.y + d / 2 * cosθ);
-  CGPoint pointP = CGPointMake(pointB.x + d / 2 * sinθ , pointB.y + d / 2 * cosθ);
+  CGPoint pointA = CGPointMake(x1 - r1*  cosθ , y1 + r1*  sinθ);
+  CGPoint pointB = CGPointMake(x1 + r1*  cosθ , y1 - r1*  sinθ);
+  CGPoint pointC = CGPointMake(x2 + r2*  cosθ , y2 - r2*  sinθ);
+  CGPoint pointD = CGPointMake(x2 - r2*  cosθ , y2 + r2*  sinθ);
+  CGPoint pointO = CGPointMake(pointA.x + d / 2*  sinθ , pointA.y + d / 2*  cosθ);
+  CGPoint pointP = CGPointMake(pointB.x + d / 2*  sinθ , pointB.y + d / 2*  cosθ);
   
-  UIBezierPath *path = [UIBezierPath bezierPath];
+  UIBezierPath* path = [UIBezierPath bezierPath];
   // A
   [path moveToPoint:pointA];
   // AB
@@ -231,7 +231,7 @@
 
 #pragma mark - button消失动画
 - (void)startDestroyAnimations {
-  UIImageView *ainmImageView = [[UIImageView alloc] initWithFrame:self.frame];
+  UIImageView* ainmImageView = [[UIImageView alloc] initWithFrame:self.frame];
   ainmImageView.animationImages = self.images;
   ainmImageView.animationRepeatCount = 1;
   ainmImageView.animationDuration = 0.5;
@@ -249,44 +249,44 @@
 - (void)setHighlighted:(BOOL)highlighted {
   [self.layer removeAnimationForKey:@"shake"];
   
-  //长按左右晃动的幅度大小
+  // 长按左右晃动的幅度大小
   CGFloat shake = 3;
   
-  CAKeyframeAnimation *keyAnim = [CAKeyframeAnimation animation];
+  CAKeyframeAnimation* keyAnim = [CAKeyframeAnimation animation];
   keyAnim.keyPath = @"transform.translation.x";
   keyAnim.values = @[@(-shake), @(shake), @(-shake)];
   keyAnim.removedOnCompletion = NO;
   keyAnim.repeatCount = 2;
-  //左右晃动一次的时间
+  // 左右晃动一次的时间
   keyAnim.duration = 0.3;
   if ( [self.layer animationForKey:@"shake"] == nil) {
     [self.layer addAnimation:keyAnim forKey:@"shake"];
   }
 }
 
--(void)setUnreadCount:(NSString *)unreadCount {
+-(void)setUnreadCount:(NSString* )unreadCount {
   [self setTitle:unreadCount forState:UIControlStateNormal];
 }
 
 - (BOOL)pointInside:(CGPoint)point withEvent:(UIEvent*)event {
   CGRect bounds = self.bounds;
-  //若原热区小于44x44，则放大热区，否则保持原大小不变
+  // 若原热区小于44x44，则放大热区，否则保持原大小不变
   CGFloat widthDelta = MAX(44.0 - bounds.size.width, 0);
   CGFloat heightDelta = MAX(44.0 - bounds.size.height, 0);
-  bounds = CGRectInset(bounds, -0.5 * widthDelta, -0.5 * heightDelta);
+  bounds = CGRectInset(bounds, -0.5*  widthDelta, -0.5*  heightDelta);
   if ([TabBarViewController shareInstance].selectedTabBarIndex > 0) {
     bounds = CGRectZero;
   }
   return CGRectContainsPoint(bounds, point);
 }
 
-- (void)setTabBarIndexStr:(NSNotification *)notify {
+- (void)setTabBarIndexStr:(NSNotification* )notify {
   if (notify != nil) {
     self.tabBarIndex = notify.object;
   }
 }
 
--(void)dealloc {
+- (void)dealloc {
   [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 

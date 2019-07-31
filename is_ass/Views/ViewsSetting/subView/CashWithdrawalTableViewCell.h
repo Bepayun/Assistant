@@ -13,17 +13,17 @@
 /**
  * 申请时间
  */
-@property (nonatomic, strong) UILabel *timeLabel;
+@property (nonatomic, strong) UILabel* timeLabel;
 
 /**
  * 提现数量
  */
-@property (nonatomic, strong) UILabel *numLabel;
+@property (nonatomic, strong) UILabel* numLabel;
 
 /**
  * 状态
  */
-@property (nonatomic, strong) UILabel *stateLabel;
+@property (nonatomic, strong) UILabel* stateLabel;
 
 + (NSString *)reuseIdentifier;
 
