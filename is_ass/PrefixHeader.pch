@@ -1,0 +1,169 @@
+//
+//  PrefixHeader.pch
+//  is_ass
+//
+//  Created by Bepa  on 2017/8/29.
+//  Copyright © 2017年 Bepa. All rights reserved.
+//
+
+#ifndef PrefixHeader_pch
+#define PrefixHeader_pch
+
+// Include any system framework and library headers here that should be included in all compilation units.
+// You will also need to set the Prefix Header build setting of one or more of your targets to reference this file.
+
+//`
+#import "AFNetworking.h"
+#import "Masonry.h"
+#import "MJRefresh.h"
+#import <RongIMKit/RongIMKit.h>
+#import "MBProgressHUD.h"
+//`
+#import "RootViewController.h"
+#import "LoginViewController.h"
+#import "RegiestViewController.h"
+#import "RoomViewController.h"
+#import "TaskhallViewController.h"
+#import "TaskViewController.h"
+#import "MySetViewController.h"
+#import "AppDelegate.h"
+#import "UserInfoModel.h"
+#import "TaskHallModel.h"
+
+#import "RCDNavigationBar.h"
+#import "RCDTabBarBtn.h"
+#import "UITabBar+badge.h"
+#import "UIColor+RCColor.h"
+#import "JSONKit.h"
+
+#import <JavaScriptCore/JavaScriptCore.h>
+
+#define SCREEN_MODE_IPHONE4 ([[UIScreen mainScreen] bounds].size.height <= 480)
+#define SCREEN_MODE_IPHONE5 ([[UIScreen mainScreen] bounds].size.height == 568)
+#define SCREEN_MODE_IPHONE5_BELOW ([[UIScreen mainScreen] bounds].size.height < 568)
+#define SCREEN_MODE_IPHONE5x ([[UIScreen mainScreen] bounds].size.height >= 568)
+#define SCREEN_MODE_IPHONE6  ([[UIScreen mainScreen] bounds].size.height == 667)
+#define SCREEN_MODE_IPHONE6Plus  ([[UIScreen mainScreen] bounds].size.height == 736)
+#define SCREEN_MODE_IPHONE6x ([[UIScreen mainScreen] bounds].size.height > 568)
+#define VERSION_MODE_IOS_ON_SIX ([[UIDevice currentDevice].systemVersion floatValue] >= 6.0)
+#define VERSION_MODE_IOS_ON_EIGHT ([[UIDevice currentDevice].systemVersion floatValue] >= 8.0)
+#define VERSION_MODE_IOS_ON_NINE ([[UIDevice currentDevice].systemVersion floatValue] >= 9.0)
+#define VERSION_MODE_IOS_ON_NINE_BELOW ([[UIDevice currentDevice].systemVersion floatValue] < 9.0)
+#define VERSION_MODE_IOS_ON_TEN ([[UIDevice currentDevice].systemVersion floatValue] >= 10.0)
+#define VERSION_MODE_IOS_ON_TEN_THREE ([[UIDevice currentDevice].systemVersion floatValue] >= 10.3)
+#define SCREEN_MODE_IPAD (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad)
+#define ScreenWidth  [[UIScreen mainScreen] bounds].size.width
+#define ScreenHeight [[UIScreen mainScreen] bounds].size.height
+
+#define kDefaultAvatarIcon                        @"logo@2x"//默认头像
+#define kGifName                                  @"gif"
+#define kPngName                                  @"png"
+#define kJpgName                                  @"jpg"
+#define kLoginButtonName     NSLocalizedString(@"退出登录",nil)
+#define kExitCurrentAccount  NSLocalizedString(@"确定要退出当前帐号吗？",nil)
+#define kMySetExitAlertTag              61100
+#define kTaskHallPlatformTypeTaoBao     1010
+#define kTaskHallPlatformTypeJD         1011
+#define kTaskHallPlatformTypeOther      1012
+#define kTaskHallPlatformTypePinDouDou  1013
+/**
+ *
+ */
+#define kUserDefaultKeyRoomID                  @"roomid"
+#define kUserDefaultKeyPassWord                @"password"
+#define kUserDefaultKeyaccount                 @"account"
+#define KNotificationGetTaobaoAccount          @"GETTaobaoAccount"
+#define KNotificationDeleteTaobaoAccount       @"DeleteTaobaoAccount"
+#define KNotificationVerifySuccess             @"VerifySuccessTaobaoAccount"
+#define KNotificationCloseWaitView             @"CloseOrderViewWaite"
+
+#define kRongCloudUserName                     @"seller_room_card_name"
+#define kRongCloudUserId                       @"seller_id"
+
+#define kAppidstring                           @"3df10b96a1"
+#define kKey                                   @"d58b7769-47a0-4a59-8672-f8d73b7ac900"
+#define kAppchannelstring                      @"任务助手"
+#define kUpdateAppURLString                    @"http://myis199.xyz/index.php?v="
+/**
+ *  根据登录获取的login_ip来定位
+ */
+#define kUserCityURLString                     @"http://ip.taobao.com/service/getIpInfo.php?ip="
+#define kInternationalIPURLString              @"http://pv.sohu.com/cityjson?ie=utf-8";
+
+/**
+ *  应用更新提示
+ */
+#define kApplicationUpdatePromptImage          @"dot"
+#define kUpdateURLString                       @""
+#define kCommonURLString                       @"http://is199.xyz/index.php?"
+
+/**
+ *  登录热门游戏URL
+ */
+#define kLoginTabBaoURL                        @"https://buyertrade.taobao.com/trade/itemlist/list_bought_items.htm"
+/**
+ *  登录成功进入热门游戏的URL
+ */
+#define kJoinTabBaoURL                         @"https://rate.taobao.com/myRate.htm"
+
+/**
+ *  登录网络游戏URL
+ */
+#define kLoginJDURL                            @"https://passport.jd.com/uc/login"
+/**
+ *  登录成功进入网络游戏的URL
+ */
+#define kJoinJDURL                             @"https://m.jd.com/"
+/**
+ *  获取网络游戏Data的URL/order
+ */
+#define kOrderJDURL                            @"https://order.jd.com/center/list.action"//任务
+/**
+ *  获取网络游戏Data的URL/i.jd.com/user
+ */
+#define kuserInfoJDURL                         @"https://i.jd.com/user/info"
+/**
+ *  获取网络游戏Data的https://home.jd.com/
+ */
+#define khomeJDURL                         @"https://home.jd.com/"
+/**
+ *  验证网络游戏cookie自己loadRequest的URL
+ */
+#define KverifyCookiesURL                      @"https://www.jd.com/"
+
+/**
+ *  公用URL
+ */
+#define KASSURL                                @"http://is199.xyz"
+#define KASSURLNEW                             @"http://myis199.xyz"
+/**
+ *  公用URL 测试
+ */
+#define KMANAGEMENTACCOUNTURL                  @"http://is199.xyz/test.php"
+
+/**
+ *  登录页面，注册页面
+ */
+#define KLoginAccountTips                      @" QQ/任务账号"
+#define KLoginPassCodeTips                     @" 接任务密码"
+#define KLoginButtonTips                       @"立即登录"
+/**
+ * 融云AppKey
+ */
+#define kRongCloudAppKey                       @"uwd1c0sxddwz1"
+/**
+ *  2.返回一个RGBA格式的UIColor对象
+ */
+#define RGBA(r, g, b, a) [UIColor colorWithRed:r/255.0f green:g/255.0f blue:b/255.0f alpha:a]
+
+/**
+ *  3.返回一个RGB格式的UIColor对象
+ */
+#define RGB(r, g, b) RGBA(r, g, b, 1.0f)
+/**
+ *  4.返回一个十六进制格式的UIColor对象
+ */
+#define HEXCOLOR(rgbValue) [UIColor colorWithRed:((float)((rgbValue & 0xFF0000) >> 16))/255.0 green:((float)((rgbValue & 0xFF00) >> 8))/255.0 blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]
+
+
+#endif /* PrefixHeader_pch */
