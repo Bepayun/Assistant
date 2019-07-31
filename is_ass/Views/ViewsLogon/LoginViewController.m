@@ -26,7 +26,6 @@
 - (void)initControllerView {
 
     UIImageView* cIVew = [[UIImageView alloc]initWithFrame:CGRectMake(0, 0, ScreenWidth, ScreenHeight)];
-//    cIVew.backgroundColor = RGBA(18, 150, 219, 1.0f);
     cIVew.backgroundColor = RGBA(46, 173, 252, 1.0f);
     cIVew.userInteractionEnabled = YES;
     self.backview = cIVew;

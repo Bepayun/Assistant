@@ -8,8 +8,7 @@
 
 #import "RootViewController.h"
 
-@interface LoginViewController : UIViewController 
-{
+@interface LoginViewController : UIViewController {
     
 }
 @property(nonatomic,assign)UIImageView* IconImageView; // 图标
