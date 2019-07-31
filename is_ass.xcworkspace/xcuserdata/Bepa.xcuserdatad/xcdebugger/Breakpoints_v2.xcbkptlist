@@ -9,22 +9,6 @@
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "is_ass/Views/ViewsLogon/UserInfoModel.m"
-            timestampString = "543997557.351233"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "172"
-            endingLineNumber = "172"
-            landmarkName = "+EnterRoomWithroom_external_id:userId:room_card_name:token:success:getDataFailure:"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
             filePath = "is_ass/Views/ViewsTaskhall/TaskhallViewController_Registration.m"
             timestampString = "534395743.357541"
             startingColumnNumber = "9223372036854775807"
