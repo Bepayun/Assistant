@@ -1,6 +1,6 @@
 //
 //  RecordTableViewCell.m
-//  is_ass
+//  assistant
 //
 //  Created by Bepa  on 2017/9/11.
 //  Copyright © 2017年 Bepa. All rights reserved.

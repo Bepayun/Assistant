@@ -1,6 +1,6 @@
 //
 //  AppUpdateContentView.h
-//  is_ass
+//  assistant
 //
 //  Created by Bepa  on 2017/10/18.
 //  Copyright © 2017年 Bepa. All rights reserved.

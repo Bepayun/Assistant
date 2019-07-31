@@ -1,6 +1,6 @@
 //
 //  TaskHallModel.h
-//  is_ass
+//  assistant
 //
 //  Created by Bepa on 2017/9/5.
 //  Copyright © 2017年 Bepa. All rights reserved.

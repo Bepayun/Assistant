@@ -1,6 +1,6 @@
 //
 //  MyPerformanceTableViewCell.h
-//  is_ass
+//  assistant
 //
 //  Created by Bepa  on 2017/9/12.
 //  Copyright © 2017年 Bepa. All rights reserved.
