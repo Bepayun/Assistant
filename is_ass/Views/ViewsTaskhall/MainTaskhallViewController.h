@@ -10,6 +10,4 @@
 
 @interface MainTaskhallViewController : RootViewController
 
-@property(nonatomic, strong) UILabel* label;
-
 @end

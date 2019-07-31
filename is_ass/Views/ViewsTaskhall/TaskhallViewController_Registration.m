@@ -23,12 +23,6 @@
 @property (nonatomic, assign) int tasklistpage;
 @property (nonatomic, assign) int type;
 
-//@property (nonatomic, strong) CustomAlertView *AlertView;
-//@property (nonatomic, strong) NSString *conditionPlatform;
-//@property (nonatomic, strong) NSString *level;
-//@property (nonatomic, strong) NSString *buy_type;
-//@property (nonatomic, strong) OrderPersonListView *orderView;
-
 @end
 
 @implementation TaskhallViewController_Registration
@@ -49,7 +43,6 @@
     [self createViews];
     
     [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(refreshTaskHallData) name:@"GETTaskHallData_Registration" object:nil];
-//    [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(hiddenView) name:KNotificationCloseWaitView object:nil];
 }
 - (void)createViews {
     self.taskHallTableView_Registration = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, ScreenWidth, ScreenHeight - 64 - 48 - 55)];
@@ -263,11 +256,6 @@
                                            NSLog(@"%ld",(long)nErrorCode);
                                        }];
 }
-- (void)hiddenView {
-    dispatch_async(dispatch_get_main_queue(), ^{
-//        [CancelAlert HiddenView];
-    });
-}
 - (void)dealloc {
     [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
@@ -275,15 +263,5 @@
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
-
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
 
 @end
