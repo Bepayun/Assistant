@@ -9,7 +9,9 @@
 #import "RootViewController.h"
 
 @protocol RoomViewControllerDelegate <NSObject>
+
 - (void)sendRongCouldToken:(NSString* )rongCouldToken;
+
 @end
 
 

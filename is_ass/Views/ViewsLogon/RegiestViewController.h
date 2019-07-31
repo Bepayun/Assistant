@@ -12,7 +12,6 @@
 
 @property(nonatomic,strong)UILabel* accountLabel;
 @property(nonatomic,strong)UITextField* accountTextField;
-//
 @property(nonatomic,strong)UILabel* passcodeLabel;
 @property(nonatomic,strong)UITextField* passcodeTextfield;
 //
