@@ -123,13 +123,6 @@
 
     }];
 }
-//- (OrderPersonListView *)orderView {
-//    if (!_orderView) {
-//        _orderView = [[OrderPersonListView alloc] initWithFrame:CGRectMake(0,0, ScreenWidth, ScreenHeight)];
-//        _orderView.delagate = self;
-//    }
-//    return _orderView;
-//}
 #pragma mark - taskHallTableView_Registration delegate {
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     return self.tasklistArray.count;
@@ -144,7 +137,6 @@
     cell.platformIcon.image = nil;
     TaskHallModel *model = self.tasklistArray[indexPath.row];
     cell.date.text = model.creatTime;
-//    cell.pay_method.text = model.pay_method;
     if ([model.pay_method isEqualToString:@"收货返"]) {
         cell.pay_method.text = @"垫付任务";
         cell.product_price.text = [NSString stringWithFormat:@"金币:%@",model.product_price];
@@ -155,18 +147,8 @@
     }
     cell.taskInfoLabel.text = [NSString stringWithFormat:@"%@账号 %@ %@",model.seller_online,model.buy_typeStr,model.remarkString];
     cell.content.text = [NSString stringWithFormat:@"%@",model.commission_concent];
-//    if ([model.plateform_type isEqualToString:@"淘宝"]) {
-//        cell.platformIcon.image = [UIImage imageNamed:@"TB_icon"];
-//        cell.OrderButton.tag = kTaskHallPlatformTypeTaoBao;
-//
-//    } else if ([model.plateform_type isEqualToString:@"京东"]) {
-//        cell.platformIcon.image = [UIImage imageNamed:@"JD_icon"];//icon_register
-//        cell.OrderButton.tag = kTaskHallPlatformTypeJD;
-//
-//    } else {
     cell.OrderButton.tag = kTaskHallPlatformTypeOther;
     cell.platformIcon.image = [UIImage imageNamed:@"dragon.jpg"];
-//    }
     cell.taskid = model.task_id;
     return cell;
 }
@@ -183,9 +165,6 @@
     accountType = platform_type;
     _taskid_taskhall = task;
     if (platform_type == kTaskHallPlatformTypeOther) {
-//        if (self.orderView != nil) {
-//            self.orderView.hidden = YES;
-//        }
         [self chooseAccountCertainTaskwithArray:nil];
     } else if (platform_type == kTaskHallPlatformTypePinDouDou) {
         [self chooseAccountCertainTaskwithArray:nil];
@@ -195,7 +174,6 @@
  * 接任务请求开始
  */
 - (void)chooseAccountCertainTaskwithArray:(NSArray *)array {
-//    self.orderView.hidden = NO;
     if (array.count > 0) {
         if (self.OrderArray.count > 0) {
             [self.OrderArray removeAllObjects];
@@ -247,7 +225,7 @@
     mesage.data = [[AppDelegate appDelegate].commonmthod convertToJsonData:dic];
     [[RCIMClient sharedRCIMClient] sendMessage:ConversationType_PRIVATE
                                       targetId:SellerId
-                                       content:mesage //
+                                       content:mesage
                                    pushContent:nil
                                       pushData:nil
                                        success:^(long messageId) {

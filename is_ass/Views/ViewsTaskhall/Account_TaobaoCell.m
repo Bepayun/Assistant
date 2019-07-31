@@ -10,11 +10,9 @@
 
 @implementation Account_TaobaoCell
 
-- (instancetype)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier{
+- (instancetype)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier {
     self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
     if (self) {
-        
-        //
         UIImage *image = [UIImage imageNamed:@"beautifySlider_normal@2x"];
         UIImage *selectedimage = [UIImage imageNamed:@"beautifySlider@2x"];
         UIButton *Button = [UIButton buttonWithType:UIButtonTypeCustom];
@@ -37,7 +35,7 @@
     }
     return self;
 }
--(void)selectBegin:(UIButton *)btn{
+- (void)selectBegin:(UIButton *)btn {
     
     [self.delagate Account_TaobaoCellSelected:btn];
     

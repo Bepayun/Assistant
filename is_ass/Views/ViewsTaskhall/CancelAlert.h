@@ -18,7 +18,7 @@ typedef void(^BtnClickedBlock)();
 /**
  *  Show methods,default. Dismiss if click anywhere.
  */
-//+ (void)showMessage:(NSString *)message;
+// + (void)showMessage:(NSString *)message;
 
 + (void)showMessage:(NSString *)message
    withClickedBlock:(BtnClickedBlock)btnClickedBlock;

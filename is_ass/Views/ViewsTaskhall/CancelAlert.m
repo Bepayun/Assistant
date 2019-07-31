@@ -8,7 +8,7 @@
 
 #import "CancelAlert.h"
 
-#define kColorMainRed [UIColor redColor]  //通用的红色
+#define kColorMainRed [UIColor redColor]  // 通用的红色
 
 static CGFloat const kTitleStringFontSize = 19;
 static CGFloat const kTipsStringFontSize = 16;
@@ -46,8 +46,7 @@ static CGFloat const kCornerRadius = 4;
 
 #pragma mark - Show methods
 
-//+ (void)showMessage:(NSString *)message
-//{
+// + (void)showMessage:(NSString *)message {
 //    CancelAlert *alert = [self sharedAlert];
 //    
 //    [alert showWithTitle:@"提示" tips:message btnTitle:@"确定" btnClickBlock:nil coverCanClick:YES];
@@ -55,22 +54,20 @@ static CGFloat const kCornerRadius = 4;
 //}
 
 + (void)showMessage:(NSString *)message
-   withClickedBlock:(BtnClickedBlock)btnClickedBlock
-{
+   withClickedBlock:(BtnClickedBlock)btnClickedBlock {
      CancelAlert *alert = [self sharedAlert];
      alert.hidden = NO;
      alert.btnClickedBlock = btnClickedBlock;
     [alert showWithTitle:@"提示" tips:message btnTitle:@"取消等待" btnClickBlock:btnClickedBlock coverCanClick:NO];
     [alert show];
 }
-+ (void)HiddenView{
++ (void)HiddenView {
      CancelAlert *alert = [self sharedAlert];
      alert.hidden = YES;
 }
 #pragma mark - Life cycle
 
-- (instancetype)initWithFrame:(CGRect)frame
-{
+- (instancetype)initWithFrame:(CGRect)frame {
     if (self = [super initWithFrame:frame]) {
     }
     return self;
@@ -78,8 +75,7 @@ static CGFloat const kCornerRadius = 4;
 
 #pragma mark - Getter
 
-- (UIButton *)bgButton
-{
+- (UIButton *)bgButton {
     if (!_bgButton) {
         UIButton *bgButton = [[UIButton alloc] init];
         bgButton.backgroundColor = [UIColor blackColor];
@@ -90,8 +86,7 @@ static CGFloat const kCornerRadius = 4;
     return _bgButton;
 }
 
-- (UIView *)contentView
-{
+- (UIView *)contentView {
     if (!_contentView) {
         UIView *contentView = [[UIView alloc] init];
         contentView.backgroundColor = [UIColor blueColor];
@@ -106,8 +101,7 @@ static CGFloat const kCornerRadius = 4;
     return _contentView;
 }
 
-- (UILabel *)tipsLable
-{
+- (UILabel *)tipsLable {
     if (!_tipsLable) {
         UILabel *tipsLable = [[UILabel alloc] initWithFrame:CGRectZero];
         tipsLable.backgroundColor = [UIColor clearColor];
@@ -125,8 +119,7 @@ static CGFloat const kCornerRadius = 4;
     return _tipsLable;
 }
 
-- (UILabel *)titleLabel
-{
+- (UILabel *)titleLabel {
     if (!_titleLabel) {
         UILabel *titleLabel = [[UILabel alloc] initWithFrame:CGRectZero];
         titleLabel.backgroundColor = [UIColor clearColor];
@@ -141,8 +134,7 @@ static CGFloat const kCornerRadius = 4;
     return _titleLabel;
 }
 
-- (UIButton *)doneBtn
-{
+- (UIButton *)doneBtn {
     if (!_doneBtn) {
         UIButton *doneBtn = [[UIButton alloc] init];
         doneBtn.titleLabel.font = [UIFont systemFontOfSize:kDoneBtnFontSize];
@@ -161,8 +153,7 @@ static CGFloat const kCornerRadius = 4;
                  tips:(NSString *)tips
              btnTitle:(NSString *)btnTitle
         btnClickBlock:(BtnClickedBlock)btnClickedBlock
-        coverCanClick:(BOOL)isCoverCanClick
-{
+        coverCanClick:(BOOL)isCoverCanClick {
     self.titleLabel.text = title;
     self.tipsLable.text = tips;
     [self.doneBtn setTitle:btnTitle forState:UIControlStateNormal];
@@ -179,8 +170,7 @@ static CGFloat const kCornerRadius = 4;
 }
 
 
-- (void)setupFrame
-{
+- (void)setupFrame {
     CGFloat marginToScreenLeft = 20;
     
     CGFloat marginToContentViewLeft = 20;
@@ -191,13 +181,13 @@ static CGFloat const kCornerRadius = 4;
     CGFloat padding = 20;
     CGFloat subViewWidth = contentViewWidth-2*marginToContentViewLeft;
     
-    //bgBtn
+    // bgBtn
     self.bgButton.frame = self.bounds;
     
-    //titleLabel
+    // titleLabel
     self.titleLabel.frame = CGRectMake(marginToContentViewLeft, marginToContentViewTop, subViewWidth, 20);
     
-    //tipsLabel
+    // tipsLabel
     NSString *tipsString = self.tipsLable.text;
     CGFloat tipsStringHeight;
     if (tipsString) {
@@ -208,19 +198,19 @@ static CGFloat const kCornerRadius = 4;
                                        attributes:@{NSFontAttributeName: self.tipsLable.font}
                                           context:NULL];
         tipsStringHeight = tipsStringRect.size.height;
-    }else{
+    } else {
         tipsStringHeight = 40;
     }
     
     self.tipsLable.frame = CGRectMake(marginToContentViewLeft, CGRectGetMaxY(self.titleLabel.frame)+5, subViewWidth, tipsStringHeight);
 
-    //doneBtn
+    // doneBtn
     CGFloat doneBtnW = subViewWidth-20;
     CGFloat doneBtnH = 44;
     CGFloat doneBtnX = (contentViewWidth-doneBtnW)/2;
     self.doneBtn.frame = CGRectMake(doneBtnX, CGRectGetMaxY(self.tipsLable.frame)+80, doneBtnW, doneBtnH);
     
-    //contentView
+    // contentView
     CGFloat contentViewHeight = CGRectGetMaxY(self.doneBtn.frame)+padding+60;
     CGFloat contentViewX = (self.frame.size.width-contentViewWidth)/2;
     CGFloat contentViewY = (self.frame.size.height-contentViewHeight)/2;
@@ -229,16 +219,12 @@ static CGFloat const kCornerRadius = 4;
 
 #pragma mark - Show & Dismiss
 
-- (void)show
-{
+- (void)show {
     UIWindow *window = [[UIApplication sharedApplication] keyWindow];
-    if (window.windowLevel != UIWindowLevelNormal)
-    {
+    if (window.windowLevel != UIWindowLevelNormal) {
         NSArray *windows = [[UIApplication sharedApplication] windows];
-        for(UIWindow * tmpWin in windows)
-        {
-            if (tmpWin.windowLevel == UIWindowLevelNormal)
-            {
+        for(UIWindow * tmpWin in windows) {
+            if (tmpWin.windowLevel == UIWindowLevelNormal) {
                 window = tmpWin;
                 break;
             }
@@ -250,8 +236,7 @@ static CGFloat const kCornerRadius = 4;
     [self showAlertAnimation];
 }
 
-- (void)lightColor
-{
+- (void)lightColor {
     self.bgButton.backgroundColor = [[UIColor blackColor]colorWithAlphaComponent:0.1];
     self.contentView.backgroundColor = [[UIColor whiteColor]colorWithAlphaComponent:0.1];
     self.doneBtn.alpha = 0.1;
@@ -259,8 +244,7 @@ static CGFloat const kCornerRadius = 4;
     self.titleLabel.alpha = 0.1;
 }
 
-- (void)darkColor
-{
+- (void)darkColor {
     self.bgButton.backgroundColor = [[UIColor blackColor]colorWithAlphaComponent:0.5];
     self.contentView.backgroundColor = [UIColor whiteColor];
     self.doneBtn.alpha = 1.0;
@@ -268,8 +252,7 @@ static CGFloat const kCornerRadius = 4;
     self.titleLabel.alpha = 1.0;
 }
 
-- (void)showBackground
-{
+- (void)showBackground {
     [self lightColor];
     [UIView animateWithDuration:kAnimationDutation animations:^{
         [self darkColor];
@@ -277,8 +260,7 @@ static CGFloat const kCornerRadius = 4;
     NSLog(@"self=%@",self);
 }
 
--(void)showAlertAnimation
-{
+- (void)showAlertAnimation {
     CAKeyframeAnimation * animation;
     animation = [CAKeyframeAnimation animationWithKeyPath:@"transform"];
     animation.duration = kAnimationDutation;
@@ -292,8 +274,7 @@ static CGFloat const kCornerRadius = 4;
     [self.contentView.layer addAnimation:animation forKey:nil];
 }
 
-- (void)dismiss
-{
+- (void)dismiss {
     [UIView animateWithDuration:kAnimationDutation animations:^{
         [self lightColor];
     } completion:^(BOOL finished) {
@@ -303,13 +284,11 @@ static CGFloat const kCornerRadius = 4;
 
 #pragma mark - Button Actions
 
-- (void)bgButtonClicked
-{
+- (void)bgButtonClicked {
     [self dismiss];
 }
 
-- (void)doneBtnClicked
-{
+- (void)doneBtnClicked {
     if (self.btnClickedBlock) {
         self.btnClickedBlock();
     }

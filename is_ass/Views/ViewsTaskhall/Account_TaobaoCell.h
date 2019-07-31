@@ -10,14 +10,14 @@
 
 @protocol Account_TaobaoCellDelegate <NSObject>
 
--(void)Account_TaobaoCellSelected:(UIButton *)button;
+- (void)Account_TaobaoCellSelected:(UIButton* )button;
 
 @end
 
 @interface Account_TaobaoCell : UITableViewCell
 
 @property (weak,nonatomic) id <Account_TaobaoCellDelegate>delagate;
-@property (nonatomic,strong) UILabel *nameLabel;
-@property (nonatomic,strong) UIButton *selectedButton;
+@property (nonatomic,strong) UILabel* nameLabel;
+@property (nonatomic,strong) UIButton* selectedButton;
 
 @end

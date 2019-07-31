@@ -12,12 +12,12 @@
 #pragma mark AlertViewCell {
 @interface AlertViewCell : UICollectionViewCell {
 
-    UILabel *namelabel;
-    UIButton *platformButton;
+    UILabel* namelabel;
+    UIButton* platformButton;
 }
-@property (nonatomic, strong)UILabel *namelabel;
-@property (nonatomic, strong)UIButton *platformButton;
-@property (nonatomic, strong)NSIndexPath *alertpath;
+@property (nonatomic, strong)UILabel* namelabel;
+@property (nonatomic, strong)UIButton* platformButton;
+@property (nonatomic, strong)NSIndexPath* alertpath;
 @property (weak, nonatomic) id<ChangeButtonDelegate> delegate;
 
 
@@ -32,7 +32,7 @@
     if (self) {
         
         //
-        UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
+        UIButton* button = [UIButton buttonWithType:UIButtonTypeCustom];
         button.frame = CGRectMake(3, 10, 20, 20);
         button.layer.masksToBounds = YES;
         button.layer.borderWidth = 1;
@@ -44,7 +44,7 @@
          self.platformButton = button;
         [self.contentView addSubview:self.platformButton];
         //
-        UILabel *task_type = [[UILabel alloc]initWithFrame:CGRectMake(self.platformButton.frame.origin.x+self.platformButton.frame.size.width+2, 10,40, 20)];
+        UILabel* task_type = [[UILabel alloc]initWithFrame:CGRectMake(self.platformButton.frame.origin.x+self.platformButton.frame.size.width+2, 10,40, 20)];
         task_type.textAlignment = NSTextAlignmentLeft;
         task_type.textColor = [UIColor colorWithRed:48/255.0 green:48/255.0 blue:48/255.0 alpha:1.0];
         task_type.font = [UIFont systemFontOfSize:10.0f];
@@ -55,16 +55,16 @@
     
     return self;
 }
-- (void)buttonClick:(UIButton *)btn {
+- (void)buttonClick:(UIButton* )btn {
     [self.delegate changebuttonState:self.alertpath];
      btn.selected = !btn.selected;
 }
 @end
 #pragma mark ---- }
 @interface AlertViewSectionView : UICollectionReusableView {
-    UILabel *keyLabel;
+    UILabel* keyLabel;
 }
-@property (nonatomic, retain) UILabel *keyLabel;
+@property (nonatomic, retain) UILabel* keyLabel;
 
 @end
 @implementation AlertViewSectionView
@@ -74,14 +74,12 @@
     self = [super initWithFrame:frame];
     if (self) {
         self.backgroundColor = [UIColor clearColor];
-        
-        UILabel *task_type = [[UILabel alloc]initWithFrame:CGRectMake(5, 15, ScreenWidth-40, 20)];
+        UILabel* task_type = [[UILabel alloc]initWithFrame:CGRectMake(5, 15, ScreenWidth-40, 20)];
         task_type.textAlignment = NSTextAlignmentLeft;
         task_type.textColor = [UIColor colorWithRed:48/255.0 green:48/255.0 blue:48/255.0 alpha:1.0];
         task_type.font = [UIFont systemFontOfSize:13];
         self.keyLabel = task_type;
         [self addSubview:keyLabel];
-        //}
     }
     return self;
 }
@@ -99,7 +97,7 @@
         _blackView = [[UIView alloc] initWithFrame:[[UIApplication sharedApplication] keyWindow].frame];
         self.blackView.backgroundColor = [UIColor colorWithWhite:0.0 alpha:0.4];
         [self addSubview:self.blackView];
-        UITapGestureRecognizer * tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(click:)];
+        UITapGestureRecognizer*  tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(click:)];
         [self.blackView addGestureRecognizer:tap];
         //
         self.alertview = [[UIImageView alloc]initWithFrame:CGRectMake(20,30,ScreenWidth-20*2,ScreenHeight-180)];
@@ -116,14 +114,14 @@
         [_tipLable setTextColor:[UIColor colorWithRed:91/255.0 green:93/255.0 blue:95/255.0 alpha:1.0]];
         [self.alertview addSubview:_tipLable];
         
-        UIButton *leaveButton = [UIButton buttonWithType:UIButtonTypeCustom];
+        UIButton* leaveButton = [UIButton buttonWithType:UIButtonTypeCustom];
         leaveButton.frame = CGRectMake(self.alertview.frame.size.width-40, self.tipLable.frame.origin.y, 30, 30);
         leaveButton.backgroundColor = [UIColor whiteColor];
         [leaveButton setImage:[UIImage imageNamed:@"close"] forState:UIControlStateNormal];
         [leaveButton addTarget:self action:@selector(blackClick) forControlEvents:UIControlEventTouchUpInside];
         [self.alertview addSubview:leaveButton];
         //
-        UILabel *type = [[UILabel alloc]initWithFrame:CGRectMake(20, self.tipLable.frame.origin.y+self.tipLable.frame.size.height+10, ScreenWidth-40,20)];
+        UILabel* type = [[UILabel alloc]initWithFrame:CGRectMake(20, self.tipLable.frame.origin.y+self.tipLable.frame.size.height+10, ScreenWidth-40,20)];
         type.text = @"任务平台:";
         type.textAlignment = NSTextAlignmentLeft;
         type.textColor = [UIColor colorWithRed:48/255.0 green:48/255.0 blue:48/255.0 alpha:1.0];
@@ -131,7 +129,7 @@
         self.platformLabel = type;
         [self.alertview addSubview:self.platformLabel];
         
-        UIButton *platformButton = [UIButton buttonWithType:UIButtonTypeCustom];
+        UIButton* platformButton = [UIButton buttonWithType:UIButtonTypeCustom];
         platformButton.frame = CGRectMake(type.frame.origin.x, type.frame.origin.y+type.frame.size.height+8,90, 30);
         platformButton.layer.masksToBounds = YES;
         platformButton.layer.borderWidth = 1;
@@ -156,21 +154,21 @@
         [self.alertview addSubview:self.platformBtn];
 
         //
-        UICollectionViewFlowLayout *flowLayout= [[UICollectionViewFlowLayout alloc] init];
-        [flowLayout  setScrollDirection:UICollectionViewScrollDirectionVertical];//垂直滚动
-        UICollectionView *collectionView = [[UICollectionView alloc] initWithFrame:CGRectMake(10,self.platformBtn.frame.origin.y+self.platformBtn.frame.size.height+5,self.alertview.frame.size.width-10,200) collectionViewLayout:flowLayout];
-        collectionView.alwaysBounceVertical = YES;//当不够一屏的话也能滑动
+        UICollectionViewFlowLayout* flowLayout= [[UICollectionViewFlowLayout alloc] init];
+        [flowLayout  setScrollDirection:UICollectionViewScrollDirectionVertical]; // 垂直滚动
+        UICollectionView* collectionView = [[UICollectionView alloc] initWithFrame:CGRectMake(10,self.platformBtn.frame.origin.y+self.platformBtn.frame.size.height+5,self.alertview.frame.size.width-10,200) collectionViewLayout:flowLayout];
+        collectionView.alwaysBounceVertical = YES; // 当不够一屏的话也能滑动
         collectionView.delegate = self;
         collectionView.dataSource = self;
         [collectionView setBackgroundColor:[UIColor clearColor]];
-        //注册复用cell(cell的类型和标识符)(可以注册多个复用cell, 一定要保证重用标示符是不一样的)注册到了collectionView的复用池里
+        // 注册复用cell(cell的类型和标识符)(可以注册多个复用cell, 一定要保证重用标示符是不一样的)注册到了collectionView的复用池里
         [collectionView registerClass:[AlertViewCell class] forCellWithReuseIdentifier:@"AlertCell"];
         [collectionView registerClass:[AlertViewSectionView class] forSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:@"alertView"];
         self.platformCollection = collectionView;
         self.platformCollection.scrollEnabled = NO;
         [self.alertview addSubview:self.platformCollection];
         //
-        UIButton *submitbtn = [UIButton buttonWithType:UIButtonTypeCustom];
+        UIButton* submitbtn = [UIButton buttonWithType:UIButtonTypeCustom];
         submitbtn.frame = CGRectMake(20,self.alertview.frame.size.height-50,(self.alertview.frame.size.width-60)/2,30);
         [submitbtn setTitle:@"提交" forState:UIControlStateNormal];
         submitbtn.backgroundColor = RGBA(45, 173, 253, 1.0);
@@ -180,8 +178,7 @@
          self.submitButton.titleLabel.font = [UIFont systemFontOfSize:13.0f];
         [self.alertview addSubview:self.submitButton];
         //
-        
-        UIButton *cancelbtn = [UIButton buttonWithType:UIButtonTypeCustom];
+        UIButton* cancelbtn = [UIButton buttonWithType:UIButtonTypeCustom];
         cancelbtn.frame = CGRectMake(self.submitButton.frame.origin.x+self.submitButton.frame.size.width+20,self.alertview.frame.size.height-50,(self.alertview.frame.size.width-60)/2,30);
         [cancelbtn setTitle:@"取消" forState:UIControlStateNormal];
          cancelbtn.backgroundColor = RGBA(125, 126, 127, 1.0);
@@ -201,7 +198,7 @@
     [self.platformBtn setTitle:self.platformString forState:UIControlStateNormal];
 }
 - (void)addGroupPlatformTypeView {
-    UIView *view = [[UIView alloc]initWithFrame:CGRectMake(self.platformBtn.frame.origin.x,self.platformBtn.frame.origin.y+self.platformBtn.frame.size.height,self.platformBtn.frame.size.width, 30*4)];
+    UIView* view = [[UIView alloc]initWithFrame:CGRectMake(self.platformBtn.frame.origin.x,self.platformBtn.frame.origin.y+self.platformBtn.frame.size.height,self.platformBtn.frame.size.width, 30*4)];
     view.backgroundColor = [UIColor whiteColor];
     view.layer.masksToBounds = YES;
     view.layer.borderWidth = 1.0;
@@ -209,9 +206,9 @@
     self.typeView = view;
     self.typeView.hidden = YES;
     [self.alertview addSubview:self.typeView];
-    NSArray *titlearray = @[@"热门游戏",@"网络游戏",@"网页游戏",@"其他游戏"];
+    NSArray* titlearray = @[@"热门游戏",@"网络游戏",@"网页游戏",@"其他游戏"];
     for (int i = 0; i<4; i++) {
-        UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
+        UIButton* button = [UIButton buttonWithType:UIButtonTypeCustom];
         button.frame = CGRectMake(0,30*i, self.typeView.frame.size.width, 30);
         [button setTitle:[NSString stringWithFormat:@"%@",[titlearray objectAtIndex:i]] forState:UIControlStateNormal];
         [button setTitleColor:RGBA(48, 48, 48, 1.0) forState:UIControlStateNormal];
@@ -229,12 +226,12 @@
     [self.platformArray addObject:@[@"精品",@"高级",@"普通"]];
     [self.platformArray addObject:@[@"1级",@"10级",@"20级",@"30级",@"40级",@"50级",@"60级",@"70级",@"80级",@"90级",@"100级"]];
 }
-- (void)Group_platformButtonClick:(UIButton *)button {
+- (void)Group_platformButtonClick:(UIButton* )button {
     self.platformCollection.tag = button.tag;
     [self changeViewType:button.tag];
     self.typeView.hidden = !self.typeView.hidden;
-//    NSString *str = (button.tag == 0?@"淘宝":((button.tag == 1)?@"京东":@"其他"));
-    NSString *str = @"";
+//    NSString* str = (button.tag == 0?@"淘宝":((button.tag == 1)?@"京东":@"其他"));
+    NSString* str = @"";
     if (button.tag == 0) {
         str = @"热门游戏";
     
@@ -273,10 +270,10 @@
     }
     [self.platformCollection reloadData];
 }
-- (void)platformBtnClick:(UIButton *)btn {
+- (void)platformBtnClick:(UIButton* )btn {
     self.typeView.hidden = !self.typeView.hidden;
 }
-- (void)submitHttpswithchangeCondition:(UIButton *)submitBtn {
+- (void)submitHttpswithchangeCondition:(UIButton* )submitBtn {
     if (_isLevel) {
         self.levelindex = 0;
     }
@@ -300,22 +297,22 @@
     self.hidden = YES;
 }
 #pragma mark UICollectionViewDataSource {
-//定义展示的Section的个数
-- (NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView {
+// 定义展示的Section的个数
+- (NSInteger)numberOfSectionsInCollectionView:(UICollectionView* )collectionView {
     return self.platformArray.count;
 }
-//定义展示的UICollectionViewCell的个数
-- (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section {
+// 定义展示的UICollectionViewCell的个数
+- (NSInteger)collectionView:(UICollectionView* )collectionView numberOfItemsInSection:(NSInteger)section {
     if (self.platformArray.count > 0) {
-       NSArray *array = [self.platformArray objectAtIndex:section];
+       NSArray* array = [self.platformArray objectAtIndex:section];
        return array.count;
     }
 
     return 1;
 }
-//每个UICollectionView展示的内容
-- (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
-        AlertViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"AlertCell" forIndexPath:indexPath];
+// 每个UICollectionView展示的内容
+- (UICollectionViewCell* )collectionView:(UICollectionView* )collectionView cellForItemAtIndexPath:(NSIndexPath* )indexPath {
+        AlertViewCell* cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"AlertCell" forIndexPath:indexPath];
         if (cell == nil) {
             cell = [[AlertViewCell alloc] init];
         }
@@ -334,17 +331,15 @@
          cell.namelabel.text = [NSString stringWithFormat:@"%@",self.platformArray[indexPath.section][indexPath.row]];
         return cell;
 }
-- (UICollectionReusableView *)collectionView:(UICollectionView *)collectionView viewForSupplementaryElementOfKind:(NSString *)kind atIndexPath:(NSIndexPath *)indexPath {
+- (UICollectionReusableView* )collectionView:(UICollectionView* )collectionView viewForSupplementaryElementOfKind:(NSString* )kind atIndexPath:(NSIndexPath* )indexPath {
     if (collectionView) {
         if ([kind isEqualToString:UICollectionElementKindSectionHeader]) {
-            AlertViewSectionView *homeViewSectionView = [collectionView dequeueReusableSupplementaryViewOfKind:kind withReuseIdentifier:@"alertView" forIndexPath:indexPath];
-            //{
-            for (UIView *headerView in homeViewSectionView.subviews) {
+            AlertViewSectionView* homeViewSectionView = [collectionView dequeueReusableSupplementaryViewOfKind:kind withReuseIdentifier:@"alertView" forIndexPath:indexPath];
+            for (UIView* headerView in homeViewSectionView.subviews) {
                 if ([headerView isEqual:[UILabel class]]) {
                     [headerView removeFromSuperview];
                 }
             }
-            //}
             if (indexPath.section == 0) {
                 homeViewSectionView.keyLabel.text = @"任务方式:";
            
@@ -355,16 +350,16 @@
         }
     }
     //
-    UICollectionReusableView *homeViewSectionView = [collectionView dequeueReusableSupplementaryViewOfKind:kind withReuseIdentifier:@"alertView" forIndexPath:indexPath];
+    UICollectionReusableView* homeViewSectionView = [collectionView dequeueReusableSupplementaryViewOfKind:kind withReuseIdentifier:@"alertView" forIndexPath:indexPath];
     return homeViewSectionView;
 }
-//返回头headerView的大小
-- (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout referenceSizeForHeaderInSection:(NSInteger)section {
+// 返回头headerView的大小
+- (CGSize)collectionView:(UICollectionView* )collectionView layout:(UICollectionViewLayout* )collectionViewLayout referenceSizeForHeaderInSection:(NSInteger)section {
     
     return CGSizeMake(self.alertview.frame.size.width, 40);
 }
-//定义每个item的大小
-- (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath {
+// 定义每个item的大小
+- (CGSize)collectionView:(UICollectionView* )collectionView layout:(UICollectionViewLayout*)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath* )indexPath {
     if (indexPath.section == 0) {
         return CGSizeMake((self.alertview.frame.size.width-30)/4.5,30);
     
@@ -372,30 +367,30 @@
         return CGSizeMake((self.alertview.frame.size.width-30)/((collectionView.tag == 1)?6:6.3),30);
     }
 }
-//定义每个Section 的 margin
-- (UIEdgeInsets)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout insetForSectionAtIndex:(NSInteger)section {
+// 定义每个Section 的 margin
+- (UIEdgeInsets)collectionView:(UICollectionView* )collectionView layout:(UICollectionViewLayout* )collectionViewLayout insetForSectionAtIndex:(NSInteger)section {
     return UIEdgeInsetsMake(0.0,2.0,0.0,2.0);
 }
-//每个item之间的间距
-- (CGFloat)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout minimumInteritemSpacingForSectionAtIndex:(NSInteger)section {
+// 每个item之间的间距
+- (CGFloat)collectionView:(UICollectionView* )collectionView layout:(UICollectionViewLayout*)collectionViewLayout minimumInteritemSpacingForSectionAtIndex:(NSInteger)section {
     return 0.0f;
 }
-//每个section中不同的行之间的行间距
-- (CGFloat)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout minimumLineSpacingForSectionAtIndex:(NSInteger)section {
+// 每个section中不同的行之间的行间距
+- (CGFloat)collectionView:(UICollectionView* )collectionView layout:(UICollectionViewLayout* )collectionViewLayout minimumLineSpacingForSectionAtIndex:(NSInteger)section {
 
         return 10.0f;
 }
-//UICollectionView被选中时调用的方法
-- (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
-    //AlertViewCell *selectcell = (AlertViewCell *)[self.platformCollection cellForItemAtIndexPath:indexPath];
+// UICollectionView被选中时调用的方法
+- (void)collectionView:(UICollectionView* )collectionView didSelectItemAtIndexPath:(NSIndexPath* )indexPath {
+    // AlertViewCell* selectcell = (AlertViewCell* )[self.platformCollection cellForItemAtIndexPath:indexPath];
 }
-- (void)changebuttonState:(NSIndexPath *)dexpath {
-    AlertViewCell *selectcell = (AlertViewCell *)[self.platformCollection cellForItemAtIndexPath:dexpath];
+- (void)changebuttonState:(NSIndexPath* )dexpath {
+    AlertViewCell* selectcell = (AlertViewCell* )[self.platformCollection cellForItemAtIndexPath:dexpath];
     _isLevel = YES;
     if (dexpath.section == 0) {
         if (!selectcell.platformButton.selected) {
             if (![self.buy_type isKindOfClass:[NSNull class]] && ![self.buy_type isEqualToString:@"(null)"] && self.buy_type != nil) {
-                NSString *str = self.buy_type;
+                NSString* str = self.buy_type;
                 self.buy_type = [NSString stringWithFormat:@"%@,'%@'",str,selectcell.namelabel.text];
            
             } else {
@@ -404,8 +399,8 @@
        
         } else {
             if (![self.buy_type isKindOfClass:[NSNull class]] && ![self.buy_type isEqualToString:@"(null)"] && self.buy_type != nil) {
-                NSString *str = self.buy_type;
-                NSString *strUrl = [str stringByReplacingOccurrencesOfString:[NSString stringWithFormat:@",'%@'",selectcell.namelabel.text] withString:@""];
+                NSString* str = self.buy_type;
+                NSString* strUrl = [str stringByReplacingOccurrencesOfString:[NSString stringWithFormat:@",'%@'",selectcell.namelabel.text] withString:@""];
                 self.buy_type = [NSString stringWithFormat:@"%@",strUrl];
             }
         }
@@ -422,9 +417,9 @@
         }
     }
 }
-//取消选择了某个cell
-- (void)collectionView:(UICollectionView *)collectionView didDeselectItemAtIndexPath:(NSIndexPath *)indexPath {
-     UICollectionViewCell *cell = [collectionView cellForItemAtIndexPath:indexPath];
+// 取消选择了某个cell
+- (void)collectionView:(UICollectionView* )collectionView didDeselectItemAtIndexPath:(NSIndexPath* )indexPath {
+     UICollectionViewCell* cell = [collectionView cellForItemAtIndexPath:indexPath];
      [cell setBackgroundColor:[UIColor redColor]];
      
 }
@@ -433,22 +428,14 @@
 }
 #pragma mark}
 #pragma mark - Gesture
-- (void)click:(UITapGestureRecognizer *)sender {
+- (void)click:(UITapGestureRecognizer* )sender {
      CGPoint tapLocation = [sender locationInView:self.blackView];
 //    CGPoint tapLocation2 = [sender locationInView:self.platformCollection];
      CGRect alertFrame = self.alertview.frame;
-    //CGRect fram = self.platformCollection.frame;
+    // CGRect fram = self.platformCollection.frame;
      if (!CGRectContainsPoint(alertFrame, tapLocation)) {
         [self cancleView];
      }
 }
-
-/*
-// Only override drawRect: if you perform custom drawing.
-// An empty implementation adversely affects performance during animation.
-- (void)drawRect:(CGRect)rect {
-    // Drawing code
-}
-*/
 
 @end

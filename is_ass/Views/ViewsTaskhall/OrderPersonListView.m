@@ -12,14 +12,13 @@
 @implementation OrderPersonListView
 
 
-- (id)initWithFrame:(CGRect)frame
-{
+- (id)initWithFrame:(CGRect)frame {
     self = [super initWithFrame:frame];
     if (self) {
-        //遮罩
-         _blackView = [UIButton buttonWithType:UIButtonTypeCustom];
-         _blackView.frame = [[UIApplication sharedApplication] keyWindow].frame;
-         self.blackView.backgroundColor = [UIColor colorWithWhite:0.0 alpha:0.4];
+        // 遮罩
+        _blackView = [UIButton buttonWithType:UIButtonTypeCustom];
+        _blackView.frame = [[UIApplication sharedApplication] keyWindow].frame;
+        self.blackView.backgroundColor = [UIColor colorWithWhite:0.0 alpha:0.4];
         [self.blackView addTarget:self action:@selector(click:) forControlEvents:UIControlEventTouchUpInside];
         [self addSubview:self.blackView];
 //        UITapGestureRecognizer * tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(click:)];
@@ -90,13 +89,13 @@
     [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(DeleteTaobaoAccount) name:KNotificationDeleteTaobaoAccount object:nil];
     return self;
 }
--(void)getTaobaoAccount:(NSNotification *)notice{
-    NSDictionary *number = notice.object;
+- (void)getTaobaoAccount:(NSNotification *)notice {
+    NSDictionary* number = notice.object;
     self.platformtype = [[number objectForKey:@"platform"]intValue];
     self.hidden = NO;
     [self.accountListTabelView.mj_header beginRefreshing];
 }
--(void)DeleteTaobaoAccount{
+- (void)DeleteTaobaoAccount {
     [TaskHallModel GetAccountWithTaobao:[AppDelegate appDelegate].userInfostruct.UserID withplatform:self.platformtype successful:^(NSMutableArray *array, NSString *msg, int code) {
         [self.accountListTabelView.mj_header endRefreshing];
 
@@ -108,7 +107,7 @@
         [self.accountListTabelView reloadData];
     }];
 }
-- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
     return 1;
 }
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
@@ -118,14 +117,14 @@
     return 50;
 }
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    static NSString * CellIdentifier2 = @"accountcell";
-    Account_TaobaoCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier2];
+    static NSString* CellIdentifier2 = @"accountcell";
+    Account_TaobaoCell* cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier2];
     if (!cell) {
         cell = [[Account_TaobaoCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier2];
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
         cell.delagate = self;
     }
-    TaskHallModel *model = self.taobaoAccountArray[indexPath.row];
+    TaskHallModel* model = self.taobaoAccountArray[indexPath.row];
     if (self.platformtype == kTaskHallPlatformTypeTaoBao && [model.plateform_type isEqualToString:@"taobao"]) {
         if (indexPath.row == 0) {
             cell.selectedButton.enabled = NO;
@@ -136,13 +135,13 @@
     } else if (self.platformtype == kTaskHallPlatformTypeJD && [model.plateform_type isEqualToString:@"jd"]) {
         if (indexPath.row == 0) {
             cell.selectedButton.enabled = NO;
-        }else{
+        } else {
             cell.selectedButton.enabled = YES;
         }
     } else {
         if (indexPath.row == 0) {
             cell.selectedButton.enabled = NO;
-        }else{
+        } else {
             cell.selectedButton.enabled = YES;
         }
     }
@@ -158,9 +157,9 @@
 }
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     
-    Account_TaobaoCell *cell = (Account_TaobaoCell *)[tableView cellForRowAtIndexPath:indexPath];
+    Account_TaobaoCell* cell = (Account_TaobaoCell *)[tableView cellForRowAtIndexPath:indexPath];
     for (int i = 0; i<self.taobaoAccountArray.count; i++) {
-        UIButton *btn = (UIButton *)[self.accountListTabelView viewWithTag:i+kListViewButtonType];
+        UIButton* btn = (UIButton *)[self.accountListTabelView viewWithTag:i+kListViewButtonType];
         if (i == indexPath.row) {
             btn.enabled = NO;
         }else{
@@ -168,7 +167,7 @@
         }
         
     }
-    TaskHallModel *model = self.taobaoAccountArray[indexPath.row];
+    TaskHallModel* model = self.taobaoAccountArray[indexPath.row];
     if (cell.selectedButton.enabled == NO) {
         if (_AccountArray.count > 0) {
             [_AccountArray removeAllObjects];
@@ -176,9 +175,9 @@
         [_AccountArray addObject:model];
     }
 }
--(void)Account_TaobaoCellSelected:(UIButton *)button{
+- (void)Account_TaobaoCellSelected:(UIButton *)button {
     for (int i = 0; i<self.taobaoAccountArray.count; i++) {
-        UIButton *btn = (UIButton *)[self.accountListTabelView viewWithTag:i+kListViewButtonType];
+        UIButton* btn = (UIButton *)[self.accountListTabelView viewWithTag:i+kListViewButtonType];
         if (button.tag == btn.tag) {
             btn.enabled = NO;
         }else{
@@ -186,34 +185,23 @@
         }
     }
 }
--(void)closeview{
-    
+- (void)closeview {
     self.hidden = YES;
-    
 }
--(void)addAccount{
+- (void)addAccount {
     [self.delagate addAccountwithTaobaoOrJD];
 }
--(void)chooseAccountCertain{
+- (void)chooseAccountCertain {
     [self.delagate chooseAccountCertainTaskwithArray:_AccountArray];
     [self closeview];
 }
-
 #pragma mark - Gesture
--(void)click:(UIButton *)sender{
+- (void)click:(UIButton *)sender {
 //    CGPoint tapLocation = [sender locationInView:self.blackView];
 //    CGRect alertFrame = self.listview.frame;
 //    if (!CGRectContainsPoint(alertFrame, tapLocation)) {
         [self closeview];
     //}
 }
-
-/*
-// Only override drawRect: if you perform custom drawing.
-// An empty implementation adversely affects performance during animation.
-- (void)drawRect:(CGRect)rect {
-    // Drawing code
-}
-*/
 
 @end
