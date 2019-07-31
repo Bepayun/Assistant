@@ -69,7 +69,7 @@
         i ++;
     }
     
-    //`顶部切换按钮
+    // 顶部切换按钮
     NSArray* titleArray = @[@"高佣厅",@"京淘厅"];
     for (int i = 0; i < titleArray.count; i ++) {
         UIButton* button = [UIButton buttonWithType:UIButtonTypeCustom];
@@ -88,13 +88,13 @@
     
 }
 - (void)titleBtnAryPressed:(UIButton* )sender {
-    //`关联ScrollView
+    // 关联ScrollView
     self.scrollView.contentOffset = CGPointMake((sender.tag - 100)*  _scrollView.frame.size.width, _scrollView.frame.origin.y);
     
-    //`改变标题的选中状态，保证每次只有一个按钮被选中
+    // 改变标题的选中状态，保证每次只有一个按钮被选中
     for (UIButton* btn in self.titleBtnAry) {
         if (btn.selected == YES) {
-            btn.backgroundColor = RGB(18, 150, 219);//选中颜色
+            btn.backgroundColor = RGB(18, 150, 219); // 选中颜色
             btn.selected = NO;
         }
     }
@@ -108,7 +108,7 @@
             btn.backgroundColor = RGB(18, 150, 219);
             btn.selected = NO;
         }
-        btn.backgroundColor = RGB(229, 233, 235);//默认颜色
+        btn.backgroundColor = RGB(229, 233, 235); // 默认颜色
     }
     UIButton* button = self.titleBtnAry[tag];
     button.selected = YES;
