@@ -49,7 +49,7 @@
 }
 #pragma mark textField根据kNicknameTextLimitLength改变text {
 - (void)textFiledEditChangedForTextField:(UITextField* )textField forIsmatching:(ChangedForTextFieldTBlock)ismatching {
-    //键盘输入模式//代替[[UITextInputMode currentInputMode] primaryLanguage]
+    // 键盘输入模式//代替[[UITextInputMode currentInputMode] primaryLanguage]
     UITextInputMode* currentInputMode = textField.textInputMode;
     NSString* lang = currentInputMode.primaryLanguage;
     if ([lang isEqualToString:@"zh-Hans"]) { // 简体中文输入，包括简体拼音，健体五笔，简体手写
