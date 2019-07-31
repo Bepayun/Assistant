@@ -23,7 +23,7 @@ typedef void (^GetDataFailureBlock)(NSError *error);
 + (void)LoginGet_tokenWithAccount:(NSString *)account  PassWord:(NSString *)password success:(LoginsuccessBlock)success;
 
 /**
- *  注册账号 POST
+  注册账号 POST
  @param newaccount 账户名
  @param password 密码
  @param device_Id 设备ID
