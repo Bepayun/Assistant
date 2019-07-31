@@ -45,7 +45,7 @@ typedef void (^ChangedForTextFieldTBlock)(BOOL ismatching,BOOL isposition);
 - (void)showAlert:(NSString* )message;
 
 /**
-*  HUD
+ *  HUD
  *  @param message 提示内容
  */
 - (void)showHUD:(NSString* )message;
@@ -67,7 +67,7 @@ typedef void (^ChangedForTextFieldTBlock)(BOOL ismatching,BOOL isposition);
 - (void)ToChatViewWithCellerwith:(RCMessage* )content;
 
 /**
-*  雇主消息提示
+ *  雇主消息提示
  */
 - (void)showMessageFromSeller:(NSString* )message;
 

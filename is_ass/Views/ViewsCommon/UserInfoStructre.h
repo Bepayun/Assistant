@@ -50,36 +50,4 @@
 
 @property (nonatomic, strong) NSString* nowVersion;
 
-
-/*
- int force = 0;
- if ([dic objectForKey:@"force"] && ![[dic objectForKey:@"force"] isKindOfClass:[NSNull class]]) {
- force = [[dic objectForKey:@"force"] intValue];
- }
- NSDictionary* latestDic = [NSDictionary dictionary];
- if ([dic objectForKey:@"latest"] && ![[dic objectForKey:@"latest"] isKindOfClass:[NSNull class]]) {
- latestDic = (NSDictionary* )[dic objectForKey:@"latest"];
- }
- NSString* description = @"";
- if ([latestDic objectForKey:@"description"] && ![[latestDic objectForKey:@"description"] isKindOfClass:[NSNull class]]) {
- description = [latestDic objectForKey:@"description"];
- }
- NSString* version = @"";
- if ([latestDic objectForKey:@"version"] && ![[latestDic objectForKey:@"version"] isKindOfClass:[NSNull class]]) {
- version = [latestDic objectForKey:@"version"];
- }
- NSString* setup_url = @"";
- if ([latestDic objectForKey:@"setup_url"] && ![[latestDic objectForKey:@"setup_url"] isKindOfClass:[NSNull class]]) {
- setup_url = [latestDic objectForKey:@"setup_url"];
- }
- NSString* part_upgrade_url = @"";
- if ([latestDic objectForKey:@"part_upgrade_url"] && ![[latestDic objectForKey:@"part_upgrade_url"] isKindOfClass:[NSNull class]]) {
- part_upgrade_url = [latestDic objectForKey:@"part_upgrade_url"];
- }
-*/
-
-// @property (nonatomic, assign) int force;
-// @property (nonatomic, strong) NSString;
-
-
 @end

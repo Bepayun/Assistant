@@ -43,9 +43,7 @@
 #pragma mark - 获取本地版本号
 - (NSString* )getLocalVersion {
     NSString* ver = [[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleVersion"];
-//    NSString* str = @"1.0.2";
     return ver;
-//    return str;
 }
 #pragma mark textField根据kNicknameTextLimitLength改变text {
 - (void)textFiledEditChangedForTextField:(UITextField* )textField forIsmatching:(ChangedForTextFieldTBlock)ismatching {
