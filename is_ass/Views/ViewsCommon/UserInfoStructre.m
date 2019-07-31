@@ -43,6 +43,7 @@
        self.sellerID = @"";
        self.orderType = 0;
        self.nowVersion = @"";
+        
        self.jinbi_balance = @"";
     }
     return self;
