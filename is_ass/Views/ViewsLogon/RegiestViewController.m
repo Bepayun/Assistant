@@ -86,7 +86,7 @@
         make.left.width.height.equalTo(self.accountTextField);
         make.top.equalTo(self.passcodeLabel);
     }];
-    //密码确认
+    // 密码确认
     UILabel* recurcode = [[UILabel alloc]init];
     recurcode.text = @"重复密码:";
     recurcode.textColor = RGBA(133, 133, 133, 1.0);
