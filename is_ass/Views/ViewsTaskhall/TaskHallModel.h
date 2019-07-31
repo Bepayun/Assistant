@@ -134,4 +134,5 @@ typedef void (^VerifyAccountDataBlock)(NSArray *cookiesArray,NSString *cookierSt
  @param sucess    成功返回值
  */
 + (void)GetTaskAccountVerifywithtask_id:(NSString *)taskid taobaoID:(NSString *)taobao_id withbuyer_id:(NSString *)userID sucessful:(VerifyAccountDataBlock)sucess;
+
 @end

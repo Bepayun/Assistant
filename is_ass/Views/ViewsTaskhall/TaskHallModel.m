@@ -25,7 +25,7 @@
  */
 + (void)GetTaskHallListWithueroomid:(NSString *)roomId PlatformType:(NSString *)platfrom Device_type:(NSString *)devicetype buy_type:(NSString *)buytypeString level:(NSString *)levelstring withType:(int)type Page:(int)page pagecount:(int)count sucessful:(TaskHallDataBlock)success {
     
-    NSString *URLString = [NSString stringWithFormat:@"%@",KASSURL];//KASSURL
+    NSString *URLString = [NSString stringWithFormat:@"%@",KASSURL];
     AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
     [manager.securityPolicy setAllowInvalidCertificates:YES];
     NSDictionary *dic = [[NSDictionary alloc]init];
@@ -131,7 +131,7 @@
                     if (buy_type_string && ![buy_type_string isKindOfClass:[NSNull class]]) {
                         recommendData.buy_typeStr = buy_type_string;
                     }
-                    //网页 condition_summary 与 pay_method
+                    // 网页 condition_summary 与 pay_method
                     NSString *pay_methodStr = [tempDict objectForKey:@"pay_method"];
                     if (pay_methodStr && ![pay_methodStr isKindOfClass:[NSNull class]]) {
                         recommendData.pay_method = pay_methodStr;
@@ -254,7 +254,7 @@
  @param success  成功返回值
  */
 + (void)GetAccountWithTaobao:(NSString *)userID withplatform:(int)platform successful:(TaobaoAccountDataBlock)success {
-    NSString *URLString = [NSString stringWithFormat:@"%@",KASSURL];//KASSURL
+    NSString *URLString = [NSString stringWithFormat:@"%@",KASSURL];
     AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
     [manager.securityPolicy setAllowInvalidCertificates:YES];
     NSDictionary *dic = [[NSDictionary alloc]init];
@@ -337,7 +337,7 @@
  @param success    成功返回值
  */
 + (void)GetTaskwithtask_id:(int)task_id account_name:(NSString *)namestring UERoomID:(NSString *)roomid  userID:(NSString *)UID  successful:(OrderTaskDataBlock)success {
-    NSString *URLString = [NSString stringWithFormat:@"%@",KASSURL];//KASSURL
+    NSString *URLString = [NSString stringWithFormat:@"%@",KASSURL];
     AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
     [manager.securityPolicy setAllowInvalidCertificates:YES];
     NSDictionary *dic = [[NSDictionary alloc]init];
@@ -353,7 +353,7 @@
    
     [manger GET:URLString parameters:dic progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
         int errorInt = -1;
-        //NSMutableArray *abbarray = [[NSMutableArray alloc] initWithCapacity:0];
+        // NSMutableArray *abbarray = [[NSMutableArray alloc] initWithCapacity:0];
         if (responseObject && ![responseObject isKindOfClass:[NSNull class]] && [responseObject isKindOfClass:[NSDictionary class]]) {
             NSDictionary *dict = (NSDictionary *)responseObject;
             if ([dict objectForKey:@"code"] && ![[dict objectForKey:@"code"] isKindOfClass:[NSNull class]]) {
@@ -379,7 +379,7 @@
  @param sucess    成功返回值
  */
 + (void)GetTaskAccountVerifywithtask_id:(NSString *)taskid taobaoID:(NSString *)taobao_id withbuyer_id:(NSString *)userID sucessful:(VerifyAccountDataBlock)sucess {
-    NSString *URLString = [NSString stringWithFormat:@"%@",KASSURL];//KASSURL
+    NSString *URLString = [NSString stringWithFormat:@"%@",KASSURL];
     NSDictionary *dic = [[NSDictionary alloc]init];
     dic = @{
             @"task": @"get_tbaccount_info",
@@ -424,4 +424,5 @@
            sucess(nil,nil,nil,110);
     }];
 }
+
 @end
