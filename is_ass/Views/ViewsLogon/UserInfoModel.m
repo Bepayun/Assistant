@@ -13,7 +13,7 @@
 
 #pragma mark 登录 --- {
 /**
-*   登录 POST
+ *   登录 POST
  @param account 账号
  @param password 密码
  */
@@ -53,10 +53,10 @@
                     jinbi_balance = [dict objectForKey:@"jinbi_balance"];
                 }
                 NSUserDefaults* userDefaults = [NSUserDefaults standardUserDefaults];
-                //登陆成功后把用户名存储到UserDefault
+                // 登陆成功后把用户名存储到UserDefault
                 [userDefaults setObject:account forKey:kUserDefaultKeyaccount];
                 [userDefaults setObject:password forKey:kUserDefaultKeyPassWord];
-                [userDefaults synchronize]; //这里建议同步存
+                [userDefaults synchronize]; // 这里建议同步存
             }
             NSString* msg = [dict objectForKey:@"msg"];
             success(responseObject,msg,errorInt);
@@ -86,7 +86,7 @@
     if ([AppDelegate appDelegate].userInfostruct.loginip != nil && [AppDelegate appDelegate].userInfostruct.loginip.length > 0) {
         ipStr = [AppDelegate appDelegate].userInfostruct.loginip;
     }
-    NSString* URLString = [NSString stringWithFormat:@"%@",KASSURL];//KASSURL
+    NSString* URLString = [NSString stringWithFormat:@"%@",KASSURL]; // KASSURL
     AFHTTPSessionManager* manager = [AFHTTPSessionManager manager];
     [manager.securityPolicy setAllowInvalidCertificates:YES];
     NSDictionary* dic = @{@"account":@"register",@"useraccount":[NSString stringWithFormat:@"%@",newaccount],@"password":[NSString stringWithFormat:@"%@",password],@"device_id":[NSString stringWithFormat:@"%@",device_Id],@"ip":[NSString stringWithFormat:@"%@",ipStr],@"reg_recommender":[NSString stringWithFormat:@"%@",recommender]};
@@ -105,13 +105,13 @@
             }
             if (errorInt == 0) {
                 NSUserDefaults* userDefaults = [NSUserDefaults standardUserDefaults];
-                //登陆成功后把用户名存储到UserDefault
+                // 登陆成功后把用户名存储到UserDefault
                 [userDefaults setObject:newaccount forKey:kUserDefaultKeyaccount];
                 [userDefaults setObject:password forKey:kUserDefaultKeyPassWord];
-                [userDefaults synchronize]; //这里建议同步存
+                [userDefaults synchronize]; // 这里建议同步存
                 [AppDelegate appDelegate].loginViewController.Account_Numbertextfield.text = newaccount;
                 [AppDelegate appDelegate].loginViewController.PassCodetextField.text = password;
-                //[[AppDelegate appDelegate].loginViewController loginStart];
+                // [[AppDelegate appDelegate].loginViewController loginStart];
             }
             NSString* msg = [dict objectForKey:@"msg"];
             sucess(responseObject,msg,errorInt);
@@ -131,7 +131,7 @@
  */
 + (void)EnterRoomWithroom_external_id:(NSString* )room_id userId:(NSString* )userid room_card_name:(NSString* )cardname token:(NSString* )client_token success:(RegiestsuccessBlock)sucess getDataFailure:(GetDataFailureBlock)failure{
     
-    NSString* URLString = [NSString stringWithFormat:@"%@",KASSURL];//KASSURL
+    NSString* URLString = [NSString stringWithFormat:@"%@",KASSURL]; // KASSURL
     AFHTTPSessionManager* manager = [AFHTTPSessionManager manager];
     [manager.securityPolicy setAllowInvalidCertificates:YES];
     NSDictionary* dic = @{@"room":@"enter",@"room_external_id":[NSString stringWithFormat:@"IS%@",room_id],@"UserID":[NSString stringWithFormat:@"%@",userid],@"room_card_name":[NSString stringWithFormat:@"%@",room_id],@"HTTP_CLIENT_TOKEN":[NSString stringWithFormat:@"%@",client_token]};
@@ -163,9 +163,9 @@
 
             if (errorInt == 0) {
                 NSUserDefaults* userDefaults = [NSUserDefaults standardUserDefaults];
-                //登陆成功后把用户名存储到UserDefault
+                // 登陆成功后把用户名存储到UserDefault
                 [userDefaults setObject:room_id forKey:kUserDefaultKeyRoomID];
-                [userDefaults synchronize]; //这里建议同步存
+                [userDefaults synchronize]; // 这里建议同步存
                 NSString* msg = [dict objectForKey:@"msg"];
                 sucess(responseObject,msg,errorInt);
             } else {
