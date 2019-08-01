@@ -13,15 +13,15 @@
 @property (nonatomic, strong) JSContext* jsContext;
 @property (nonatomic, strong) UIWebView* taoBaoWebView;
 @property (nonatomic, strong) UIActivityIndicatorView* activityIndicator;
-@property (nonatomic, strong) NSString* buyerTradesJSStr;
-@property (nonatomic, strong) NSString* cookieJSONString;
-@property (nonatomic, strong) NSString* dataJSONString;
+@property (nonatomic, copy) NSString* buyerTradesJSStr;
+@property (nonatomic, copy) NSString* cookieJSONString;
+@property (nonatomic, copy) NSString* dataJSONString;
 @property (nonatomic, strong) NSMutableArray* validationAry; // 验证数组
 
-@property (nonatomic, strong) NSString* nameStr;
-@property (nonatomic, strong) NSString* valueStr;
-@property (nonatomic, strong) NSString* expiresDate;
-@property (nonatomic, strong) NSString* pathStr;
+@property (nonatomic, copy) NSString* nameStr;
+@property (nonatomic, copy) NSString* valueStr;
+@property (nonatomic, copy) NSString* expiresDate;
+@property (nonatomic, copy) NSString* pathStr;
 @property (nonatomic, strong) MBProgressHUD* HuD;
 
 @property (nonatomic, assign) BOOL hidWeb;
@@ -45,8 +45,18 @@
 }
 - (void)viewDidLoad {
     [super viewDidLoad];
-    //
     self.view.backgroundColor = [UIColor whiteColor];
+    [self clearHTTPCookie];
+    _hidWeb = NO;
+    _verify = NO;
+    [self initUI];
+    [self taoBaoWebViewAuthorization];
+    //
+    _validationAry = [NSMutableArray arrayWithCapacity:0];
+    self.jsContext = [_taoBaoWebView valueForKeyPath:@"documentView.webView.mainFrame.javaScriptContext"];
+    [self createNav];
+}
+- (void)clearHTTPCookie {
     // 清除cookies
     NSHTTPCookie* cookie;
     NSHTTPCookieStorage* storage = [NSHTTPCookieStorage sharedHTTPCookieStorage];
@@ -59,34 +69,30 @@
     [cache removeAllCachedResponses];
     [cache setDiskCapacity:0];
     [cache setMemoryCapacity:0];
-
-    _hidWeb = NO;
-    _verify = NO;
+}
+- (void)initUI {
     _taoBaoWebView = [[UIWebView alloc] initWithFrame:CGRectMake(0,0, ScreenWidth, ScreenHeight-64)];
     _taoBaoWebView.delegate = self;
-   
     [self.view addSubview: _taoBaoWebView];
+}
+// 等待授权
+- (void)taoBaoWebViewAuthorization {
     if ([AppDelegate appDelegate].userInfostruct.orderType == 6) {
         _verify = YES;
-         _taoBaoWebView.hidden = YES;
+        _taoBaoWebView.hidden = YES;
         [self validationCookiesWithArray:[AppDelegate appDelegate].cookieArray];
         _HuD = [MBProgressHUD showHUDAddedTo:[UIApplication sharedApplication].keyWindow animated:YES];
         _HuD.label.text = @"等待授权..";
         NSLog(@"TAOBAOWebView _HuD.label.text = 等待授权..");
-   
+        
     } else {
         _taoBaoWebView.hidden = NO;
         NSURLRequest* request = [NSURLRequest requestWithURL:[NSURL URLWithString:kLoginTabBaoURL]];
         [_taoBaoWebView loadRequest:request];
     }
-    //
-    _validationAry = [NSMutableArray arrayWithCapacity:0];
-    self.jsContext = [_taoBaoWebView valueForKeyPath:@"documentView.webView.mainFrame.javaScriptContext"];
-    [self createNav];
 }
 #pragma mark - 获取淘宝的cookies
 - (void)getTaoBaoCookies {
-    
     NSURL* urlString = [NSURL URLWithString:kLoginTabBaoURL];
     NSURLRequest* request = [[NSURLRequest alloc] initWithURL:urlString cachePolicy:NSURLRequestReloadIgnoringLocalAndRemoteCacheData timeoutInterval:20];
     NSOperationQueue* queue = [[NSOperationQueue alloc]init];
@@ -96,118 +102,121 @@
         NSHTTPURLResponse* HTTPResponse = (NSHTTPURLResponse* )response;
         // 获取headerfields
         NSDictionary* fields = [HTTPResponse allHeaderFields]; // 原生NSURLConnection写法
-        if (fields != nil && ![fields isKindOfClass:[NSNull class]]){
-            NSLog(@"fields = %@",[fields description]);
-            NSString* set_cookies = [fields objectForKey:@"Set-Cookie"];
-            NSArray* array = [set_cookies componentsSeparatedByString:@";"];
-            for (int i = 0; i<array.count; i++) {
-                NSString* cookie1 = [array objectAtIndex:i];
-                NSArray* cookie1Array = [cookie1 componentsSeparatedByString:@"="];
-                if (cookie1Array.count >= 2) {
-                    NSString* nameStr = [cookie1Array objectAtIndex:0];
-                    NSString* valueStr = [cookie1Array objectAtIndex:1];
-                    if ([nameStr hasSuffix:@"Expires"]) {
-                       _expiresDate = [[AppDelegate appDelegate].commonmthod formattingTimeString:valueStr];
-                    }
-                    if ([nameStr hasSuffix:@"Path"]){
-                        _pathStr = valueStr;
-                    }
-                    if ([nameStr hasSuffix:@"ucn"]){
-                        _nameStr = nameStr;
-                        _valueStr = valueStr;
-                        
-                    }
-                }
-            }
-        }
-        NSHTTPCookieStorage* cookieJar = [NSHTTPCookieStorage sharedHTTPCookieStorage];
-        NSDictionary* jsonCookieDic = [[NSDictionary alloc] init];
-        NSDictionary* Dic = [[NSDictionary alloc] init];
-        for (NSHTTPCookie* cookie in [cookieJar cookies]) {
-//            NSLog(@"cookie%@", cookie);
-            if ([cookie isKindOfClass:[NSHTTPCookie class]]) {
-                NSString* string = [NSString stringWithFormat:@"%@",cookie];
-                //
-                NSRange  createRange = [string rangeOfString:@"created:"];
-                NSString* createString = [[NSString alloc] init];
-                if (createRange.location != NSNotFound) {
-                    createString = [string substringFromIndex:createRange.location+createRange.length];
-                    NSRange  sftRange = [createString rangeOfString:@" +0000"];
-                    if (sftRange.location != NSNotFound) {
-                        createString = [createString substringToIndex:sftRange.location];
-                    }
-                }
-                
-                //
-                NSRange  partitionRange = [string rangeOfString:@"partition:\""];
-                NSString* partitionString = [[NSString alloc] init];
-                if (partitionRange.location != NSNotFound) {
-                    partitionString = [string substringFromIndex:partitionRange.location+partitionRange.length];
-                    NSRange  partitionsftRange = [partitionString rangeOfString:@"\" path:"];
-                    partitionString = [partitionString  substringToIndex:partitionsftRange.location];
-                }
-
-                //
-//                NSString* expiresDate = [NSString stringWithFormat:@"%ld", (long)[cookie.expiresDate timeIntervalSince1970]];
-                NSDateFormatter* dateF = [[NSDateFormatter alloc] init];
-                dateF.dateFormat = @"yyyy-MM-dd HH:mm:ss";
-                NSDate* creatDate = [dateF dateFromString:createString];
-                NSString* createdDate = [NSString stringWithFormat:@"%.f", [creatDate timeIntervalSince1970]];
-                
-                jsonCookieDic = @{
-                                   @"CreationTime": createdDate,
-                                   @"Host": [NSString stringWithFormat:@"%@",cookie.domain],
-                                   @"Expiry": _expiresDate,
-                                   @"IsDomain": @"true",
-                                   @"IsHttpOnly": @"false",
-                                   @"isSecure": @"false",
-                                   @"IsSession": @"false",//android is true
-                                   @"LastAccessed": createdDate,
-                                   @"Name": [NSString stringWithFormat:@"%@",cookie.name],
-                                   @"Path": _pathStr,
-                                   @"RawHost": [NSString stringWithFormat:@"%@",cookie.domain],
-                                   @"Value":[NSString stringWithFormat:@"%@",cookie.value],
-                                   @"Partition": partitionString,
-                                   @"version": [NSString stringWithFormat:@"%lu",(unsigned long)cookie.version]
-                                   };
-
-                // Set-Cookie里面的name与value
-                Dic = @{
-                          @"CreationTime": createdDate,
-                          @"Host": [NSString stringWithFormat:@"%@",cookie.domain],
-                          @"Expiry": _expiresDate,
-                          @"IsDomain": @"true",
-                          @"IsHttpOnly": @"false",
-                          @"isSecure": @"false",
-                          @"IsSession": @"false",//android is true
-                          @"LastAccessed": createdDate,
-                          @"Name": _nameStr,
-                          @"Path": _pathStr,
-                          @"RawHost": [NSString stringWithFormat:@"%@",cookie.domain],
-                          @"Value":_valueStr,
-                          @"Partition": partitionString,
-                          @"version": [NSString stringWithFormat:@"%lu",cookie.version]
-                          };
-            }
-            NSLog(@"jsonCookieDic------------------------- %@",jsonCookieDic);
-            [cookiesAry addObject:jsonCookieDic];
-       }
-
-        [cookiesAry addObject:Dic];
-        
-        NSString* jsonStr = [[NSString alloc] init];
-        jsonStr = [cookiesAry JSONString];
-        _cookieJSONString = jsonStr;
-        NSLog(@"jsonStr----------------- %@",jsonStr);
-        
-        if (_validationAry.count > 0) {
-            [_validationAry removeAllObjects];
-        }
-        [_validationAry addObjectsFromArray:cookiesAry];
-        if (_verify) {
-            [self validationCookiesWithArray:cookiesAry];
-        }
+        [self getHTTPResponseWithAllHeaderFields:fields];
+        [self getCookieJSONStringWithCookiesAry:cookiesAry];
     }];
+}
+- (void)getHTTPResponseWithAllHeaderFields:(NSDictionary*)fields {
+    if (fields != nil && ![fields isKindOfClass:[NSNull class]]) {
+        NSLog(@"fields = %@",[fields description]);
+        NSString* set_cookies = [fields objectForKey:@"Set-Cookie"];
+        NSArray* array = [set_cookies componentsSeparatedByString:@";"];
+        for (int i = 0; i < array.count; i++) {
+            NSString* cookie1 = [array objectAtIndex:i];
+            NSArray* cookie1Array = [cookie1 componentsSeparatedByString:@"="];
+            if (cookie1Array.count >= 2) {
+                NSString* nameStr = [cookie1Array objectAtIndex:0];
+                NSString* valueStr = [cookie1Array objectAtIndex:1];
+                if ([nameStr hasSuffix:@"Expires"]) {
+                    _expiresDate = [[AppDelegate appDelegate].commonmthod formattingTimeString:valueStr];
+                }
+                if ([nameStr hasSuffix:@"Path"]){
+                    _pathStr = valueStr;
+                }
+                if ([nameStr hasSuffix:@"ucn"]){
+                    _nameStr = nameStr;
+                    _valueStr = valueStr;
+                    
+                }
+            }
+        }
+    }
+}
+- (void)getCookieJSONStringWithCookiesAry:(NSMutableArray* )cookiesAry {
+    NSHTTPCookieStorage* cookieJar = [NSHTTPCookieStorage sharedHTTPCookieStorage];
+    NSDictionary* jsonCookieDic = [[NSDictionary alloc] init];
+    NSDictionary* Dic = [[NSDictionary alloc] init];
+    for (NSHTTPCookie* cookie in [cookieJar cookies]) {
+        //            NSLog(@"cookie%@", cookie);
+        if ([cookie isKindOfClass:[NSHTTPCookie class]]) {
+            NSString* string = [NSString stringWithFormat:@"%@",cookie];
+            //
+            NSRange  createRange = [string rangeOfString:@"created:"];
+            NSString* createString = [[NSString alloc] init];
+            if (createRange.location != NSNotFound) {
+                createString = [string substringFromIndex:createRange.location+createRange.length];
+                NSRange  sftRange = [createString rangeOfString:@" +0000"];
+                if (sftRange.location != NSNotFound) {
+                    createString = [createString substringToIndex:sftRange.location];
+                }
+            }
+            //
+            NSRange  partitionRange = [string rangeOfString:@"partition:\""];
+            NSString* partitionString = [[NSString alloc] init];
+            if (partitionRange.location != NSNotFound) {
+                partitionString = [string substringFromIndex:partitionRange.location+partitionRange.length];
+                NSRange  partitionsftRange = [partitionString rangeOfString:@"\" path:"];
+                partitionString = [partitionString  substringToIndex:partitionsftRange.location];
+            }
+            //
+            //                NSString* expiresDate = [NSString stringWithFormat:@"%ld", (long)[cookie.expiresDate timeIntervalSince1970]];
+            NSDateFormatter* dateF = [[NSDateFormatter alloc] init];
+            dateF.dateFormat = @"yyyy-MM-dd HH:mm:ss";
+            NSDate* creatDate = [dateF dateFromString:createString];
+            NSString* createdDate = [NSString stringWithFormat:@"%.f", [creatDate timeIntervalSince1970]];
+            
+            jsonCookieDic = @{
+                              @"CreationTime": createdDate,
+                              @"Host": [NSString stringWithFormat:@"%@",cookie.domain],
+                              @"Expiry": _expiresDate,
+                              @"IsDomain": @"true",
+                              @"IsHttpOnly": @"false",
+                              @"isSecure": @"false",
+                              @"IsSession": @"false",//android is true
+                              @"LastAccessed": createdDate,
+                              @"Name": [NSString stringWithFormat:@"%@",cookie.name],
+                              @"Path": _pathStr,
+                              @"RawHost": [NSString stringWithFormat:@"%@",cookie.domain],
+                              @"Value":[NSString stringWithFormat:@"%@",cookie.value],
+                              @"Partition": partitionString,
+                              @"version": [NSString stringWithFormat:@"%lu",(unsigned long)cookie.version]
+                              };
+            
+            // Set-Cookie里面的name与value
+            Dic = @{
+                    @"CreationTime": createdDate,
+                    @"Host": [NSString stringWithFormat:@"%@",cookie.domain],
+                    @"Expiry": _expiresDate,
+                    @"IsDomain": @"true",
+                    @"IsHttpOnly": @"false",
+                    @"isSecure": @"false",
+                    @"IsSession": @"false",//android is true
+                    @"LastAccessed": createdDate,
+                    @"Name": _nameStr,
+                    @"Path": _pathStr,
+                    @"RawHost": [NSString stringWithFormat:@"%@",cookie.domain],
+                    @"Value":_valueStr,
+                    @"Partition": partitionString,
+                    @"version": [NSString stringWithFormat:@"%lu",cookie.version]
+                    };
+        }
+        NSLog(@"jsonCookieDic------------------------- %@",jsonCookieDic);
+        [cookiesAry addObject:jsonCookieDic];
+    }
+    [cookiesAry addObject:Dic];
+    
+    NSString* jsonStr = [[NSString alloc] init];
+    jsonStr = [cookiesAry JSONString];
+    _cookieJSONString = jsonStr;
+    NSLog(@"jsonStr----------------- %@",jsonStr);
+    
+    if (_validationAry.count > 0) {
+        [_validationAry removeAllObjects];
+    }
+    [_validationAry addObjectsFromArray:cookiesAry];
+    if (_verify) {
+        [self validationCookiesWithArray:cookiesAry];
+    }
 }
 #pragma mark - 验证淘宝号 {
 - (void)validationCookiesWithArray:(NSArray* )array{

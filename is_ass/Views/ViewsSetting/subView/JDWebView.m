@@ -13,24 +13,24 @@
 @property (nonatomic, strong) JSContext* jsContext;
 @property (nonatomic, strong) UIWebView* JDWebView;
 @property (nonatomic, strong) UIActivityIndicatorView* activityIndicator;
-@property (nonatomic, strong) NSString* buyerTradesJSStr;
-@property (nonatomic, strong) NSString* cookieJSONString;
-@property (nonatomic, strong) NSString* dataJSONString;
-@property (nonatomic, strong) NSString* jsOrderString;
-@property (nonatomic, strong) NSString* jsUserInfoStr;
-@property (nonatomic, strong) NSString* homeString;
+@property (nonatomic, copy) NSString* buyerTradesJSStr;
+@property (nonatomic, copy) NSString* cookieJSONString;
+@property (nonatomic, copy) NSString* dataJSONString;
+@property (nonatomic, copy) NSString* jsOrderString;
+@property (nonatomic, copy) NSString* jsUserInfoStr;
+@property (nonatomic, copy) NSString* homeString;
 @property (nonatomic, strong) NSMutableArray* validationAry; // 验证数组
 @property (nonatomic, assign) int index;
 
-@property (nonatomic, strong) NSString* nameStr;
-@property (nonatomic, strong) NSString* valueStr;
-@property (nonatomic, strong) NSString* nameStr2;
-@property (nonatomic, strong) NSString* valueStr2;
-@property (nonatomic, strong) NSString* expiresDate;
-@property (nonatomic, strong) NSString* expiresDate2;
-@property (nonatomic, strong) NSString* domainStr;
-@property (nonatomic, strong) NSString* domainStr2;
-@property (nonatomic, strong) NSString* pathStr;
+@property (nonatomic, copy) NSString* nameStr;
+@property (nonatomic, copy) NSString* valueStr;
+@property (nonatomic, copy) NSString* nameStr2;
+@property (nonatomic, copy) NSString* valueStr2;
+@property (nonatomic, copy) NSString* expiresDate;
+@property (nonatomic, copy) NSString* expiresDate2;
+@property (nonatomic, copy) NSString* domainStr;
+@property (nonatomic, copy) NSString* domainStr2;
+@property (nonatomic, copy) NSString* pathStr;
 
 @property (nonatomic, assign) int flag;
 @property (nonatomic, assign) int Verifyflag;
