@@ -53,7 +53,6 @@
     [self taoBaoWebViewAuthorization];
     //
     _validationAry = [NSMutableArray arrayWithCapacity:0];
-    self.jsContext = [_taoBaoWebView valueForKeyPath:@"documentView.webView.mainFrame.javaScriptContext"];
     [self createNav];
 }
 - (void)clearHTTPCookie {
@@ -73,7 +72,7 @@
 - (void)initUI {
     _taoBaoWebView = [[UIWebView alloc] initWithFrame:CGRectMake(0,0, ScreenWidth, ScreenHeight-64)];
     _taoBaoWebView.delegate = self;
-    [self.view addSubview: _taoBaoWebView];
+    [self.view addSubview: self.taoBaoWebView];
 }
 // 等待授权
 - (void)taoBaoWebViewAuthorization {
@@ -90,6 +89,7 @@
         NSURLRequest* request = [NSURLRequest requestWithURL:[NSURL URLWithString:kLoginTabBaoURL]];
         [_taoBaoWebView loadRequest:request];
     }
+    self.jsContext = [_taoBaoWebView valueForKeyPath:@"documentView.webView.mainFrame.javaScriptContext"];
 }
 #pragma mark - 获取淘宝的cookies
 - (void)getTaoBaoCookies {
@@ -219,8 +219,7 @@
     }
 }
 #pragma mark - 验证淘宝号 {
-- (void)validationCookiesWithArray:(NSArray* )array{
-    
+- (void)validationCookiesWithArray:(NSArray* )array {
     // 清除cookies
     NSHTTPCookie* cookie;
     NSHTTPCookieStorage* storage = [NSHTTPCookieStorage sharedHTTPCookieStorage];
@@ -329,7 +328,7 @@
         return;
     }
     NSLog(@"webViewDidFinishLoad:");
-    //获取网页title:NSString* lJs2 = @"document.title";
+    // 获取网页title:NSString* lJs2 = @"document.title";
     NSString* thisHtml = @"document.documentElement.innerHTML";
     NSString* thisHtmlSource = [webView stringByEvaluatingJavaScriptFromString:thisHtml];
     NSRange rangea = [thisHtmlSource rangeOfString:@"var data = JSON.parse('"];
